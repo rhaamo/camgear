@@ -1,0 +1,63 @@
+# Website translations
+BABEL_DEFAULT_LOCALE = "en"
+
+# Uploads dirs
+UPLOADED_PICTURES_DEST = "/home/camgear/uploads/pictures"
+UPLOADS_DEFAULT_DEST = "/home/camgear/uploads"
+TEMP_DOWNLOAD_FOLDER = "/home/camgear/tmp"
+
+# If using sentry, set a DSN
+SENTRY_USER_ATTRS = ['name', 'email']
+SENTRY_DSN = ""
+
+SERVER_NAME = "localhost"
+BASE_URL = "https://" + SERVER_NAME
+
+SQLALCHEMY_DATABASE_URI = \
+    'postgresql+psycopg2://postgres@database/camgear'
+
+# Should users confirm theire email address ?
+SECURITY_CONFIRMABLE = True
+# Can users register on this instance ?
+SECURITY_REGISTERABLE = True
+# Can users recover theire password ?
+SECURITY_RECOVERABLE = True
+# Salt used for password hashing
+# Do not change after users have registered
+SECURITY_PASSWORD_SALT = 'CHANGEME'
+# Do not change after users have registered
+SECRET_KEY = 'CHANGEME'
+
+# Mail setup
+MAIL_SERVER = "localhost"
+MAIL_PORT = 25
+MAIL_USE_TLS = False
+MAIL_USE_SSL = False
+MAIL_USERNAME = None
+MAIL_PASSWORD = None
+MAIL_DEFAULT_SENDER = f"postmaster@{SERVER_NAME}"
+
+# Development only options
+DEBUG = False
+TESTING = False
+SQLALCHEMY_ECHO = False
+DEBUG_TB_PROFILER_ENABLED = False
+DEBUG_TB_INTERCEPT_REDIRECTS = False
+
+# Do not touch that
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_RECORD_QUERIES = True
+# Users can change password
+# Do not disable, will breaks things
+SECURITY_CHANGEABLE = True
+# Password hash algorithm
+SECURITY_PASSWORD_HASH = 'bcrypt'
+
+SECURITY_SEND_REGISTER_EMAIL = True
+SECURITY_SEND_PASSWORD_CHANGE_EMAIL = True
+SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL = True
+
+BOOTSTRAP_USE_MINIFIED = True
+BOOTSTRAP_SERVE_LOCAL = True
+BOOTSTRAP_QUERYSTRING_REVVING = True
+BABEL_DEFAULT_TIMEZONE = "UTC"

@@ -1,0 +1,15 @@
+*.pyc
+/config.py
+/.idea
+*.db
+/uploads/pictures/*
+/uploads/sounds/*
+/uploads/waveforms/
+/tmp/cty.xml
+/.pytest_cache/
+/camgear.egg-info
+/.eggs
+/configtest.py
+/errors_app.log
+.coverage
+/.ropeproject

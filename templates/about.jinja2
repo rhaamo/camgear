@@ -1,0 +1,27 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+
+{% if g.cfg['app_description'] %}
+
+    <div class="row">
+    <div class="col-lg-12">
+    {{  g.cfg['app_description'] }}
+    </div>
+    </div>
+
+<hr/>
+{% endif %}
+
+<div class="row">
+    <div class="col-lg-12">
+        {% autoescape false %}
+        <p>{{ gettext("camgear is developped by %(dashie)s and is available under MIT license.", dashie='<a href="http://sigpipe.me/" target="_blank">Dashie</a>') }}</p>
+        <ul>
+            <li>{{ gettext("Source code is here: %(link)s", link='<a href="https://github.com/rhaamo/camgear" target="_blank">https://github.com/rhaamo/camgear</a>') }}</li>
+            <li>{{ gettext("Issue tracker is here: %(link)s", link='<a href="https://github.com/rhaamo/camgear/issues" target="_blank">https://github.com/rhaamo/camgear/issues</a>') }}</li>
+        </ul>
+        {% endautoescape %}
+    </div>
+</div>
+{% endblock %}
