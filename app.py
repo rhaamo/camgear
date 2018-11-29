@@ -15,7 +15,7 @@ from flask_security import confirmable as FSConfirmable
 from flask_uploads import configure_uploads, UploadSet, IMAGES, patch_request_class
 
 from forms import ExtendedRegisterForm
-from models import db, Config, user_datastore, Role, create_actor
+from models import db, Config, user_datastore, Role
 from utils import InvalidUsage, is_admin, duration_elapsed_human, duration_song_human, add_user_log
 
 import texttable

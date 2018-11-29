@@ -1,16 +1,14 @@
-from flask_security import RegisterForm, current_user
+from flask_security import RegisterForm
 from flask_uploads import UploadSet, AUDIO
 from flask_wtf import FlaskForm as Form
-from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import PasswordField, SubmitField, SelectField, BooleanField, TextAreaField
+from wtforms import PasswordField, SubmitField, SelectField
 from wtforms import widgets
 from wtforms.fields.core import StringField
 from wtforms.validators import DataRequired, ValidationError, Length, Regexp
 from wtforms_alchemy import model_form_factory
 from flask_babelex import gettext
-from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
-from models import db, User, Album, licences
+from models import db, User
 
 BaseModelForm = model_form_factory(Form)
 
