@@ -1,5 +1,4 @@
 import datetime
-import os
 
 from flask_security import SQLAlchemyUserDatastore, UserMixin, RoleMixin
 from flask_sqlalchemy import SQLAlchemy

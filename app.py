@@ -25,8 +25,6 @@ from dbseed import make_db_seed
 from pprint import pprint as pp
 import click
 
-from celery import Celery
-
 from version import VERSION
 
 __VERSION__ = VERSION
@@ -258,14 +256,7 @@ def create_app(config_filename="config.py", app_name=None, register_blueprints=T
             role = Role.query.filter(Role.name == role).first()
             if not role:
                 raise click.UsageError("Roles not present in database")
-            u = user_datastore.create_user(
-                name=username, email=email, password=hash_password(password), roles=[role]
-            )
-
-            actor = create_actor(u)
-            actor.user = u
-            actor.user_id = u.id
-            db.session.add(actor)
+            u = user_datastore.create_user(name=username, email=email, password=hash_password(password), roles=[role])
 
             db.session.commit()
 

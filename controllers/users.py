@@ -50,9 +50,7 @@ def profile(name):
         flash(gettext("User not found"), "error")
         return redirect(url_for("bp_main.home"))
 
-    return render_template(
-        "users/profile.jinja2", pcfg=pcfg, user=user
-    )
+    return render_template("users/profile.jinja2", pcfg=pcfg, user=user)
 
 
 @bp_users.route("/account/edit", methods=["GET", "POST"])

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, Response, json
+from flask import Blueprint, render_template, redirect, url_for, Response, json
 from flask_babelex import gettext
 from flask_security import login_required
 
