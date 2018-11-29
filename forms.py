@@ -45,9 +45,7 @@ class ExtendedRegisterForm(RegisterForm):
             raise ValidationError(gettext("Username already taken"))
 
 
-class UserProfileForm(ModelForm):
-    class Meta:
-        model = User
+class UserProfileForm(BaseModelForm):
 
     password = PasswordField(gettext("Password"), [Length(max=255)])
     name = StringField(gettext("Name"), [Length(max=255)])

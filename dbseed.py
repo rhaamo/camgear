@@ -24,3 +24,5 @@ def seed_roles(db):
     db.session.add(role_usr)
     db.session.add(role_adm)
     db.session.commit()
+    db.session.commit()
+    # two commit because wtf ?
