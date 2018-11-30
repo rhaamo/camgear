@@ -77,44 +77,7 @@ def edit(camera_id):
     form = CameraEditForm(request.form, obj=camera)
 
     if form.validate_on_submit():
-        camera.state = form.state.data
-        camera.state_notes = form.state_notes.data
-
-        camera.manufacturer = form.manufacturer.data
-        camera.model = form.model.data
-        camera.model_notes = form.model_notes.data
-        camera.description = form.description.data
-        camera.serial = form.serial.data
-        camera.mount = form.mount.data
-
-        camera.camera_type = form.camera_type.data
-
-        camera.film_type = form.film_type.data
-        camera.auto_expo = form.auto_expo.data
-        camera.auto_focus = form.auto_focus.data
-        camera.batteries = form.batteries.data
-        camera.hot_shoe = form.hot_shoe.data
-        camera.fixed_lense = form.fixed_lense.data
-
-        camera.iso_min = form.iso_min.data
-        camera.iso_max = form.iso_max.data
-        camera.focale = form.focale.data
-        camera.min_aperture = form.min_aperture.data
-        camera.max_aperture = form.max_aperture.data
-        camera.blades = form.blades.data
-        camera.filter_diameter = form.filter_diameter.data
-        camera.weight = form.weight.data
-        camera.length = form.length.data
-        camera.focus = form.focus.data
-        camera.focus_length = form.focus_length.data
-        camera.macro = form.macro.data
-        camera.macro_length = form.macro_length.data
-
-        camera.private = form.private.data
-
-        camera.url1 = form.url1.data
-        camera.url2 = form.url2.data
-        camera.url3 = form.url3.data
+        form.populate_obj(camera)
 
         db.session.commit()
         flash("Successfully edited camera.", "success")

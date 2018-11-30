@@ -67,35 +67,7 @@ def edit(lense_id):
 
     form = LenseEditForm(request.form, obj=lense)
     if form.validate_on_submit():
-        lense.state = form.state.data
-        lense.state_notes = form.state_notes.data
-
-        lense.manufacturer = form.manufacturer.data
-        lense.model = form.model.data
-        lense.model_notes = form.model_notes.data
-        lense.description = form.description.data
-        lense.serial = form.serial.data
-        lense.mount = form.mount.data
-
-        lense.focale = form.focale.data
-        lense.min_aperture = form.min_aperture.data
-        lense.max_aperture = form.max_aperture.data
-        lense.lense_type = form.lense_type.data
-        lense.macro = form.macro.data
-        lense.macro_length = form.macro_length.data
-        lense.filter_diameter = form.filter_diameter.data
-        lense.blades = form.blades.data
-        lense.angle = form.angle.data
-        lense.focus = form.focus.data
-        lense.focus_length = form.focus_length.data
-        lense.weight = form.weight.data
-        lense.length = form.length.data
-
-        lense.private = form.private.data
-
-        lense.url1 = form.url1.data
-        lense.url2 = form.url2.data
-        lense.url3 = form.url3.data
+        form.populate_obj(lense)
 
         db.session.commit()
         flash("Successfully edited lense.", "success")

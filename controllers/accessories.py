@@ -50,18 +50,7 @@ def edit(accessory_id):
     form = AccessoryEditForm(request.form, obj=accessory)
 
     if form.validate_on_submit():
-        accessory.state = form.state.data
-        accessory.state_notes = form.state_notes.data
-        accessory.manufacturer = form.manufacturer.data
-        accessory.model = form.model.data
-        accessory.model_notes = form.model_notes.data
-        accessory.description = form.description.data
-        accessory.serial = form.serial.data
-        accessory.mount = form.mount.data
-        accessory.private = form.private.data
-        accessory.url1 = form.url1.data
-        accessory.url2 = form.url2.data
-        accessory.url3 = form.url3.data
+        form.populate_obj(accessory)
 
         db.session.commit()
         flash("Successfully edited accessory.", "success")
