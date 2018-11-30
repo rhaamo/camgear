@@ -22,6 +22,7 @@
         <div class="col-lg-12">
             <table class="table table-sm table-stripped table-bordered">
                 <tr>
+                    <th>{{ gettext("Picture") }}</th>
                     <th>{{ gettext("Manufacturer") }}</th>
                     <th>{{ gettext("Model") }}</th>
                     <th>{{ gettext("State") }}</th>
@@ -34,6 +35,9 @@
                 </tr>
                 {% for lense in lenses %}
                     <tr>
+                        <td rowspan="2" width="210px">
+                            {% if lense.pic_filename %}<img src="/uploads/pictures/{{ lense.pic_filename | thumbnail('200x200', crop='aaa', quality=90) }}">{% endif %}
+                        </td>
                         <td>{% if lense.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.manufacturer }}</td>
                         <td>{% if lense.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.model }}</td>
                         <td>{{ lense.state_str() }}</td>
@@ -49,9 +53,9 @@
                             </td>
                         {% endif %}
                     </tr>
-                    {% if lense.description %}
-                    <tr><td colspan="20">{{ gettext("Description:") }} {{ lense.description }}</td></tr>
-                    {% endif %}
+                    <tr>
+                        <td colspan="10">Description: {{ lense.description }}</td>
+                    </tr>
                 {% endfor %}
             </table>
 

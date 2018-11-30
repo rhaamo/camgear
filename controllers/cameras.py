@@ -125,9 +125,16 @@ def delete(camera_id):
     db.session.delete(camera)
     db.session.commit()
 
-    f = os.path.join(current_app.config["UPLOADED_PICTURES_DEST"], pic_filename)
-    if os.path.isfile(f):
-        os.remove(f)
+    if pic_filename:
+        f = os.path.join(current_app.config["UPLOADED_PICTURES_DEST"], pic_filename)
+        print(f"Removing: {f}")
+        if os.path.isfile(f):
+            os.remove(f)
+        thumb_filename, thumb_ext = os.path.splitext(pic_filename)
+        thumbf = os.path.join(current_app.config["UPLOADED_PICTURES_DEST"], thumb_filename + "_200x200_aaa_90.jpg")
+        print(f"Removing: {thumbf}")
+        if os.path.isfile(thumbf):
+            os.remove(thumbf)
 
     flash("Successfully deleted camera", "success")
     return redirect(url_for("bp_users.cameras", name=current_user.name))

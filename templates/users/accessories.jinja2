@@ -32,7 +32,9 @@
                 </tr>
                 {% for accessory in accessories %}
                     <tr>
-                        <td rowspan="2"><img src="/uploads/pictures/{{ accessory.pic_filename }}"></td>
+                        <td rowspan="2" width="210px">
+                            {% if accessory.pic_filename %}<img src="/uploads/pictures/{{ accessory.pic_filename | thumbnail('200x200', crop='aaa', quality=90) }}">{% endif %}
+                        </td>
                         <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ accessory.manufacturer }}</td>
                         <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ accessory.model }}</td>
                         <td>{{ accessory.state_str() }}</td>

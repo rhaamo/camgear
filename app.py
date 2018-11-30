@@ -13,6 +13,7 @@ from flask_security.utils import hash_password
 from flask_security import signals as FlaskSecuritySignals
 from flask_security import confirmable as FSConfirmable
 from flask_uploads import configure_uploads, UploadSet, patch_request_class
+from flask_thumbnails import Thumbnail
 
 from forms import ExtendedRegisterForm
 from models import db, user_datastore, Role
@@ -138,6 +139,8 @@ def create_app(config_filename="config.py", app_name=None, register_blueprints=T
     pictures = UploadSet("pictures", IMAGES)
     configure_uploads(app, pictures)
     patch_request_class(app, 10 * 1024 * 1024)  # 10m limit
+
+    thumb = Thumbnail(app)  # noqa: F841
 
     if register_blueprints:
         from controllers.main import bp_main
