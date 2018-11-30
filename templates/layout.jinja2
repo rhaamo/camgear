@@ -50,6 +50,15 @@
                 <li class="nav-item"><a class="nav-link"
                                         href="{{ url_for('bp_users.profile', name=current_user.name) }}"><i class="fa fa-user-circle" aria-hidden="true"></i> {{ gettext('My Profile') }}</a>
                 </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href=""><i class="fa fa-plus" aria-hidden="true"></i> {{ gettext('Add Camera') }}</a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href=""><i class="fa fa-plus" aria-hidden="true"></i> {{ gettext('Add Lense') }}</a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="{{ url_for('bp_accessories.new') }}"><i class="fa fa-plus" aria-hidden="true"></i> {{ gettext('Add Accessory') }}</a>
+                </li>
             {% endif %}
         </ul>
 

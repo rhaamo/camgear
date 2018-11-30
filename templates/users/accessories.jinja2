@@ -1,0 +1,33 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="row justify-content-between">
+    <div class="col-4">
+        <h3>{{ current_user.name }}'s accessories</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-sm table-stripped table-bordered">
+            <tr>
+                <th>{{ gettext("Manufacturer") }}</th>
+                <th>{{ gettext("Model") }}</th>
+                <th>{{ gettext("State") }}</th>
+                <th>{{ gettext("Description") }}</th>
+                <th>{{ gettext("Actions") }}</th>
+            </tr>
+            {% for accessory in accessories %}
+                <tr>
+                    <td>{{ accessory.manufacturer }}</td>
+                    <td>{{ accessory.model }}</td>
+                    <td>{{ accessory.state }}</td>
+                    <td>{{ accessory.description }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+{% endblock %}

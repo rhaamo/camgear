@@ -60,12 +60,14 @@ class AccessoryForm(BaseModelForm):
     state = SelectField(coerce=int, label=gettext("State"), choices=ENUM_STATES, default=0)
     state_notes = StringField(gettext("State notes"), [Length(max=255)])
 
-    manufacturer = StringField(gettext("Manufacturer"), [Length(max=255)])
-    model = StringField(gettext("Model"), [Length(max=255)])
+    manufacturer = StringField(gettext("Manufacturer (required)"), [DataRequired(), Length(max=255)])
+    model = StringField(gettext("Model (required)"), [DataRequired(), Length(max=255)])
     model_notes = TextAreaField(gettext("Model notes"))
     description = TextAreaField(gettext("Description"))
-    serial = StringField(gettext("Serial number"), [Length(max=255)])
+    serial = StringField(gettext("Serial number (stay private)"), [Length(max=255)])
     mount = StringField(gettext("Mount"), [Length(max=255)])
+
+    private = BooleanField(gettext("Keep this private"))
 
     url1 = StringField(gettext("URL 1"), [Length(max=255)])
     url2 = StringField(gettext("URL 2"), [Length(max=255)])
@@ -84,11 +86,11 @@ class LenseForm(BaseModelForm):
     state = SelectField(coerce=int, label=gettext("State"), choices=ENUM_STATES, default=0)
     state_notes = StringField(gettext("State notes"), [Length(max=255)])
 
-    manufacturer = StringField(gettext("Manufacturer"), [Length(max=255)])
-    model = StringField(gettext("Model"), [Length(max=255)])
+    manufacturer = StringField(gettext("Manufacturer (required)"), [DataRequired(), Length(max=255)])
+    model = StringField(gettext("Model (required)"), [DataRequired(), Length(max=255)])
     model_notes = TextAreaField(gettext("Model notes"))
     description = TextAreaField(gettext("Description"))
-    serial = StringField(gettext("Serial number"), [Length(max=255)])
+    serial = StringField(gettext("Serial number (stay private)"), [Length(max=255)])
     mount = StringField(gettext("Mount"), [Length(max=255)])
 
     focale = IntegerField(gettext("Focale"), default=0)
@@ -104,6 +106,8 @@ class LenseForm(BaseModelForm):
     focus_length = IntegerField(gettext("Min distance for focus (cm)"))
     weight = IntegerField(gettext("Weight (g)"))
     length = FloatField(gettext("Length (cm)"))
+
+    private = BooleanField(gettext("Keep this private"))
 
     url1 = StringField(gettext("URL 1"), [Length(max=255)])
     url2 = StringField(gettext("URL 2"), [Length(max=255)])
@@ -122,11 +126,11 @@ class CameraForm(BaseModelForm):
     state = SelectField(coerce=int, label=gettext("State"), choices=ENUM_STATES, default=0)
     state_notes = StringField(gettext("State notes"), [Length(max=255)])
 
-    manufacturer = StringField(gettext("Manufacturer"), [Length(max=255)])
-    model = StringField(gettext("Model"), [Length(max=255)])
+    manufacturer = StringField(gettext("Manufacturer (required)"), [DataRequired(), Length(max=255)])
+    model = StringField(gettext("Model (required)"), [DataRequired(), Length(max=255)])
     model_notes = TextAreaField(gettext("Model notes"))
     description = TextAreaField(gettext("Description"))
-    serial = StringField(gettext("Serial number"), [Length(max=255)])
+    serial = StringField(gettext("Serial number (stay private)"), [Length(max=255)])
     mount = StringField(gettext("Mount"), [Length(max=255)])
 
     camera_type = SelectField(coerce=int, label=gettext("Camera Type"), choices=ENUM_CAMERAS_TYPES, default=0)
@@ -151,6 +155,8 @@ class CameraForm(BaseModelForm):
     macro_length = IntegerField(gettext("Min distance for macro (cm)"))
     weight = IntegerField(gettext("Weight (g)"))
     length = FloatField(gettext("Length (cm)"))
+
+    private = BooleanField(gettext("Keep this private"))
 
     url1 = StringField(gettext("URL 1"), [Length(max=255)])
     url2 = StringField(gettext("URL 2"), [Length(max=255)])

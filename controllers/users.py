@@ -81,3 +81,16 @@ def edit():
         return redirect(url_for("bp_users.profile", name=user.name))
 
     return render_template("users/edit.jinja2", pcfg=pcfg, form=form, user=user)
+
+
+@bp_users.route("/user/<string:name>/accessories", methods=["GET"])
+def accessories(name):
+    pcfg = {"title": gettext("%(username)s' accessories", username=name)}
+
+    user = User.query.filter(User.name == name).first()
+    if not user:
+        flash(gettext("User not found"), "error")
+        return redirect(url_for("bp_main.home"))
+    acc = user.accessories
+
+    return render_template("users/accessories.jinja2", pcfg=pcfg, user=user, accessories=acc)

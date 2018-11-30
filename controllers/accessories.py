@@ -24,6 +24,7 @@ def new():
         accessory.description = form.description.data
         accessory.serial = form.serial.data
         accessory.mount = form.mount.data
+        accessory.private = form.private.data
         accessory.url1 = form.url1.data
         accessory.url2 = form.url2.data
         accessory.url3 = form.url3.data
@@ -57,6 +58,7 @@ def edit(accessory_id):
         accessory.description = form.description.data
         accessory.serial = form.serial.data
         accessory.mount = form.mount.data
+        accessory.private = form.private.data
         accessory.url1 = form.url1.data
         accessory.url2 = form.url2.data
         accessory.url3 = form.url3.data

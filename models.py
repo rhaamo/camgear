@@ -216,6 +216,8 @@ class Accessory(db.Model):
     serial = db.Column(db.String(255), nullable=True)
     mount = db.Column(db.String(255), nullable=True)
 
+    private = db.Column(db.Boolean(), default=False)
+
     url1 = db.Column(URLType(), nullable=True)
     url2 = db.Column(URLType(), nullable=True)
     url3 = db.Column(URLType(), nullable=True)
@@ -250,6 +252,8 @@ class Lense(db.Model):
     focus_length = db.Column(db.Integer(), nullable=False, default=0)
     weight = db.Column(db.Integer(), nullable=False, default=0)  # g.
     length = db.Column(db.Float(), nullable=False, default=0)  # mm
+
+    private = db.Column(db.Boolean(), default=False)
 
     url1 = db.Column(URLType(), nullable=True)
     url2 = db.Column(URLType(), nullable=True)
@@ -294,6 +298,8 @@ class Camera(db.Model):
     focus_length = db.Column(db.Integer(), nullable=False, default=0)
     macro = db.Column(db.Boolean(), default=True)
     macro_length = db.Column(db.Integer(), nullable=False, default=0)
+
+    private = db.Column(db.Boolean(), default=False)
 
     url1 = db.Column(URLType(), nullable=True)
     url2 = db.Column(URLType(), nullable=True)
