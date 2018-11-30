@@ -5,12 +5,12 @@ from flask_security import login_required, current_user
 from forms import AccessoryAddForm, AccessoryEditForm
 from models import db, Accessory
 
-bp_gear = Blueprint("bp_gear", __name__)
+bp_accessories = Blueprint("bp_accessories", __name__)
 
 
-@bp_gear.route("/gear/accessory/add", methods=["GET", "POST"])
+@bp_accessories.route("/gear/accessory/add", methods=["GET", "POST"])
 @login_required
-def accessory_new():
+def new():
     pcfg = {"title": gettext("Add Accessory")}
 
     form = AccessoryAddForm()
@@ -36,9 +36,9 @@ def accessory_new():
     return render_template("accessories/new.jinja2", pcfg=pcfg, form=form)
 
 
-@bp_gear.route("/gear/accessory/<int:accessory_id>/edit", methods=["GET", "POST"])
+@bp_accessories.route("/gear/accessory/<int:accessory_id>/edit", methods=["GET", "POST"])
 @login_required
-def accessory_edit(accessory_id):
+def edit(accessory_id):
     pcfg = {"title": gettext("Edit Accessory")}
 
     accessory = Accessory.query.filter(Accessory.id == accessory_id, Accessory.user_id == current_user.id).first()
@@ -67,9 +67,9 @@ def accessory_edit(accessory_id):
     return render_template("accessories/edit.jinja2", pcfg=pcfg, form=form, accessory=accessory)
 
 
-@bp_gear.route("/gear/accessory/<int:accessory_id>/delete", methods=["GET", "POST", "PUT"])
+@bp_accessories.route("/gear/accessory/<int:accessory_id>/delete", methods=["GET", "POST", "PUT"])
 @login_required
-def accessory_delete(accessory_id):
+def delete(accessory_id):
     accessory = Accessory.query.filter(Accessory.id == accessory_id, Accessory.user_id == current_user.id).first
     if not accessory:
         flash("Accessory not found", "error")
