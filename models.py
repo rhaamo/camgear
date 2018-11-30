@@ -153,53 +153,53 @@ enum_states = {
     35: "RIP",
 }
 
-ENUM_LENSES_TYPES = [(0, "Unknown"), (5, "Wide Angle"), (10, "Standard"), (15, "Zoom"), (20, "Telephoto")]
+enum_lenses_types = {0: "Unknown", 5: "Wide Angle", 10: "Standard", 15: "Zoom", 20: "Telephoto"}
 
-ENUM_CAMERAS_TYPES = [
-    (0, "Unknown"),
-    (5, "Chamber"),
-    (10, "Chamber Stereo"),
-    (15, "Folding"),
-    (20, "Box"),
-    (25, "Box Stereo"),
-    (30, "Instant"),
-    (35, "Disposable"),
-    (40, "Toy"),
-    (45, "Panoramic"),
-    (50, "Reflex SLR"),
-    (55, "Reflex TLR"),
-    (60, "Reflex DSLR"),
-]
+enum_cameras_types = {
+    0: "Unknown",
+    5: "Chamber",
+    10: "Chamber Stereo",
+    15: "Folding",
+    20: "Box",
+    25: "Box Stereo",
+    30: "Instant",
+    35: "Disposable",
+    40: "Toy",
+    45: "Panoramic",
+    50: "Reflex SLR",
+    55: "Reflex TLR",
+    60: "Reflex DSLR",
+}
 
-ENUM_FILM_TYPES = [
-    (0, "Unknown"),
-    (5, "8mm"),
-    (10, "9.5mm"),
-    (15, "16mm"),
-    (20, "17.5mm"),
-    (25, "28mm"),
-    (30, "35mm"),
-    (35, "70mm"),
-    (40, "110"),
-    (45, "120"),
-    (50, "126"),
-    (55, "127"),
-    (60, "135"),
-    (65, "616"),
-    (70, "628"),
-    (75, "Disc"),
-    (80, "Ektachrome"),
-    (85, "Ektar"),
-    (90, "Kodachrome"),
-    (95, "Eastmancolor"),
-    (100, "Plate"),
-    (105, "Pack-Film"),
-    (110, "Pack-Film 100"),
-    (115, "Pack-Film 100 or 80"),
-    (120, "Pack-Film 80"),
-]
+enum_film_types = {
+    0: "Unknown",
+    5: "8mm",
+    10: "9.5mm",
+    15: "16mm",
+    20: "17.5mm",
+    25: "28mm",
+    30: "35mm",
+    35: "70mm",
+    40: "110",
+    45: "120",
+    50: "126",
+    55: "127",
+    60: "135",
+    65: "616",
+    70: "628",
+    75: "Disc",
+    80: "Ektachrome",
+    85: "Ektar",
+    90: "Kodachrome",
+    95: "Eastmancolor",
+    100: "Plate",
+    105: "Pack-Film",
+    110: "Pack-Film 100",
+    115: "Pack-Film 100 or 80",
+    120: "Pack-Film 80",
+}
 
-ENUM_FOCUSES_TYPES = [(0, "Unknown"), (5, "Manual"), (10, "Automatic"), (15, "Fixed")]
+enum_focuses_types = {0: "Unknown", 5: "Manual", 10: "Automatic", 15: "Fixed"}
 
 
 class Accessory(db.Model):
@@ -267,6 +267,12 @@ class Lense(db.Model):
     def state_str(self):
         return enum_states[self.state]
 
+    def focus_str(self):
+        return enum_focuses_types[self.focus]
+
+    def lense_type_str(self):
+        return enum_lenses_types[self.lense_type]
+
 
 class Camera(db.Model):
     __tablename__ = "camera"
@@ -315,3 +321,12 @@ class Camera(db.Model):
 
     def state_str(self):
         return enum_states[self.state]
+
+    def camera_type_str(self):
+        return enum_cameras_types[self.camera_type]
+
+    def film_type_str(self):
+        return enum_film_types[self.film_type]
+
+    def focus_str(self):
+        return enum_focuses_types[self.focus]

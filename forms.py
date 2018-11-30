@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, ValidationError, Length, Regexp
 from wtforms_alchemy import model_form_factory
 from flask_babelex import gettext
 
-from models import db, User, ENUM_CAMERAS_TYPES, ENUM_FILM_TYPES, ENUM_FOCUSES_TYPES, ENUM_LENSES_TYPES, enum_states
+from models import db, User, enum_cameras_types, enum_film_types, enum_focuses_types, enum_lenses_types, enum_states
 
 BaseModelForm = model_form_factory(Form)
 
@@ -60,6 +60,22 @@ def get_enum_states():
     return [(i, gettext(enum_states[i])) for i in enum_states]
 
 
+def get_enum_cameras_types():
+    return [(i, gettext(enum_cameras_types[i])) for i in enum_cameras_types]
+
+
+def get_enum_film_types():
+    return [(i, gettext(enum_film_types[i])) for i in enum_film_types]
+
+
+def get_enum_focuses_types():
+    return [(i, gettext(enum_focuses_types[i])) for i in enum_focuses_types]
+
+
+def get_enum_lenses_types():
+    return [(i, gettext(enum_lenses_types[i])) for i in enum_lenses_types]
+
+
 class AccessoryForm(BaseModelForm):
     state = SelectField(coerce=int, label=gettext("State"), choices=get_enum_states(), default=0)
     state_notes = StringField(gettext("State notes"), [Length(max=255)])
@@ -100,13 +116,13 @@ class LenseForm(BaseModelForm):
     focale = IntegerField(gettext("Focale"), default=0)
     min_aperture = FloatField(gettext("Min Aperture"), default=0)
     max_aperture = FloatField(gettext("Max Aperture"), default=0)
-    lense_type = SelectField(coerce=int, label=gettext("Lense Type"), choices=ENUM_LENSES_TYPES, default=0)
+    lense_type = SelectField(coerce=int, label=gettext("Lense Type"), choices=get_enum_lenses_types(), default=0)
     macro = BooleanField(gettext("Macro capable"))
     macro_length = IntegerField(gettext("Min distance for macro (cm)"), default=0)
     filter_diameter = IntegerField(gettext("Filter Diameter (mm)"), default=0)
     blades = BooleanField(gettext("Using blades"))
     angle = FloatField(gettext("View angle (°)"), default=0)
-    focus = SelectField(coerce=int, label=gettext("Focus Mode"), choices=ENUM_FOCUSES_TYPES, default=0)
+    focus = SelectField(coerce=int, label=gettext("Focus Mode"), choices=get_enum_focuses_types(), default=0)
     focus_length = IntegerField(gettext("Min distance for focus (cm)"))
     weight = IntegerField(gettext("Weight (g)"), default=0)
     length = FloatField(gettext("Length (cm)"), default=0)
@@ -137,9 +153,9 @@ class CameraForm(BaseModelForm):
     serial = StringField(gettext("Serial number (stay private)"), [Length(max=255)])
     mount = StringField(gettext("Mount"), [Length(max=255)])
 
-    camera_type = SelectField(coerce=int, label=gettext("Camera Type"), choices=ENUM_CAMERAS_TYPES, default=0)
+    camera_type = SelectField(coerce=int, label=gettext("Camera Type"), choices=get_enum_cameras_types(), default=0)
 
-    film_type = SelectField(coerce=int, label=gettext("Film Type"), choices=ENUM_FILM_TYPES, default=0)
+    film_type = SelectField(coerce=int, label=gettext("Film Type"), choices=get_enum_film_types(), default=0)
     auto_expo = BooleanField(gettext("Auto exposure"))
     auto_focus = BooleanField(gettext("Auto focus"))
     batteries = StringField(gettext("Batteries type"))
@@ -153,7 +169,7 @@ class CameraForm(BaseModelForm):
     max_aperture = FloatField(gettext("Max Aperture"))
     blades = BooleanField(gettext("Using blades"))
     filter_diameter = IntegerField(gettext("Filter Diameter (mm)"))
-    focus = SelectField(coerce=int, label=gettext("Focus Mode"), choices=ENUM_FOCUSES_TYPES, default=0)
+    focus = SelectField(coerce=int, label=gettext("Focus Mode"), choices=get_enum_focuses_types(), default=0)
     focus_length = IntegerField(gettext("Min distance for focus (cm)"))
     macro = BooleanField(gettext("Macro capable"))
     macro_length = IntegerField(gettext("Min distance for macro (cm)"))

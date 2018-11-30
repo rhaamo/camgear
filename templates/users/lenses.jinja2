@@ -25,7 +25,11 @@
                     <th>{{ gettext("Manufacturer") }}</th>
                     <th>{{ gettext("Model") }}</th>
                     <th>{{ gettext("State") }}</th>
-                    <th>{{ gettext("Description") }}</th>
+                    <th>{{ gettext("Mount") }}</th>
+                    <th>{{ gettext("Focale") }}</th>
+                    <th>{{ gettext("Min Ap.") }}</th>
+                    <th>{{ gettext("Max Ap.") }}</th>
+                    <th>{{ gettext("Focusing") }}</th>
                     <th>{{ gettext("Actions") }}</th>
                 </tr>
                 {% for lense in lenses %}
@@ -33,7 +37,11 @@
                         <td>{% if lense.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.manufacturer }}</td>
                         <td>{% if lense.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.model }}</td>
                         <td>{{ lense.state_str() }}</td>
-                        <td>{{ lense.description }}</td>
+                        <td>{{ lense.mount }}</td>
+                        <td>{{ lense.focale }}</td>
+                        <td>{{ lense.min_aperture }}</td>
+                        <td>{{ lense.max_aperture }}</td>
+                        <td>{{ lense.focus_str() }}</td>
                         {% if current_user.is_authenticated and user == current_user %}
                             <td>
                                 <a href="{{ url_for("bp_lenses.edit", lense_id=lense.id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -41,6 +49,9 @@
                             </td>
                         {% endif %}
                     </tr>
+                    {% if lense.description %}
+                    <tr><td colspan="20">{{ gettext("Description:") }} {{ lense.description }}</td></tr>
+                    {% endif %}
                 {% endfor %}
             </table>
 
