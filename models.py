@@ -207,12 +207,12 @@ class Accessory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     state = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_STATES
-    notes = db.Column(db.String(255), nullable=True)
+    state_notes = db.Column(db.String(255), nullable=True)
 
     manufacturer = db.Column(db.String(255), nullable=True)
     model = db.Column(db.String(255), nullable=True)
+    model_notes = db.Column(db.Text, nullable=True)
     description = db.Column(db.String(255), nullable=True)
-    extra_notes = db.Column(db.Text, nullable=True)
     serial = db.Column(db.String(255), nullable=True)
     mount = db.Column(db.String(255), nullable=True)
 
@@ -228,11 +228,12 @@ class Lense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     state = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_STATES
-    notes = db.Column(db.String(255), nullable=True)
+    state_notes = db.Column(db.String(255), nullable=True)
 
     manufacturer = db.Column(db.String(255), nullable=True)
     model = db.Column(db.String(255), nullable=True)
-    extra_notes = db.Column(db.Text, nullable=True)
+    model_notes = db.Column(db.Text, nullable=True)
+    description = db.Column(db.String(255), nullable=True)
     serial = db.Column(db.String(255), nullable=True)
     mount = db.Column(db.String(255), nullable=True)
 
@@ -248,7 +249,7 @@ class Lense(db.Model):
     focus = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_FOCUSES_TYPES
     focus_length = db.Column(db.Integer(), nullable=False, default=0)
     weight = db.Column(db.Integer(), nullable=False, default=0)  # g.
-    length = db.Column(db.Integer(), nullable=False, default=0)  # mm
+    length = db.Column(db.Float(), nullable=False, default=0)  # mm
 
     url1 = db.Column(URLType(), nullable=True)
     url2 = db.Column(URLType(), nullable=True)
@@ -262,11 +263,12 @@ class Camera(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     state = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_STATES
-    notes = db.Column(db.String(255), nullable=True)
+    state_notes = db.Column(db.String(255), nullable=True)
 
     manufacturer = db.Column(db.String(255), nullable=True)
     model = db.Column(db.String(255), nullable=True)
-    extra_notes = db.Column(db.Text, nullable=True)
+    model_notes = db.Column(db.Text, nullable=True)
+    description = db.Column(db.String(255), nullable=True)
     serial = db.Column(db.String(255), nullable=True)
     mount = db.Column(db.String(255), nullable=True)
 
