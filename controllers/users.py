@@ -79,10 +79,21 @@ def accessories(name):
         flash(gettext("User not found"), "error")
         return redirect(url_for("bp_main.home"))
 
-    acc = user.accessories
-    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id).count()
-    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id).count()
-    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id).count()
+    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id)
+    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id)
+    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id)
+
+    if current_user.is_authenticated and user.id == current_user.id:
+        acc = user.accessories
+    else:
+        acc = Accessory.query.filter(Accessory.user_id == user.id, Accessory.private.is_(False)).all()
+        acc_count = acc_count.filter(Accessory.private.is_(False))
+        cams_count = cams_count.filter(Camera.private.is_(False))
+        lens_count = lens_count.filter(Lense.private.is_(False))
+
+    acc_count = acc_count.count()
+    cams_count = cams_count.count()
+    lens_count = lens_count.count()
 
     return render_template("users/accessories.jinja2", pcfg=pcfg, user=user,
                            accessories=acc, accessories_count=acc_count,
@@ -98,10 +109,21 @@ def cameras(name):
         flash(gettext("User not found"), "error")
         return redirect(url_for("bp_main.home"))
 
-    cams = user.cameras
-    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id).count()
-    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id).count()
-    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id).count()
+    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id)
+    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id)
+    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id)
+
+    if current_user.is_authenticated and user.id == current_user.id:
+        cams = user.cameras
+    else:
+        cams = Camera.query.filter(Camera.user_id == user.id, Camera.private.is_(False)).all()
+        acc_count = acc_count.filter(Accessory.private.is_(False))
+        cams_count = cams_count.filter(Camera.private.is_(False))
+        lens_count = lens_count.filter(Lense.private.is_(False))
+
+    acc_count = acc_count.count()
+    cams_count = cams_count.count()
+    lens_count = lens_count.count()
 
     return render_template("users/cameras.jinja2", pcfg=pcfg, user=user,
                            cameras=cams, accessories_count=acc_count,
@@ -117,10 +139,21 @@ def lenses(name):
         flash(gettext("User not found"), "error")
         return redirect(url_for("bp_main.home"))
 
-    lens = user.lenses
-    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id).count()
-    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id).count()
-    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id).count()
+    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id)
+    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id)
+    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id)
+
+    if current_user.is_authenticated and user.id == current_user.id:
+        lens = user.lenses
+    else:
+        lens = Lense.query.filter(Lense.user_id == user.id, Lense.private.is_(False)).all()
+        acc_count = acc_count.filter(Accessory.private.is_(False))
+        cams_count = cams_count.filter(Camera.private.is_(False))
+        lens_count = lens_count.filter(Lense.private.is_(False))
+
+    acc_count = acc_count.count()
+    cams_count = cams_count.count()
+    lens_count = lens_count.count()
 
     return render_template("users/lenses.jinja2", pcfg=pcfg, user=user,
                            lenses=lens, accessories_count=acc_count,

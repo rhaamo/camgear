@@ -33,7 +33,7 @@ def new():
         db.session.add(accessory)
         db.session.commit()
         flash("Successfully added accessory.", "success")
-        return redirect(url_for("bp_users.profile", name=current_user.name))
+        return redirect(url_for("bp_users.accessories", name=current_user.name))
     return render_template("accessories/new.jinja2", pcfg=pcfg, form=form)
 
 
@@ -45,11 +45,10 @@ def edit(accessory_id):
     accessory = Accessory.query.filter(Accessory.id == accessory_id, Accessory.user_id == current_user.id).first()
     if not accessory:
         flash("Accessory not found", "error")
-        return redirect(url_for("bp_users.profile", name=current_user.name))
+        return redirect(url_for("bp_users.accessories", name=current_user.name))
 
     form = AccessoryEditForm(request.form, obj=accessory)
     if form.validate_on_submit():
-        accessory = Accessory()
         accessory.state = form.state.data
         accessory.state_notes = form.state_notes.data
         accessory.manufacturer = form.manufacturer.data
@@ -65,18 +64,18 @@ def edit(accessory_id):
 
         db.session.commit()
         flash("Successfully edited accessory.", "success")
-        return redirect(url_for("bp_users.profile", name=current_user.name))
+        return redirect(url_for("bp_users.accessories", name=current_user.name))
     return render_template("accessories/edit.jinja2", pcfg=pcfg, form=form, accessory=accessory)
 
 
 @bp_accessories.route("/gear/accessory/<int:accessory_id>/delete", methods=["GET", "POST", "PUT"])
 @login_required
 def delete(accessory_id):
-    accessory = Accessory.query.filter(Accessory.id == accessory_id, Accessory.user_id == current_user.id).first
+    accessory = Accessory.query.filter(Accessory.id == accessory_id, Accessory.user_id == current_user.id).first()
     if not accessory:
         flash("Accessory not found", "error")
-        return redirect(url_for("bp_users.profile", name=current_user.name))
+        return redirect(url_for("bp_users.accessories", name=current_user.name))
     db.session.delete(accessory)
     db.session.commit()
     flash("Successfully deleted accessory", "success")
-    return redirect(url_for("bp_users.profile", name=current_user.name))
+    return redirect(url_for("bp_users.accessories", name=current_user.name))
