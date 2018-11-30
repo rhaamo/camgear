@@ -6,7 +6,6 @@ from flask_security import login_required, current_user
 from forms import UserProfileForm
 from models import db, User, UserLogging, Accessory, Lense, Camera
 from utils import add_user_log
-from flask_accept import accept_fallback
 
 bp_users = Blueprint("bp_users", __name__)
 
@@ -95,9 +94,15 @@ def accessories(name):
     cams_count = cams_count.count()
     lens_count = lens_count.count()
 
-    return render_template("users/accessories.jinja2", pcfg=pcfg, user=user,
-                           accessories=acc, accessories_count=acc_count,
-                           cameras_count=cams_count, lenses_count=lens_count)
+    return render_template(
+        "users/accessories.jinja2",
+        pcfg=pcfg,
+        user=user,
+        accessories=acc,
+        accessories_count=acc_count,
+        cameras_count=cams_count,
+        lenses_count=lens_count,
+    )
 
 
 @bp_users.route("/user/<string:name>/cameras", methods=["GET"])
@@ -125,9 +130,15 @@ def cameras(name):
     cams_count = cams_count.count()
     lens_count = lens_count.count()
 
-    return render_template("users/cameras.jinja2", pcfg=pcfg, user=user,
-                           cameras=cams, accessories_count=acc_count,
-                           cameras_count=cams_count, lenses_count=lens_count)
+    return render_template(
+        "users/cameras.jinja2",
+        pcfg=pcfg,
+        user=user,
+        cameras=cams,
+        accessories_count=acc_count,
+        cameras_count=cams_count,
+        lenses_count=lens_count,
+    )
 
 
 @bp_users.route("/user/<string:name>/lenses", methods=["GET"])
@@ -155,9 +166,15 @@ def lenses(name):
     cams_count = cams_count.count()
     lens_count = lens_count.count()
 
-    return render_template("users/lenses.jinja2", pcfg=pcfg, user=user,
-                           lenses=lens, accessories_count=acc_count,
-                           cameras_count=cams_count, lenses_count=lens_count)
+    return render_template(
+        "users/lenses.jinja2",
+        pcfg=pcfg,
+        user=user,
+        lenses=lens,
+        accessories_count=acc_count,
+        cameras_count=cams_count,
+        lenses_count=lens_count,
+    )
 
 
 @bp_users.route("/user/<string:name>", methods=["GET"])

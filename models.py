@@ -150,7 +150,7 @@ enum_states = {
     20: "Not so ok",
     25: "Cracks",
     30: "Partly working",
-    35: "RIP"
+    35: "RIP",
 }
 
 ENUM_LENSES_TYPES = [(0, "Unknown"), (5, "Wide Angle"), (10, "Standard"), (15, "Zoom"), (20, "Telephoto")]

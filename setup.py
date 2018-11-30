@@ -34,7 +34,6 @@ setup(
         "texttable",
         "python-slugify",
         "python-magic",
-        "flask-accept",
     ],
     setup_requires=["pytest-runner"],
     tests_require=["pytest", "pytest-cov"],

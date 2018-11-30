@@ -156,6 +156,14 @@ def create_app(config_filename="config.py", app_name=None, register_blueprints=T
 
         app.register_blueprint(bp_accessories)
 
+        from controllers.cameras import bp_cameras
+
+        app.register_blueprint(bp_cameras)
+
+        from controllers.lenses import bp_lenses
+
+        app.register_blueprint(bp_lenses)
+
     @app.route("/uploads/<string:thing>/<path:stuff>", methods=["GET"])
     def get_uploads_stuff(thing, stuff):
         if app.debug:
