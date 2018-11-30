@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-lg-10"><h3>{{ gettext("%(username)s's accessories", username=user.username()) }}</h3></div>
+        <div class="col-lg-10"><h3>{{ gettext("%(username)s's cameras", username=user.username()) }}</h3></div>
         <div class="col-lg-2 text-lg-right">
             {% if current_user.is_authenticated and user == current_user %}
                 <a class="btn btn-primary btn-sm" href="{{ url_for('bp_users.edit') }}">{{ gettext("Edit profile") }}</a>
@@ -28,12 +28,12 @@
                     <th>{{ gettext("Description") }}</th>
                     <th>{{ gettext("Actions") }}</th>
                 </tr>
-                {% for accessory in accessories %}
+                {% for camera in cameras %}
                     <tr>
-                        <td>{{ accessory.manufacturer }}</td>
-                        <td>{{ accessory.model }}</td>
-                        <td>{{ accessory.state_str() }}</td>
-                        <td>{{ accessory.description }}</td>
+                        <td>{{ camera.manufacturer }}</td>
+                        <td>{{ camera.model }}</td>
+                        <td>{{ camera.state_str() }}</td>
+                        <td>{{ camera.description }}</td>
                         <td></td>
                     </tr>
                 {% endfor %}

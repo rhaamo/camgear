@@ -4,7 +4,7 @@ from flask_babelex import gettext
 from flask_security import login_required, current_user
 
 from forms import UserProfileForm
-from models import db, User, UserLogging
+from models import db, User, UserLogging, Accessory, Lense, Camera
 from utils import add_user_log
 from flask_accept import accept_fallback
 
@@ -38,19 +38,6 @@ def logs_delete(log_id):
         db.session.commit()
         _datas = {"status": "deleted", "id": log_id}
     return Response(json.dumps(_datas), mimetype="application/json;charset=utf-8")
-
-
-@bp_users.route("/user/<string:name>", methods=["GET"])
-@accept_fallback
-def profile(name):
-    pcfg = {"title": gettext("%(username)s' profile", username=name)}
-
-    user = User.query.filter(User.name == name).first()
-    if not user:
-        flash(gettext("User not found"), "error")
-        return redirect(url_for("bp_main.home"))
-
-    return render_template("users/profile.jinja2", pcfg=pcfg, user=user)
 
 
 @bp_users.route("/account/edit", methods=["GET", "POST"])
@@ -91,6 +78,55 @@ def accessories(name):
     if not user:
         flash(gettext("User not found"), "error")
         return redirect(url_for("bp_main.home"))
-    acc = user.accessories
 
-    return render_template("users/accessories.jinja2", pcfg=pcfg, user=user, accessories=acc)
+    acc = user.accessories
+    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id).count()
+    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id).count()
+    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id).count()
+
+    return render_template("users/accessories.jinja2", pcfg=pcfg, user=user,
+                           accessories=acc, accessories_count=acc_count,
+                           cameras_count=cams_count, lenses_count=lens_count)
+
+
+@bp_users.route("/user/<string:name>/cameras", methods=["GET"])
+def cameras(name):
+    pcfg = {"title": gettext("%(username)s' cameras", username=name)}
+
+    user = User.query.filter(User.name == name).first()
+    if not user:
+        flash(gettext("User not found"), "error")
+        return redirect(url_for("bp_main.home"))
+
+    cams = user.cameras
+    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id).count()
+    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id).count()
+    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id).count()
+
+    return render_template("users/cameras.jinja2", pcfg=pcfg, user=user,
+                           cameras=cams, accessories_count=acc_count,
+                           cameras_count=cams_count, lenses_count=lens_count)
+
+
+@bp_users.route("/user/<string:name>/lenses", methods=["GET"])
+def lenses(name):
+    pcfg = {"title": gettext("%(username)s' lenses", username=name)}
+
+    user = User.query.filter(User.name == name).first()
+    if not user:
+        flash(gettext("User not found"), "error")
+        return redirect(url_for("bp_main.home"))
+
+    lens = user.lenses
+    acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id).count()
+    cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id).count()
+    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id).count()
+
+    return render_template("users/lenses.jinja2", pcfg=pcfg, user=user,
+                           lenses=lens, accessories_count=acc_count,
+                           cameras_count=cams_count, lenses_count=lens_count)
+
+
+@bp_users.route("/user/<string:name>", methods=["GET"])
+def profile(name):
+    return cameras(name)
