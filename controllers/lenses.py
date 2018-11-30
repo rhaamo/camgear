@@ -1,11 +1,15 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_babelex import gettext
 from flask_security import login_required, current_user
+from flask_uploads import UploadSet, IMAGES
+import os
 
 from forms import LenseAddForm, LenseEditForm
 from models import db, Lense
 
 bp_lenses = Blueprint("bp_lenses", __name__)
+
+pictures = UploadSet("pictures", IMAGES)
 
 
 @bp_lenses.route("/gear/lense/add", methods=["GET", "POST"])
@@ -48,6 +52,9 @@ def new():
 
         lense.user_id = current_user.id
 
+        if form.picture.data:
+            lense.pic_filename = pictures.save(form.picture.data)
+
         db.session.add(lense)
         db.session.commit()
         flash("Successfully added lense.", "success")
@@ -69,6 +76,9 @@ def edit(lense_id):
     if form.validate_on_submit():
         form.populate_obj(lense)
 
+        if form.picture.data:
+            lense.pic_filename = pictures.save(form.picture.data)
+
         db.session.commit()
         flash("Successfully edited lense.", "success")
         return redirect(url_for("bp_users.lenses", name=current_user.name))
@@ -88,7 +98,15 @@ def delete(lense_id):
     if not lense:
         flash("Lense not found", "error")
         return redirect(url_for("bp_users.lenses", name=current_user.name))
+
+    pic_filename = lense.pic_filename
+
     db.session.delete(lense)
     db.session.commit()
+
+    f = os.path.join(current_app.config["UPLOADED_PICTURES_DEST"], pic_filename)
+    if os.path.isfile(f):
+        os.remove(f)
+
     flash("Successfully deleted lense", "success")
     return redirect(url_for("bp_users.lenses", name=current_user.name))

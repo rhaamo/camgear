@@ -223,6 +223,8 @@ class Accessory(db.Model):
     url2 = db.Column(URLType(), nullable=True)
     url3 = db.Column(URLType(), nullable=True)
 
+    pic_filename = db.Column(db.String(255), unique=False, nullable=True)
+
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
 
     def state_str(self):
@@ -262,6 +264,8 @@ class Lense(db.Model):
     url1 = db.Column(URLType(), nullable=True)
     url2 = db.Column(URLType(), nullable=True)
     url3 = db.Column(URLType(), nullable=True)
+
+    pic_filename = db.Column(db.String(255), unique=False, nullable=True)
 
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
 
@@ -317,6 +321,8 @@ class Camera(db.Model):
     url1 = db.Column(URLType(), nullable=True)
     url2 = db.Column(URLType(), nullable=True)
     url3 = db.Column(URLType(), nullable=True)
+
+    pic_filename = db.Column(db.String(255), unique=False, nullable=True)
 
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
 

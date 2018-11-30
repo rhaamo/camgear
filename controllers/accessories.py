@@ -1,11 +1,15 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_babelex import gettext
 from flask_security import login_required, current_user
+from flask_uploads import UploadSet, IMAGES
+import os
 
 from forms import AccessoryAddForm, AccessoryEditForm
 from models import db, Accessory
 
 bp_accessories = Blueprint("bp_accessories", __name__)
+
+pictures = UploadSet("pictures", IMAGES)
 
 
 @bp_accessories.route("/gear/accessory/add", methods=["GET", "POST"])
@@ -31,6 +35,9 @@ def new():
         accessory.batteries = form.batteries.data
         accessory.user_id = current_user.id
 
+        if form.picture.data:
+            accessory.pic_filename = pictures.save(form.picture.data)
+
         db.session.add(accessory)
         db.session.commit()
         flash("Successfully added accessory.", "success")
@@ -53,6 +60,9 @@ def edit(accessory_id):
     if form.validate_on_submit():
         form.populate_obj(accessory)
 
+        if form.picture.data:
+            accessory.pic_filename = pictures.save(form.picture.data)
+
         db.session.commit()
         flash("Successfully edited accessory.", "success")
         return redirect(url_for("bp_users.accessories", name=current_user.name))
@@ -70,7 +80,15 @@ def delete(accessory_id):
     if not accessory:
         flash("Accessory not found", "error")
         return redirect(url_for("bp_users.accessories", name=current_user.name))
+
+    pic_filename = accessory.pic_filename
+
     db.session.delete(accessory)
     db.session.commit()
+
+    f = os.path.join(current_app.config["UPLOADED_PICTURES_DEST"], pic_filename)
+    if os.path.isfile(f):
+        os.remove(f)
+
     flash("Successfully deleted accessory", "success")
     return redirect(url_for("bp_users.accessories", name=current_user.name))

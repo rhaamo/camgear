@@ -1,5 +1,4 @@
 from flask_security import RegisterForm
-from flask_uploads import UploadSet, AUDIO
 from flask_wtf import FlaskForm as Form
 from wtforms import PasswordField, SubmitField, SelectField, TextAreaField
 from wtforms import widgets
@@ -7,12 +6,14 @@ from wtforms.fields.core import StringField, IntegerField, FloatField, BooleanFi
 from wtforms.validators import DataRequired, ValidationError, Length, Regexp
 from wtforms_alchemy import model_form_factory
 from flask_babelex import gettext
+from flask_wtf.file import FileField, FileAllowed
+from flask_uploads import UploadSet, IMAGES
 
 from models import db, User, enum_cameras_types, enum_film_types, enum_focuses_types, enum_lenses_types, enum_states
 
 BaseModelForm = model_form_factory(Form)
 
-sounds = UploadSet("sounds", AUDIO)
+pictures = UploadSet("pictures", IMAGES)
 
 
 class PasswordFieldNotHidden(StringField):
@@ -87,6 +88,7 @@ class AccessoryForm(BaseModelForm):
     serial = StringField(gettext("Serial number (stay private)"), [Length(max=255)])
     mount = StringField(gettext("Mount"), [Length(max=255)])
     batteries = StringField(gettext("Batteries type"))
+    picture = FileField("Image", [FileAllowed(pictures, "Images only!")])
 
     private = BooleanField(gettext("Keep this private"))
 
@@ -127,6 +129,7 @@ class LenseForm(BaseModelForm):
     focus_length = IntegerField(gettext("Min focus (cm)"), default=0)
     weight = IntegerField(gettext("Weight (g)"), default=0)
     length = FloatField(gettext("Length (cm)"), default=0)
+    picture = FileField("Image", [FileAllowed(pictures, "Images only!")])
 
     private = BooleanField(gettext("Keep this private"))
 
@@ -176,6 +179,7 @@ class CameraForm(BaseModelForm):
     macro_length = IntegerField(gettext("Min macro (cm)"), default=0)
     weight = IntegerField(gettext("Weight (g)"), default=0)
     length = FloatField(gettext("Length (cm)"), default=0)
+    picture = FileField("Image", [FileAllowed(pictures, "Images only!")])
 
     private = BooleanField(gettext("Keep this private"))
 

@@ -1,11 +1,15 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_babelex import gettext
 from flask_security import login_required, current_user
+from flask_uploads import UploadSet, IMAGES
+import os
 
 from forms import CameraAddForm, CameraEditForm
 from models import db, Camera
 
 bp_cameras = Blueprint("bp_cameras", __name__)
+
+pictures = UploadSet("pictures", IMAGES)
 
 
 @bp_cameras.route("/gear/camera/add", methods=["GET", "POST"])
@@ -57,6 +61,9 @@ def new():
 
         camera.user_id = current_user.id
 
+        if form.picture.data:
+            camera.pic_filename = pictures.save(form.picture.data)
+
         db.session.add(camera)
         db.session.commit()
         flash("Successfully added camera.", "success")
@@ -78,6 +85,9 @@ def edit(camera_id):
 
     if form.validate_on_submit():
         form.populate_obj(camera)
+
+        if form.picture.data:
+            camera.pic_filename = pictures.save(form.picture.data)
 
         db.session.commit()
         flash("Successfully edited camera.", "success")
@@ -102,7 +112,15 @@ def delete(camera_id):
     if not camera:
         flash("Camera not found", "error")
         return redirect(url_for("bp_users.cameras", name=current_user.name))
+
+    pic_filename = camera.pic_filename
+
     db.session.delete(camera)
     db.session.commit()
+
+    f = os.path.join(current_app.config["UPLOADED_PICTURES_DEST"], pic_filename)
+    if os.path.isfile(f):
+        os.remove(f)
+
     flash("Successfully deleted camera", "success")
     return redirect(url_for("bp_users.cameras", name=current_user.name))
