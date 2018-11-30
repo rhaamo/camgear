@@ -164,6 +164,10 @@ def create_app(config_filename="config.py", app_name=None, register_blueprints=T
 
         app.register_blueprint(bp_lenses)
 
+        from controllers.autocompletion import bp_autocomplete
+
+        app.register_blueprint(bp_autocomplete)
+
     @app.route("/uploads/<string:thing>/<path:stuff>", methods=["GET"])
     def get_uploads_stuff(thing, stuff):
         if app.debug:

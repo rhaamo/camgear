@@ -21,7 +21,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/fork-awesome.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -131,12 +130,11 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.autocomplete.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.bootstrap-growl.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/global.js') }}"></script>
-<script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/wavesurfer.min.js') }}"></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

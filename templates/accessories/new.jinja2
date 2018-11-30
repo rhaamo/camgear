@@ -48,3 +48,35 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script>
+    $("#manufacturer").autocomplete({
+       serviceUrl: '{{ url_for("bp_autocomplete.manufacturer") }}',
+       onSelect: function (suggestion) {
+           console.log('Manufacturer selected: ' + suggestion.value);
+       }
+    });
+
+    $("#model").autocomplete({
+       serviceUrl: '{{ url_for("bp_autocomplete.model") }}',
+       onSelect: function (suggestion) {
+           console.log('Model selected: ' + suggestion.value);
+       }
+    });
+
+    $("#batteries").autocomplete({
+       serviceUrl: '{{ url_for("bp_autocomplete.batteries") }}',
+       onSelect: function (suggestion) {
+           console.log('Batteries selected: ' + suggestion.value);
+       }
+    });
+
+    $("#mount").autocomplete({
+       serviceUrl: '{{ url_for("bp_autocomplete.mount") }}',
+       onSelect: function (suggestion) {
+           console.log('Mount selected: ' + suggestion.value);
+       }
+    });
+    </script>
+{% endblock %}

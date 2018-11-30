@@ -2,7 +2,7 @@
 {% import 'bootstrap/form.html' as bf4 %}
 
 {% block content %}
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-8">
             <h3>{{ gettext("Edit camera nb. %(title)s", title=camera.id) }}</h3>
         </div>
@@ -73,4 +73,36 @@
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    $("#manufacturer").autocomplete({
+       serviceUrl: '{{ url_for("bp_autocomplete.manufacturer") }}',
+       onSelect: function (suggestion) {
+           console.log('Manufacturer selected: ' + suggestion.value);
+       }
+    });
+
+    $("#model").autocomplete({
+       serviceUrl: '{{ url_for("bp_autocomplete.model") }}',
+       onSelect: function (suggestion) {
+           console.log('Model selected: ' + suggestion.value);
+       }
+    });
+
+    $("#batteries").autocomplete({
+       serviceUrl: '{{ url_for("bp_autocomplete.batteries") }}',
+       onSelect: function (suggestion) {
+           console.log('Batteries selected: ' + suggestion.value);
+       }
+    });
+
+    $("#mount").autocomplete({
+       serviceUrl: '{{ url_for("bp_autocomplete.mount") }}',
+       onSelect: function (suggestion) {
+           console.log('Mount selected: ' + suggestion.value);
+       }
+    });
+    </script>
 {% endblock %}
