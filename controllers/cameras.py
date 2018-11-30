@@ -6,7 +6,7 @@ import os
 
 from forms import CameraAddForm, CameraEditForm
 from models import db, Camera
-from utils import IMAGES
+from utils import IMAGES, get_hashed_filename
 
 bp_cameras = Blueprint("bp_cameras", __name__)
 
@@ -62,8 +62,11 @@ def new():
 
         camera.user_id = current_user.id
 
-        if form.picture.data:
-            camera.pic_filename = pictures.save(form.picture.data)
+        if "picture" in request.files:
+            camera.pic_filename = get_hashed_filename(request.files["picture"].filename)
+            pictures.save(
+                request.files["picture"], folder=current_app.config["UPLOADED_PICTURES_DEST"], name=camera.pic_filename
+            )
 
         db.session.add(camera)
         db.session.commit()
@@ -87,8 +90,11 @@ def edit(camera_id):
     if form.validate_on_submit():
         form.populate_obj(camera)
 
-        if form.picture.data:
-            camera.pic_filename = pictures.save(form.picture.data)
+        if "picture" in request.files:
+            camera.pic_filename = get_hashed_filename(request.files["picture"].filename)
+            pictures.save(
+                request.files["picture"], folder=current_app.config["UPLOADED_PICTURES_DEST"], name=camera.pic_filename
+            )
 
         db.session.commit()
         flash("Successfully edited camera.", "success")

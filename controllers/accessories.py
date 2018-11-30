@@ -6,7 +6,7 @@ import os
 
 from forms import AccessoryAddForm, AccessoryEditForm
 from models import db, Accessory
-from utils import IMAGES
+from utils import IMAGES, get_hashed_filename
 
 bp_accessories = Blueprint("bp_accessories", __name__)
 
@@ -36,8 +36,13 @@ def new():
         accessory.batteries = form.batteries.data
         accessory.user_id = current_user.id
 
-        if form.picture.data:
-            accessory.pic_filename = pictures.save(form.picture.data)
+        if "picture" in request.files:
+            accessory.pic_filename = get_hashed_filename(request.files["picture"].filename)
+            pictures.save(
+                request.files["picture"],
+                folder=current_app.config["UPLOADED_PICTURES_DEST"],
+                name=accessory.pic_filename,
+            )
 
         db.session.add(accessory)
         db.session.commit()
@@ -61,8 +66,13 @@ def edit(accessory_id):
     if form.validate_on_submit():
         form.populate_obj(accessory)
 
-        if form.picture.data:
-            accessory.pic_filename = pictures.save(form.picture.data)
+        if "picture" in request.files:
+            accessory.pic_filename = get_hashed_filename(request.files["picture"].filename)
+            pictures.save(
+                request.files["picture"],
+                folder=current_app.config["UPLOADED_PICTURES_DEST"],
+                name=accessory.pic_filename,
+            )
 
         db.session.commit()
         flash("Successfully edited accessory.", "success")

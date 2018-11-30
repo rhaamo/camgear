@@ -6,7 +6,7 @@ import os
 
 from forms import LenseAddForm, LenseEditForm
 from models import db, Lense
-from utils import IMAGES
+from utils import IMAGES, get_hashed_filename
 
 bp_lenses = Blueprint("bp_lenses", __name__)
 
@@ -53,8 +53,11 @@ def new():
 
         lense.user_id = current_user.id
 
-        if form.picture.data:
-            lense.pic_filename = pictures.save(form.picture.data)
+        if "picture" in request.files:
+            lense.pic_filename = get_hashed_filename(request.files["picture"].filename)
+            pictures.save(
+                request.files["picture"], folder=current_app.config["UPLOADED_PICTURES_DEST"], name=lense.pic_filename
+            )
 
         db.session.add(lense)
         db.session.commit()
@@ -77,8 +80,11 @@ def edit(lense_id):
     if form.validate_on_submit():
         form.populate_obj(lense)
 
-        if form.picture.data:
-            lense.pic_filename = pictures.save(form.picture.data)
+        if "picture" in request.files:
+            lense.pic_filename = get_hashed_filename(request.files["picture"].filename)
+            pictures.save(
+                request.files["picture"], folder=current_app.config["UPLOADED_PICTURES_DEST"], name=lense.pic_filename
+            )
 
         db.session.commit()
         flash("Successfully edited lense.", "success")

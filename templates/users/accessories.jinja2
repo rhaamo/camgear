@@ -22,26 +22,29 @@
         <div class="col-lg-12">
             <table class="table table-sm table-stripped table-bordered">
                 <tr>
+                    <th>Picture</th>
                     <th>{{ gettext("Manufacturer") }}</th>
                     <th>{{ gettext("Model") }}</th>
                     <th>{{ gettext("State") }}</th>
-                    <th>{{ gettext("Description") }}</th>
                     {% if current_user.is_authenticated and user == current_user %}
                         <th>{{ gettext("Actions") }}</th>
                     {% endif %}
                 </tr>
                 {% for accessory in accessories %}
                     <tr>
+                        <td rowspan="2"><img src="/uploads/pictures/{{ accessory.pic_filename }}"></td>
                         <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ accessory.manufacturer }}</td>
                         <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ accessory.model }}</td>
                         <td>{{ accessory.state_str() }}</td>
-                        <td>{{ accessory.description }}</td>
                         {% if current_user.is_authenticated and user == current_user %}
                             <td>
                                 <a href="{{ url_for("bp_accessories.edit", accessory_id=accessory.id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                 <a href="{{ url_for("bp_accessories.delete", accessory_id=accessory.id) }}" class="delete_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         {% endif %}
+                    </tr>
+                    <tr>
+                        <td colspan="10">Description: {{ accessory.description }}</td>
                     </tr>
                 {% endfor %}
             </table>
