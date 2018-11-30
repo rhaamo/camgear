@@ -38,7 +38,7 @@ def new():
         camera.auto_focus = form.auto_focus.data
         camera.batteries = form.batteries.data
         camera.hot_shoe = form.hot_shoe.data
-        camera.fixed_lense = form.fixed_lense.data
+        camera.fixed_lens = form.fixed_lens.data
 
         camera.iso_min = form.iso_min.data
         camera.iso_max = form.iso_max.data
@@ -105,7 +105,7 @@ def edit(camera_id):
     form.auto_expo.data = camera.auto_expo
     form.auto_focus.data = camera.auto_focus
     form.hot_shoe.data = camera.hot_shoe
-    form.fixed_lense.data = camera.fixed_lense
+    form.fixed_lens.data = camera.fixed_lens
     form.blades.data = camera.blades
     form.macro.data = camera.macro
 

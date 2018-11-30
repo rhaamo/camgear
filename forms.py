@@ -106,7 +106,7 @@ class AccessoryEditForm(AccessoryForm):
     submit = SubmitField(gettext("Update Accessory"))
 
 
-class LenseForm(BaseModelForm):
+class LensForm(BaseModelForm):
     state = SelectField(coerce=int, label=gettext("State"), choices=get_enum_states(), default=0)
     state_notes = StringField(gettext("State notes"), [Length(max=255)])
 
@@ -120,7 +120,7 @@ class LenseForm(BaseModelForm):
     focale = IntegerField(gettext("Focale"), default=0)
     min_aperture = FloatField(gettext("Min Aperture"), default=0)
     max_aperture = FloatField(gettext("Max Aperture"), default=0)
-    lense_type = SelectField(coerce=int, label=gettext("Lense Type"), choices=get_enum_lenses_types(), default=0)
+    lens_type = SelectField(coerce=int, label=gettext("Lens Type"), choices=get_enum_lenses_types(), default=0)
     macro = BooleanField(gettext("Macro capable"))
     macro_length = IntegerField(gettext("Min macro (cm)"), default=0)
     filter_diameter = IntegerField(gettext("Filter Dia. (mm)"), default=0)
@@ -139,12 +139,12 @@ class LenseForm(BaseModelForm):
     url3 = StringField(gettext("URL 3"), [Length(max=255)])
 
 
-class LenseAddForm(LenseForm):
-    submit = SubmitField(gettext("Add Lense"))
+class LensAddForm(LensForm):
+    submit = SubmitField(gettext("Add Lens"))
 
 
-class LenseEditForm(LenseForm):
-    submit = SubmitField(gettext("Update Lense"))
+class LensEditForm(LensForm):
+    submit = SubmitField(gettext("Update Lens"))
 
 
 class CameraForm(BaseModelForm):
@@ -165,7 +165,7 @@ class CameraForm(BaseModelForm):
     auto_focus = BooleanField(gettext("Auto focus"))
     batteries = StringField(gettext("Batteries type"))
     hot_shoe = BooleanField(gettext("Hot Shoe"))
-    fixed_lense = BooleanField(gettext("Fixed lense"))
+    fixed_lens = BooleanField(gettext("Fixed lens"))
 
     iso_min = IntegerField(gettext("ISO Min"), default=0)
     iso_max = IntegerField(gettext("ISO Max"), default=0)

@@ -33,28 +33,28 @@
                     <th>{{ gettext("Focusing") }}</th>
                     <th>{{ gettext("Actions") }}</th>
                 </tr>
-                {% for lense in lenses %}
+                {% for lens in lenses %}
                     <tr>
                         <td rowspan="2" width="210px">
-                            {% if lense.pic_filename %}<img src="/uploads/pictures/{{ lense.pic_filename | thumbnail('200x200', crop='aaa', quality=90) }}">{% endif %}
+                            {% if lens.pic_filename %}<img src="/uploads/pictures/{{ lens.pic_filename | thumbnail('200x200', crop='aaa', quality=90) }}">{% endif %}
                         </td>
-                        <td>{% if lense.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.manufacturer }}</td>
-                        <td>{% if lense.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.model }}</td>
-                        <td>{{ lense.state_str() }}</td>
-                        <td>{{ lense.mount }}</td>
-                        <td>{{ lense.focale }}</td>
-                        <td>{{ lense.min_aperture }}</td>
-                        <td>{{ lense.max_aperture }}</td>
-                        <td>{{ lense.focus_str() }}</td>
+                        <td>{% if lens.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lens.manufacturer }}</td>
+                        <td>{% if lens.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lens.model }}</td>
+                        <td>{{ lens.state_str() }}</td>
+                        <td>{{ lens.mount }}</td>
+                        <td>{{ lens.focale }}</td>
+                        <td>{{ lens.min_aperture }}</td>
+                        <td>{{ lens.max_aperture }}</td>
+                        <td>{{ lens.focus_str() }}</td>
                         {% if current_user.is_authenticated and user == current_user %}
                             <td>
-                                <a href="{{ url_for("bp_lenses.edit", lense_id=lense.id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                <a href="{{ url_for("bp_lenses.delete", lense_id=lense.id) }}" class="delete_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <a href="{{ url_for("bp_lenses.edit", lens_id=lens.id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a href="{{ url_for("bp_lenses.delete", lens_id=lens.id) }}" class="delete_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         {% endif %}
                     </tr>
                     <tr>
-                        <td colspan="10">Description: {{ lense.description }}</td>
+                        <td colspan="10">Description: {{ lens.description }}</td>
                     </tr>
                 {% endfor %}
             </table>

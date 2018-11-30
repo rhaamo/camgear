@@ -68,7 +68,7 @@ class User(db.Model, UserMixin):
     loggings = db.relationship("Logging", backref="user", lazy="dynamic", cascade="delete")
 
     accessories = db.relationship("Accessory", backref="user", lazy="dynamic", cascade="delete")
-    lenses = db.relationship("Lense", backref="user", lazy="dynamic", cascade="delete")
+    lenses = db.relationship("Lens", backref="user", lazy="dynamic", cascade="delete")
     cameras = db.relationship("Camera", backref="user", lazy="dynamic", cascade="delete")
 
     __mapper_args__ = {"order_by": name}
@@ -233,8 +233,8 @@ class Accessory(db.Model):
         return enum_states[self.state]
 
 
-class Lense(db.Model):
-    __tablename__ = "lense"
+class Lens(db.Model):
+    __tablename__ = "lense"  # Leave this typo alone thx
     id = db.Column(db.Integer, primary_key=True)
 
     state = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_STATES
@@ -250,7 +250,7 @@ class Lense(db.Model):
     focale = db.Column(db.Integer(), nullable=True, default=0)
     min_aperture = db.Column(db.Float(), nullable=True, default=0)
     max_aperture = db.Column(db.Float(), nullable=True, default=0)
-    lense_type = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_LENSES_TYPES
+    lens_type = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_LENSES_TYPES
     macro = db.Column(db.Boolean(), default=True)
     macro_length = db.Column(db.Integer(), nullable=True, default=0)
     filter_diameter = db.Column(db.Integer(), nullable=True, default=0)
@@ -277,8 +277,8 @@ class Lense(db.Model):
     def focus_str(self):
         return enum_focuses_types[self.focus]
 
-    def lense_type_str(self):
-        return enum_lenses_types[self.lense_type]
+    def lens_type_str(self):
+        return enum_lenses_types[self.lens_type]
 
 
 class Camera(db.Model):
@@ -302,7 +302,7 @@ class Camera(db.Model):
     auto_focus = db.Column(db.Boolean(), default=True)
     batteries = db.Column(db.String(255), nullable=True)
     hot_shoe = db.Column(db.Boolean(), default=True)
-    fixed_lense = db.Column(db.Boolean(), default=False)
+    fixed_lens = db.Column(db.Boolean(), default=False)
 
     iso_min = db.Column(db.Integer(), default=0)
     iso_max = db.Column(db.Integer(), default=0)

@@ -4,7 +4,7 @@ from flask_babelex import gettext
 from flask_security import login_required, current_user
 
 from forms import UserProfileForm
-from models import db, User, UserLogging, Accessory, Lense, Camera
+from models import db, User, UserLogging, Accessory, Lens, Camera
 from utils import add_user_log
 
 bp_users = Blueprint("bp_users", __name__)
@@ -80,7 +80,7 @@ def accessories(name):
 
     acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id)
     cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id)
-    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id)
+    lens_count = db.session.query(Lens.id).filter(Lens.user_id == user.id)
 
     if current_user.is_authenticated and user.id == current_user.id:
         acc = user.accessories
@@ -88,7 +88,7 @@ def accessories(name):
         acc = Accessory.query.filter(Accessory.user_id == user.id, Accessory.private.is_(False)).all()
         acc_count = acc_count.filter(Accessory.private.is_(False))
         cams_count = cams_count.filter(Camera.private.is_(False))
-        lens_count = lens_count.filter(Lense.private.is_(False))
+        lens_count = lens_count.filter(Lens.private.is_(False))
 
     acc_count = acc_count.count()
     cams_count = cams_count.count()
@@ -116,7 +116,7 @@ def cameras(name):
 
     acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id)
     cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id)
-    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id)
+    lens_count = db.session.query(Lens.id).filter(Lens.user_id == user.id)
 
     if current_user.is_authenticated and user.id == current_user.id:
         cams = user.cameras
@@ -124,7 +124,7 @@ def cameras(name):
         cams = Camera.query.filter(Camera.user_id == user.id, Camera.private.is_(False)).all()
         acc_count = acc_count.filter(Accessory.private.is_(False))
         cams_count = cams_count.filter(Camera.private.is_(False))
-        lens_count = lens_count.filter(Lense.private.is_(False))
+        lens_count = lens_count.filter(Lens.private.is_(False))
 
     acc_count = acc_count.count()
     cams_count = cams_count.count()
@@ -152,15 +152,15 @@ def lenses(name):
 
     acc_count = db.session.query(Accessory.id).filter(Accessory.user_id == user.id)
     cams_count = db.session.query(Camera.id).filter(Camera.user_id == user.id)
-    lens_count = db.session.query(Lense.id).filter(Lense.user_id == user.id)
+    lens_count = db.session.query(Lens.id).filter(Lens.user_id == user.id)
 
     if current_user.is_authenticated and user.id == current_user.id:
         lens = user.lenses
     else:
-        lens = Lense.query.filter(Lense.user_id == user.id, Lense.private.is_(False)).all()
+        lens = Lens.query.filter(Lens.user_id == user.id, Lens.private.is_(False)).all()
         acc_count = acc_count.filter(Accessory.private.is_(False))
         cams_count = cams_count.filter(Camera.private.is_(False))
-        lens_count = lens_count.filter(Lense.private.is_(False))
+        lens_count = lens_count.filter(Lens.private.is_(False))
 
     acc_count = acc_count.count()
     cams_count = cams_count.count()

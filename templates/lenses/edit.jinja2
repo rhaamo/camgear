@@ -4,13 +4,13 @@
 {% block content %}
     <div class="row">
         <div class="col-8">
-            <h3>{{ gettext("Edit lense nb. %(title)s", title=lense.id) }}</h3>
+            <h3>{{ gettext("Edit lens nb. %(title)s", title=lens.id) }}</h3>
         </div>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-8">
-            <form action="{{ url_for('bp_lenses.edit', lense_id=lense.id) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+            <form action="{{ url_for('bp_lenses.edit', lens_id=lens.id) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 {{ bf4.form_errors(form) }}
 
@@ -35,7 +35,7 @@
                 <div class="form-row">
                     <div class="col">{{ bf4.render_field(form.mount, 'vertical') }}</div>
                     <div class="col">{{ bf4.render_field(form.serial, 'vertical') }}</div>
-                    <div class="col">{{ bf4.render_field(form.lense_type, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.lens_type, 'vertical') }}</div>
                 </div>
 
                 <div class="form-row">
