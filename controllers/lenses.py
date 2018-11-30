@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_babelex import gettext
 from flask_security import login_required, current_user
-from flask_uploads import UploadSet, IMAGES
+from flask_uploads import UploadSet
 import os
 
 from forms import LenseAddForm, LenseEditForm
 from models import db, Lense
+from utils import IMAGES
 
 bp_lenses = Blueprint("bp_lenses", __name__)
 

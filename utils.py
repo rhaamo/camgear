@@ -9,6 +9,7 @@ from flask_security import current_user
 
 from models import db, Role, Logging, Config, UserLogging
 
+IMAGES = tuple('jpg jpe jpeg png gif'.split())
 
 def gcfg():
     _config = Config.query.one()

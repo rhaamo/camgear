@@ -12,11 +12,11 @@ from flask_security import Security
 from flask_security.utils import hash_password
 from flask_security import signals as FlaskSecuritySignals
 from flask_security import confirmable as FSConfirmable
-from flask_uploads import configure_uploads, UploadSet, IMAGES, patch_request_class
+from flask_uploads import configure_uploads, UploadSet, patch_request_class
 
 from forms import ExtendedRegisterForm
 from models import db, user_datastore, Role
-from utils import InvalidUsage, is_admin, add_user_log
+from utils import InvalidUsage, is_admin, add_user_log, IMAGES
 
 import texttable
 from flask_debugtoolbar import DebugToolbarExtension

@@ -7,9 +7,10 @@ from wtforms.validators import DataRequired, ValidationError, Length, Regexp
 from wtforms_alchemy import model_form_factory
 from flask_babelex import gettext
 from flask_wtf.file import FileField, FileAllowed
-from flask_uploads import UploadSet, IMAGES
+from flask_uploads import UploadSet
 
 from models import db, User, enum_cameras_types, enum_film_types, enum_focuses_types, enum_lenses_types, enum_states
+from utils import IMAGES
 
 BaseModelForm = model_form_factory(Form)
 
