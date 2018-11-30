@@ -28,6 +28,7 @@ def new():
         accessory.url1 = form.url1.data
         accessory.url2 = form.url2.data
         accessory.url3 = form.url3.data
+        accessory.batteries = form.batteries.data
         accessory.user_id = current_user.id
 
         db.session.add(accessory)

@@ -86,6 +86,7 @@ class AccessoryForm(BaseModelForm):
     description = TextAreaField(gettext("Description"))
     serial = StringField(gettext("Serial number (stay private)"), [Length(max=255)])
     mount = StringField(gettext("Mount"), [Length(max=255)])
+    batteries = StringField(gettext("Batteries type"))
 
     private = BooleanField(gettext("Keep this private"))
 

@@ -215,6 +215,7 @@ class Accessory(db.Model):
     description = db.Column(db.String(255), nullable=True)
     serial = db.Column(db.String(255), nullable=True)
     mount = db.Column(db.String(255), nullable=True)
+    batteries = db.Column(db.String(255), nullable=True)
 
     private = db.Column(db.Boolean(), default=False)
 
