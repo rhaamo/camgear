@@ -4,7 +4,7 @@ import os
 import subprocess
 from logging.handlers import RotatingFileHandler
 from flask_babelex import gettext, Babel
-from flask import Flask, render_template, g, send_from_directory, jsonify, safe_join, request, flash, Response
+from flask import Flask, render_template, g, send_from_directory, jsonify, safe_join, request, Response
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 from flask_migrate import Migrate
@@ -15,7 +15,7 @@ from flask_security import confirmable as FSConfirmable
 from flask_uploads import configure_uploads, UploadSet, IMAGES, patch_request_class
 
 from forms import ExtendedRegisterForm
-from models import db, Config, user_datastore, Role
+from models import db, user_datastore, Role
 from utils import InvalidUsage, is_admin, add_user_log
 
 import texttable
@@ -191,6 +191,7 @@ def create_app(config_filename="config.py", app_name=None, register_blueprints=T
         return render_template("error_page.jinja2", pcfg=pcfg), 410
 
     if not app.debug:
+
         @app.errorhandler(500)
         def err_failed(msg):
             pcfg = {

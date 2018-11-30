@@ -7,6 +7,7 @@ from sqlalchemy.ext.hybrid import Comparator
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.sql import func
 from sqlalchemy_searchable import make_searchable
+from sqlalchemy_utils.types.url import URLType
 
 db = SQLAlchemy()
 make_searchable(db.metadata)
@@ -65,6 +66,10 @@ class User(db.Model, UserMixin):
 
     user_loggings = db.relationship("UserLogging", backref="user", lazy="dynamic", cascade="delete")
     loggings = db.relationship("Logging", backref="user", lazy="dynamic", cascade="delete")
+
+    accessories = db.relationship("Accessory", backref="user", lazy="dynamic", cascade="delete")
+    lenses = db.relationship("Lense", backref="user", lazy="dynamic", cascade="delete")
+    cameras = db.relationship("Camera", backref="user", lazy="dynamic", cascade="delete")
 
     __mapper_args__ = {"order_by": name}
 
@@ -135,3 +140,161 @@ class UserLogging(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
 
     __mapper_args__ = {"order_by": timestamp.desc()}
+
+
+ENUM_STATES = [
+    (0, "Unknown"),
+    (5, "Very Good"),
+    (10, "Good"),
+    (15, "Ok, scratches"),
+    (20, "Not so ok"),
+    (25, "Cracks"),
+    (30, "Partly working"),
+    (35, "RIP"),
+]
+
+ENUM_LENSES_TYPES = [(0, "Unknown"), (5, "Wide Angle"), (10, "Standard"), (15, "Zoom"), (20, "Telephoto")]
+
+ENUM_CAMERAS_TYPES = [
+    (0, "Unknown"),
+    (5, "Chamber"),
+    (10, "Chamber Stereo"),
+    (15, "Folding"),
+    (20, "Box"),
+    (25, "Box Stereo"),
+    (30, "Instant"),
+    (35, "Disposable"),
+    (40, "Toy"),
+    (45, "Panoramic"),
+    (50, "Reflex SLR"),
+    (55, "Reflex TLR"),
+    (60, "Reflex DSLR"),
+]
+
+ENUM_FILM_TYPES = [
+    (0, "Unknown"),
+    (5, "8mm"),
+    (10, "9.5mm"),
+    (15, "16mm"),
+    (20, "17.5mm"),
+    (25, "28mm"),
+    (30, "35mm"),
+    (35, "70mm"),
+    (40, "110"),
+    (45, "120"),
+    (50, "126"),
+    (55, "127"),
+    (60, "135"),
+    (65, "616"),
+    (70, "628"),
+    (75, "Disc"),
+    (80, "Ektachrome"),
+    (85, "Ektar"),
+    (90, "Kodachrome"),
+    (95, "Eastmancolor"),
+    (100, "Plate"),
+    (105, "Pack-Film"),
+    (110, "Pack-Film 100"),
+    (115, "Pack-Film 100 or 80"),
+    (120, "Pack-Film 80"),
+]
+
+ENUM_FOCUSES_TYPES = [(0, "Unknown"), (5, "Manual"), (10, "Automatic"), (15, "Fixed")]
+
+
+class Accessory(db.Model):
+    __tablename__ = "accessory"
+    id = db.Column(db.Integer, primary_key=True)
+
+    state = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_STATES
+    notes = db.Column(db.String(255), nullable=True)
+
+    manufacturer = db.Column(db.String(255), nullable=True)
+    model = db.Column(db.String(255), nullable=True)
+    description = db.Column(db.String(255), nullable=True)
+    extra_notes = db.Column(db.Text, nullable=True)
+    serial = db.Column(db.String(255), nullable=True)
+    mount = db.Column(db.String(255), nullable=True)
+
+    url1 = db.Column(URLType(), nullable=True)
+    url2 = db.Column(URLType(), nullable=True)
+    url3 = db.Column(URLType(), nullable=True)
+
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
+
+
+class Lense(db.Model):
+    __tablename__ = "lense"
+    id = db.Column(db.Integer, primary_key=True)
+
+    state = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_STATES
+    notes = db.Column(db.String(255), nullable=True)
+
+    manufacturer = db.Column(db.String(255), nullable=True)
+    model = db.Column(db.String(255), nullable=True)
+    extra_notes = db.Column(db.Text, nullable=True)
+    serial = db.Column(db.String(255), nullable=True)
+    mount = db.Column(db.String(255), nullable=True)
+
+    focale = db.Column(db.Integer(), nullable=False, default=0)
+    min_aperture = db.Column(db.Float(), default=0)
+    max_aperture = db.Column(db.Float(), default=0)
+    lense_type = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_LENSES_TYPES
+    macro = db.Column(db.Boolean(), default=True)
+    macro_length = db.Column(db.Integer(), nullable=False, default=0)
+    filter_diameter = db.Column(db.Integer(), nullable=False, default=0)
+    blades = db.Column(db.Boolean(), default=True)
+    angle = db.Column(db.Float(), default=0)
+    focus = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_FOCUSES_TYPES
+    focus_length = db.Column(db.Integer(), nullable=False, default=0)
+    weight = db.Column(db.Integer(), nullable=False, default=0)  # g.
+    length = db.Column(db.Integer(), nullable=False, default=0)  # mm
+
+    url1 = db.Column(URLType(), nullable=True)
+    url2 = db.Column(URLType(), nullable=True)
+    url3 = db.Column(URLType(), nullable=True)
+
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
+
+
+class Camera(db.Model):
+    __tablename__ = "camera"
+    id = db.Column(db.Integer, primary_key=True)
+
+    state = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_STATES
+    notes = db.Column(db.String(255), nullable=True)
+
+    manufacturer = db.Column(db.String(255), nullable=True)
+    model = db.Column(db.String(255), nullable=True)
+    extra_notes = db.Column(db.Text, nullable=True)
+    serial = db.Column(db.String(255), nullable=True)
+    mount = db.Column(db.String(255), nullable=True)
+
+    camera_type = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_CAMERAS_TYPES
+
+    film_type = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_FILM_TYPES
+    auto_expo = db.Column(db.Boolean(), default=True)
+    auto_focus = db.Column(db.Boolean(), default=True)
+    batteries = db.Column(db.String(255), nullable=True)
+    hot_shoe = db.Column(db.Boolean(), default=True)
+    fixed_lense = db.Column(db.Boolean(), default=False)
+
+    iso_min = db.Column(db.Integer(), default=0)
+    iso_max = db.Column(db.Integer(), default=0)
+    focale = db.Column(db.Integer(), nullable=False, default=0)
+    min_aperture = db.Column(db.Float(), default=0)
+    max_aperture = db.Column(db.Float(), default=0)
+    blades = db.Column(db.Boolean(), default=True)
+    filter_diameter = db.Column(db.Integer(), nullable=False, default=0)
+    weight = db.Column(db.Integer(), nullable=True, default=0)  # g.
+    length = db.Column(db.Integer(), nullable=True, default=0)  # mm
+    focus = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_FOCUSES_TYPES
+    focus_length = db.Column(db.Integer(), nullable=False, default=0)
+    macro = db.Column(db.Boolean(), default=True)
+    macro_length = db.Column(db.Integer(), nullable=False, default=0)
+
+    url1 = db.Column(URLType(), nullable=True)
+    url2 = db.Column(URLType(), nullable=True)
+    url3 = db.Column(URLType(), nullable=True)
+
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
