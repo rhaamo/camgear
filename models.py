@@ -142,16 +142,16 @@ class UserLogging(db.Model):
     __mapper_args__ = {"order_by": timestamp.desc()}
 
 
-ENUM_STATES = [
-    (0, "Unknown"),
-    (5, "Very Good"),
-    (10, "Good"),
-    (15, "Ok, scratches"),
-    (20, "Not so ok"),
-    (25, "Cracks"),
-    (30, "Partly working"),
-    (35, "RIP"),
-]
+enum_states = {
+    0: "Unknown",
+    5: "Very Good",
+    10: "Good",
+    15: "Ok, scratches",
+    20: "Not so ok",
+    25: "Cracks",
+    30: "Partly working",
+    35: "RIP"
+}
 
 ENUM_LENSES_TYPES = [(0, "Unknown"), (5, "Wide Angle"), (10, "Standard"), (15, "Zoom"), (20, "Telephoto")]
 
@@ -224,6 +224,9 @@ class Accessory(db.Model):
 
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
 
+    def state_str(self):
+        return enum_states[self.state]
+
 
 class Lense(db.Model):
     __tablename__ = "lense"
@@ -260,6 +263,9 @@ class Lense(db.Model):
     url3 = db.Column(URLType(), nullable=True)
 
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
+
+    def state_str(self):
+        return enum_states[self.state]
 
 
 class Camera(db.Model):
@@ -306,3 +312,6 @@ class Camera(db.Model):
     url3 = db.Column(URLType(), nullable=True)
 
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=False)
+
+    def state_str(self):
+        return enum_states[self.state]

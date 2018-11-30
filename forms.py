@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, ValidationError, Length, Regexp
 from wtforms_alchemy import model_form_factory
 from flask_babelex import gettext
 
-from models import db, User, ENUM_CAMERAS_TYPES, ENUM_FILM_TYPES, ENUM_FOCUSES_TYPES, ENUM_LENSES_TYPES, ENUM_STATES
+from models import db, User, ENUM_CAMERAS_TYPES, ENUM_FILM_TYPES, ENUM_FOCUSES_TYPES, ENUM_LENSES_TYPES, enum_states
 
 BaseModelForm = model_form_factory(Form)
 
@@ -56,8 +56,12 @@ class UserProfileForm(BaseModelForm):
     submit = SubmitField(gettext("Update profile"))
 
 
+def get_enum_states():
+    return [(i, gettext(enum_states[i])) for i in enum_states]
+
+
 class AccessoryForm(BaseModelForm):
-    state = SelectField(coerce=int, label=gettext("State"), choices=ENUM_STATES, default=0)
+    state = SelectField(coerce=int, label=gettext("State"), choices=get_enum_states(), default=0)
     state_notes = StringField(gettext("State notes"), [Length(max=255)])
 
     manufacturer = StringField(gettext("Manufacturer (required)"), [DataRequired(), Length(max=255)])
@@ -83,7 +87,7 @@ class AccessoryEditForm(AccessoryForm):
 
 
 class LenseForm(BaseModelForm):
-    state = SelectField(coerce=int, label=gettext("State"), choices=ENUM_STATES, default=0)
+    state = SelectField(coerce=int, label=gettext("State"), choices=get_enum_states(), default=0)
     state_notes = StringField(gettext("State notes"), [Length(max=255)])
 
     manufacturer = StringField(gettext("Manufacturer (required)"), [DataRequired(), Length(max=255)])
@@ -123,7 +127,7 @@ class LenseEditForm(LenseForm):
 
 
 class CameraForm(BaseModelForm):
-    state = SelectField(coerce=int, label=gettext("State"), choices=ENUM_STATES, default=0)
+    state = SelectField(coerce=int, label=gettext("State"), choices=get_enum_states(), default=0)
     state_notes = StringField(gettext("State notes"), [Length(max=255)])
 
     manufacturer = StringField(gettext("Manufacturer (required)"), [DataRequired(), Length(max=255)])
