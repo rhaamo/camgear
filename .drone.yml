@@ -16,7 +16,7 @@ pipeline:
   build:
     image: python:3-alpine
     commands:
-      - apk add -U postgresql-dev git libffi libffi-dev cmake gcc g++ make pkgconfig
+      - apk add -U postgresql-dev git libffi libffi-dev cmake gcc g++ make pkgconfig jpeg-dev zlib-dev python-dev
       - pip install --upgrade pip setuptools
       - pip install --cache-dir=/cache flake8
       - pip install --cache-dir=/cache black
@@ -28,7 +28,7 @@ pipeline:
   migrations:
     image: python:3-alpine
     commands:
-      - apk add -U postgresql-dev git libffi libffi-dev cmake gcc g++ make pkgconfig postgresql-client
+      - apk add -U postgresql-dev git libffi libffi-dev cmake gcc g++ make pkgconfig postgresql-client jpeg-dev zlib-dev python-dev
       - pip install --upgrade pip setuptools
       - pip install --cache-dir=/cache flake8
       - pip install --cache-dir=/cache black
