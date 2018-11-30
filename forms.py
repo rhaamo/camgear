@@ -123,7 +123,7 @@ class LenseForm(BaseModelForm):
     blades = BooleanField(gettext("Using blades"))
     angle = FloatField(gettext("View angle (°)"), default=0)
     focus = SelectField(coerce=int, label=gettext("Focus Mode"), choices=get_enum_focuses_types(), default=0)
-    focus_length = IntegerField(gettext("Min distance for focus (cm)"))
+    focus_length = IntegerField(gettext("Min distance for focus (cm)"), default=0)
     weight = IntegerField(gettext("Weight (g)"), default=0)
     length = FloatField(gettext("Length (cm)"), default=0)
 

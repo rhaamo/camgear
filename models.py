@@ -252,7 +252,7 @@ class Lense(db.Model):
     blades = db.Column(db.Boolean(), default=True)
     angle = db.Column(db.Float(), nullable=True, default=0)
     focus = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_FOCUSES_TYPES
-    focus_length = db.Column(db.Integer(), nullable=False, default=0)
+    focus_length = db.Column(db.Integer(), nullable=True, default=0)
     weight = db.Column(db.Integer(), nullable=True, default=0)  # g.
     length = db.Column(db.Float(), nullable=True, default=0)  # mm
 
@@ -303,13 +303,13 @@ class Camera(db.Model):
     min_aperture = db.Column(db.Float(), default=0)
     max_aperture = db.Column(db.Float(), default=0)
     blades = db.Column(db.Boolean(), default=True)
-    filter_diameter = db.Column(db.Integer(), nullable=False, default=0)
+    filter_diameter = db.Column(db.Integer(), nullable=True, default=0)
     weight = db.Column(db.Integer(), nullable=True, default=0)  # g.
     length = db.Column(db.Integer(), nullable=True, default=0)  # mm
     focus = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_FOCUSES_TYPES
-    focus_length = db.Column(db.Integer(), nullable=False, default=0)
+    focus_length = db.Column(db.Integer(), nullable=True, default=0)
     macro = db.Column(db.Boolean(), default=True)
-    macro_length = db.Column(db.Integer(), nullable=False, default=0)
+    macro_length = db.Column(db.Integer(), nullable=True, default=0)
 
     private = db.Column(db.Boolean(), default=False)
 

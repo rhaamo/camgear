@@ -9,8 +9,61 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-8">
-            {{ bf4.render_form(form, action=url_for("bp_lenses.new"), horizontal_columns=('lg', 3, 7), form_type='horizontal', button_map={'submit': 'success'}, enctype="multipart/form-data") }}
+        <div class="col-12">
+            <form action="{{ url_for('bp_lenses.new') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                {{ bf4.form_errors(form) }}
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.state, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.manufacturer, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.url1, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.state_notes, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.model, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.url2, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.description, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.model_notes, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.url3, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.mount, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.serial, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.lense_type, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.blades, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.macro, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.focale, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.min_aperture, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.max_aperture, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.macro_length, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.angle, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.filter_diameter, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.focus, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.focus_length, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.weight, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.length, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.submit, button_map={'submit': 'success'}) }}</div>
+                    <div class="col">{{ bf4.render_field(form.private, 'vertical') }}</div>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
