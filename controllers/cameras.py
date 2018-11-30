@@ -75,6 +75,7 @@ def edit(camera_id):
         return redirect(url_for("bp_users.cameras", name=current_user.name))
 
     form = CameraEditForm(request.form, obj=camera)
+
     if form.validate_on_submit():
         camera.state = form.state.data
         camera.state_notes = form.state_notes.data
@@ -118,6 +119,16 @@ def edit(camera_id):
         db.session.commit()
         flash("Successfully edited camera.", "success")
         return redirect(url_for("bp_users.cameras", name=current_user.name))
+
+    # For some reasons the private.data isn't populated and stay to False even if camera.private == True
+    form.private.data = camera.private
+    form.auto_expo.data = camera.auto_expo
+    form.auto_focus.data = camera.auto_focus
+    form.hot_shoe.data = camera.hot_shoe
+    form.fixed_lense.data = camera.fixed_lense
+    form.blades.data = camera.blades
+    form.macro.data = camera.macro
+
     return render_template("cameras/edit.jinja2", pcfg=pcfg, form=form, camera=camera)
 
 

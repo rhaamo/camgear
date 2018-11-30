@@ -100,6 +100,12 @@ def edit(lense_id):
         db.session.commit()
         flash("Successfully edited lense.", "success")
         return redirect(url_for("bp_users.lenses", name=current_user.name))
+
+    # For some reasons the private.data isn't populated and stay to False even if lense.private == True
+    form.private.data = lense.private
+    form.macro.data = lense.macro
+    form.blades.data = lense.blades
+
     return render_template("lenses/edit.jinja2", pcfg=pcfg, form=form, lense=lense)
 
 

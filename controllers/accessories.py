@@ -48,6 +48,7 @@ def edit(accessory_id):
         return redirect(url_for("bp_users.accessories", name=current_user.name))
 
     form = AccessoryEditForm(request.form, obj=accessory)
+
     if form.validate_on_submit():
         accessory.state = form.state.data
         accessory.state_notes = form.state_notes.data
@@ -65,6 +66,10 @@ def edit(accessory_id):
         db.session.commit()
         flash("Successfully edited accessory.", "success")
         return redirect(url_for("bp_users.accessories", name=current_user.name))
+
+    # For some reasons the private.data isn't populated and stay to False even if accessory.private == True
+    form.private.data = accessory.private
+
     return render_template("accessories/edit.jinja2", pcfg=pcfg, form=form, accessory=accessory)
 
 

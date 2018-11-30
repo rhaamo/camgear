@@ -3,7 +3,7 @@ from flask_uploads import UploadSet, AUDIO
 from flask_wtf import FlaskForm as Form
 from wtforms import PasswordField, SubmitField, SelectField, TextAreaField
 from wtforms import widgets
-from wtforms.fields.core import StringField, IntegerField, BooleanField, FloatField
+from wtforms.fields.core import StringField, IntegerField, FloatField, BooleanField
 from wtforms.validators import DataRequired, ValidationError, Length, Regexp
 from wtforms_alchemy import model_form_factory
 from flask_babelex import gettext
@@ -98,18 +98,18 @@ class LenseForm(BaseModelForm):
     mount = StringField(gettext("Mount"), [Length(max=255)])
 
     focale = IntegerField(gettext("Focale"), default=0)
-    min_aperture = FloatField(gettext("Min Aperture"))
-    max_aperture = FloatField(gettext("Max Aperture"))
+    min_aperture = FloatField(gettext("Min Aperture"), default=0)
+    max_aperture = FloatField(gettext("Max Aperture"), default=0)
     lense_type = SelectField(coerce=int, label=gettext("Lense Type"), choices=ENUM_LENSES_TYPES, default=0)
     macro = BooleanField(gettext("Macro capable"))
-    macro_length = IntegerField(gettext("Min distance for macro (cm)"))
-    filter_diameter = IntegerField(gettext("Filter Diameter (mm)"))
+    macro_length = IntegerField(gettext("Min distance for macro (cm)"), default=0)
+    filter_diameter = IntegerField(gettext("Filter Diameter (mm)"), default=0)
     blades = BooleanField(gettext("Using blades"))
-    angle = FloatField(gettext("View angle (°)"))
+    angle = FloatField(gettext("View angle (°)"), default=0)
     focus = SelectField(coerce=int, label=gettext("Focus Mode"), choices=ENUM_FOCUSES_TYPES, default=0)
     focus_length = IntegerField(gettext("Min distance for focus (cm)"))
-    weight = IntegerField(gettext("Weight (g)"))
-    length = FloatField(gettext("Length (cm)"))
+    weight = IntegerField(gettext("Weight (g)"), default=0)
+    length = FloatField(gettext("Length (cm)"), default=0)
 
     private = BooleanField(gettext("Keep this private"))
 

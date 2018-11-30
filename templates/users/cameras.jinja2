@@ -30,11 +30,16 @@
                 </tr>
                 {% for camera in cameras %}
                     <tr>
-                        <td>{{ camera.manufacturer }}</td>
-                        <td>{{ camera.model }}</td>
+                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ camera.manufacturer }}</td>
+                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ camera.model }}</td>
                         <td>{{ camera.state_str() }}</td>
                         <td>{{ camera.description }}</td>
-                        <td></td>
+                        {% if current_user.is_authenticated and user == current_user %}
+                            <td>
+                                <a href="{{ url_for("bp_cameras.edit", camera_id=camera.id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a href="{{ url_for("bp_cameras.delete", camera_id=camera.id) }}" class="delete_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </table>

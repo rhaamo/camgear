@@ -30,11 +30,16 @@
                 </tr>
                 {% for lense in lenses %}
                     <tr>
-                        <td>{{ lense.manufacturer }}</td>
-                        <td>{{ lense.model }}</td>
+                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.manufacturer }}</td>
+                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.model }}</td>
                         <td>{{ lense.state_str() }}</td>
                         <td>{{ lense.description }}</td>
-                        <td></td>
+                        {% if current_user.is_authenticated and user == current_user %}
+                            <td>
+                                <a href="{{ url_for("bp_lenses.edit", lense_id=lense.id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a href="{{ url_for("bp_lenses.delete", lense_id=lense.id) }}" class="delete_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </table>

@@ -32,8 +32,8 @@
                 </tr>
                 {% for accessory in accessories %}
                     <tr>
-                        <td>{{ accessory.manufacturer }}</td>
-                        <td>{{ accessory.model }}</td>
+                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ accessory.manufacturer }}</td>
+                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ accessory.model }}</td>
                         <td>{{ accessory.state_str() }}</td>
                         <td>{{ accessory.description }}</td>
                         {% if current_user.is_authenticated and user == current_user %}

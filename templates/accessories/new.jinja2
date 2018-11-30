@@ -2,15 +2,49 @@
 {% import 'bootstrap/form.html' as bf4 %}
 
 {% block content %}
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-8">
             <h3>{{ gettext("Add accessory") }}</h3>
         </div>
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-8">
-            {{ bf4.render_form(form, action=url_for("bp_accessories.new"), horizontal_columns=('lg', 3, 7), form_type='horizontal', button_map={'submit': 'success'}, enctype="multipart/form-data") }}
+        <div class="col-12">
+            <form action="{{ url_for('bp_accessories.new') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                {{ bf4.form_errors(form) }}
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.state, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.manufacturer, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.url1, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.state_notes, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.model, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.url2, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.description, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.model_notes, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.url3, 'vertical') }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.mount, 'vertical') }}</div>
+                    <div class="col">{{ bf4.render_field(form.serial, 'vertical') }}</div>
+                    <div class="col"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">{{ bf4.render_field(form.submit, button_map={'submit': 'success'}) }}</div>
+                    <div class="col">{{ bf4.render_field(form.private, 'vertical') }}</div>
+                    <div class="col"></div>
+                </div>
+
+            </form>
         </div>
     </div>
 {% endblock %}
