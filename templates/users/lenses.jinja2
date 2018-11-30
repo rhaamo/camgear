@@ -30,8 +30,8 @@
                 </tr>
                 {% for lense in lenses %}
                     <tr>
-                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.manufacturer }}</td>
-                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.model }}</td>
+                        <td>{% if lense.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.manufacturer }}</td>
+                        <td>{% if lense.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lense.model }}</td>
                         <td>{{ lense.state_str() }}</td>
                         <td>{{ lense.description }}</td>
                         {% if current_user.is_authenticated and user == current_user %}

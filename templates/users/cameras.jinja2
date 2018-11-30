@@ -30,8 +30,8 @@
                 </tr>
                 {% for camera in cameras %}
                     <tr>
-                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ camera.manufacturer }}</td>
-                        <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ camera.model }}</td>
+                        <td>{% if camera.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ camera.manufacturer }}</td>
+                        <td>{% if camera.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ camera.model }}</td>
                         <td>{{ camera.state_str() }}</td>
                         <td>{{ camera.description }}</td>
                         {% if current_user.is_authenticated and user == current_user %}
