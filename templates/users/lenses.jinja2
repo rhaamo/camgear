@@ -42,9 +42,9 @@
                         <td>{% if lens.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lens.model }}</td>
                         <td>{{ lens.state_str() }}</td>
                         <td>{{ lens.mount }}</td>
-                        <td>{{ lens.focale }}</td>
-                        <td>{{ lens.min_aperture }}</td>
-                        <td>{{ lens.max_aperture }}</td>
+                        <td>{{ lens.focale }}mm</td>
+                        <td>f{{ lens.min_aperture }}</td>
+                        <td>f{{ lens.max_aperture }}</td>
                         <td>{{ lens.focus_str() }}</td>
                         {% if current_user.is_authenticated and user == current_user %}
                             <td>
