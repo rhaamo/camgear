@@ -48,7 +48,9 @@ def battery():
     s = request.args.get("query")
 
     cam = db.session.query(Camera.batteries).filter(Camera.user_id == current_user.id).group_by(Camera.batteries)
-    acc = db.session.query(Accessory.batteries).filter(Accessory.user_id == current_user.id).group_by(Accessory.batteries)
+    acc = (
+        db.session.query(Accessory.batteries).filter(Accessory.user_id == current_user.id).group_by(Accessory.batteries)
+    )
     batteries = cam.union(acc).all()
     return jsonify({"query": s, "suggestions": [i[0] for i in batteries]})
 
