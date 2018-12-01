@@ -62,7 +62,7 @@ def new():
         db.session.add(lens)
         db.session.commit()
         flash("Successfully added lens.", "success")
-        return redirect(url_for("bp_users.lens", name=current_user.name))
+        return redirect(url_for("bp_users.lenses", name=current_user.name))
     return render_template("lenses/new.jinja2", pcfg=pcfg, form=form)
 
 
@@ -104,7 +104,7 @@ def delete(lens_id):
     lens = Lens.query.filter(Lens.id == lens_id, Lens.user_id == current_user.id).first()
     if not lens:
         flash("Lens not found", "error")
-        return redirect(url_for("bp_users.lens", name=current_user.name))
+        return redirect(url_for("bp_users.lenses", name=current_user.name))
 
     pic_filename = lens.pic_filename
 
