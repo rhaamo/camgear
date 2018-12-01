@@ -93,7 +93,7 @@
     });
 
     $("#batteries").autocomplete({
-       serviceUrl: '{{ url_for("bp_autocomplete.batteries") }}',
+       serviceUrl: '{{ url_for("bp_autocomplete.battery") }}',
        onSelect: function (suggestion) {
            console.log('Batteries selected: ' + suggestion.value);
        }

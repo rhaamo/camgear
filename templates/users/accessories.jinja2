@@ -32,7 +32,7 @@
                 </tr>
                 {% for accessory in accessories %}
                     <tr>
-                        <td rowspan="2" width="210px">
+                        <td rowspan="4" width="210px">
                             {% if accessory.pic_filename %}<img src="/uploads/pictures/{{ accessory.pic_filename | thumbnail('200x200', crop='aaa', quality=90) }}">{% endif %}
                         </td>
                         <td>{% if accessory.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ accessory.manufacturer }}</td>
@@ -44,6 +44,12 @@
                                 <a href="{{ url_for("bp_accessories.delete", accessory_id=accessory.id) }}" class="delete_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         {% endif %}
+                    </tr>
+                    <tr>
+                        <td colspan="10">Model Notes: {{ accessory.model_notes }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">State notes: {{ accessory.state_notes }}</td>
                     </tr>
                     <tr>
                         <td colspan="10">Description: {{ accessory.description }}</td>

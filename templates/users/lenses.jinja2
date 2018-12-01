@@ -35,7 +35,7 @@
                 </tr>
                 {% for lens in lenses %}
                     <tr>
-                        <td rowspan="2" width="210px">
+                        <td rowspan="4" width="210px">
                             {% if lens.pic_filename %}<img src="/uploads/pictures/{{ lens.pic_filename | thumbnail('200x200', crop='aaa', quality=90) }}">{% endif %}
                         </td>
                         <td>{% if lens.private %}<i class="fa fa-lock" aria-hidden="true"></i> {% endif %}{{ lens.manufacturer }}</td>
@@ -52,6 +52,12 @@
                                 <a href="{{ url_for("bp_lenses.delete", lens_id=lens.id) }}" class="delete_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         {% endif %}
+                    </tr>
+                    <tr>
+                        <td colspan="10">Model Notes: {{ lens.model_notes }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">State notes: {{ lens.state_notes }}</td>
                     </tr>
                     <tr>
                         <td colspan="10">Description: {{ lens.description }}</td>

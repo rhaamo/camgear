@@ -16,14 +16,14 @@ def manufacturer():
     s = request.args.get("query")
 
     cam = db.session.query(Camera.manufacturer).filter(Camera.user_id == current_user.id).group_by(Camera.manufacturer)
-    lens = db.session.query(Lens.manufacturer).filter(Camera.user_id == current_user.id).group_by(Lens.manufacturer)
+    lens = db.session.query(Lens.manufacturer).filter(Lens.user_id == current_user.id).group_by(Lens.manufacturer)
     acc = (
         db.session.query(Accessory.manufacturer)
-        .filter(Camera.user_id == current_user.id)
+        .filter(Accessory.user_id == current_user.id)
         .group_by(Accessory.manufacturer)
     )
-    all = cam.union(lens).union(acc).all()
-    return jsonify({"query": s, "suggestions": [i[0] for i in all]})
+    manufacturers = cam.union(lens).union(acc).all()
+    return jsonify({"query": s, "suggestions": [i[0] for i in manufacturers]})
 
 
 @bp_autocomplete.route("/api/autocomplete/mount", methods=["GET", "POST"])
@@ -34,23 +34,23 @@ def mount():
     s = request.args.get("query")
 
     cam = db.session.query(Camera.mount).filter(Camera.user_id == current_user.id).group_by(Camera.mount)
-    lens = db.session.query(Lens.mount).filter(Camera.user_id == current_user.id).group_by(Lens.mount)
-    acc = db.session.query(Accessory.mount).filter(Camera.user_id == current_user.id).group_by(Accessory.mount)
-    all = cam.union(lens).union(acc).all()
-    return jsonify({"query": s, "suggestions": [i[0] for i in all]})
+    lens = db.session.query(Lens.mount).filter(Lens.user_id == current_user.id).group_by(Lens.mount)
+    acc = db.session.query(Accessory.mount).filter(Accessory.user_id == current_user.id).group_by(Accessory.mount)
+    mounts = cam.union(lens).union(acc).all()
+    return jsonify({"query": s, "suggestions": [i[0] for i in mounts]})
 
 
-@bp_autocomplete.route("/api/autocomplete/batteries", methods=["GET", "POST"])
+@bp_autocomplete.route("/api/autocomplete/battery", methods=["GET", "POST"])
 @login_required
-def batteries():
+def battery():
     # From: Camera and Accessories
     # Only current_user
     s = request.args.get("query")
 
     cam = db.session.query(Camera.batteries).filter(Camera.user_id == current_user.id).group_by(Camera.batteries)
-    acc = db.session.query(Accessory.batteries).filter(Camera.user_id == current_user.id).group_by(Accessory.batteries)
-    all = cam.union(acc).all()
-    return jsonify({"query": s, "suggestions": [i[0] for i in all]})
+    acc = db.session.query(Accessory.batteries).filter(Accessory.user_id == current_user.id).group_by(Accessory.batteries)
+    batteries = cam.union(acc).all()
+    return jsonify({"query": s, "suggestions": [i[0] for i in batteries]})
 
 
 @bp_autocomplete.route("/api/autocomplete/model", methods=["GET", "POST"])
@@ -61,7 +61,7 @@ def model():
     s = request.args.get("query")
 
     cam = db.session.query(Camera.model).filter(Camera.user_id == current_user.id).group_by(Camera.model)
-    lens = db.session.query(Lens.model).filter(Camera.user_id == current_user.id).group_by(Lens.model)
-    acc = db.session.query(Accessory.model).filter(Camera.user_id == current_user.id).group_by(Accessory.model)
-    all = cam.union(lens).union(acc).all()
-    return jsonify({"query": s, "suggestions": [i[0] for i in all]})
+    lens = db.session.query(Lens.model).filter(Lens.user_id == current_user.id).group_by(Lens.model)
+    acc = db.session.query(Accessory.model).filter(Accessory.user_id == current_user.id).group_by(Accessory.model)
+    models = cam.union(lens).union(acc).all()
+    return jsonify({"query": s, "suggestions": [i[0] for i in models]})
