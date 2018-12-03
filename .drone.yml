@@ -46,6 +46,17 @@ pipeline:
       volumes:
           - /tmp/cache:/cache
 
+  publish-web:
+    image: plugins/docker
+    repo: dashie/camgear
+    dockerfile: Dockerfile
+    tags: [ latest, master ]
+    secrets:
+        - DOCKER_USERNAME
+        - DOCKER_PASSWORD
+    when:
+      branch: master
+
   notify:
     image: plugins/slack
     channel: gitea
