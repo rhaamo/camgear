@@ -26,7 +26,9 @@
                     <th>{{ gettext("Manufacturer") }}</th>
                     <th>{{ gettext("Model") }}</th>
                     <th>{{ gettext("State") }}</th>
-                    <th>{{ gettext("Actions") }}</th>
+                    {% if current_user.is_authenticated and user == current_user %}
+                        <th>{{ gettext("Actions") }}</th>
+                    {% endif %}
                 </tr>
                 {% for camera in cameras %}
                     <tr>
