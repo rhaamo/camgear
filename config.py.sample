@@ -15,6 +15,7 @@ BASE_URL = "https://" + SERVER_NAME
 
 SQLALCHEMY_DATABASE_URI = \
     'postgresql+psycopg2://postgres@database/camgear'
+# Use 'sqlite:////data/camgear.db' for docker and sqlite3
 
 # Should users confirm theire email address ?
 SECURITY_CONFIRMABLE = True
