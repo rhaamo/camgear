@@ -13,7 +13,7 @@ RUN mkdir -p /app /data /config
 WORKDIR /app
 
 ADD requirements.txt /app/
-RUN apk add --no-cache git git libffi postgresql-client
+RUN apk add --no-cache git git libffi postgresql-client libjpeg libpng
 RUN apk add --no-cache --virtual .build-deps gcc g++ libffi-dev postgresql-dev cmake make pkgconfig jpeg-dev zlib-dev python-dev
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir waitress
@@ -29,4 +29,4 @@ EXPOSE 8000
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["waitress-serve", "--call", "app:create_app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "8000" "app:create_app"]
