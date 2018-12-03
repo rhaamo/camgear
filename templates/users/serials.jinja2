@@ -17,11 +17,14 @@
                     <th>{{ gettext("Serial") }}</th>
                 </tr>
                 {% for serial in serials %}
+                    {% if serial.serial %}
                     <tr>
                         <td>{{ serial.manufacturer }}</td>
                         <td>{{ serial.model }}</td>
                         <td>{{ serial.state | state_to_str }}</td>
                         <td>{{ serial.serial }}</td>
+                    </tr>
+                    {% endif %}
                 {% endfor %}
             </table>
 

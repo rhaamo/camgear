@@ -192,6 +192,8 @@ def serials():
         flash(gettext("User not found"), "error")
         return redirect(url_for("bp_main.home"))
 
+    # TODO FIXME: isnot(None) isn't sufficient to filter empty serials, how to do that ?
+    # (Currently done in the template)
     sn_cameras = db.session.query(Camera.id, Camera.manufacturer, Camera.model, Camera.serial, Camera.state).filter(
         Camera.user_id == user.id, Camera.serial.isnot(None)
     )
