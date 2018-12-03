@@ -29,4 +29,4 @@ EXPOSE 8000
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "8000" "app:create_app"]
+CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "8000", "--call", "app:create_app"]
