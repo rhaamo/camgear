@@ -46,7 +46,9 @@ mail = Mail()
 def create_app(config_filename="config.py", app_name=None, register_blueprints=True):
     # App configuration
     app = Flask(app_name or __name__)
-    app.config.from_pyfile(config_filename)
+
+    env_cfg = os.getenv("CUSTOM_CONFIG", config_filename)
+    app.config.from_pyfile(env_cfg)
 
     Bootstrap(app)
 

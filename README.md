@@ -49,7 +49,11 @@ Or if you have disabled registration, use the ``` flask createuser ``` command t
     
 # Docker
 
-TODO
+Use the image ```dashie/camgear```, currently available tags : latest, master
+
+Use the docker env config:
+ - INSTALL_SENTRY=True if you want to install and use Sentry
+ - CUSTOM_CONFIG=/config/config.py Mandatory if you want to use it, and use your own config in that dir/mount bind
 
 # Licensing
  - MIT License
