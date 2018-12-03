@@ -204,6 +204,10 @@ enum_film_types = {
 enum_focuses_types = {0: "Unknown", 5: "Manual", 10: "Automatic", 15: "Fixed"}
 
 
+def state_str(state):
+    return enum_states[state]
+
+
 class Accessory(db.Model):
     __tablename__ = "accessory"
     id = db.Column(db.Integer, primary_key=True)

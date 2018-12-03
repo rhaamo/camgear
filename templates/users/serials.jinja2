@@ -1,0 +1,30 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10"><h3>{{ gettext("My serials") }}</h3></div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-sm table-stripped table-bordered">
+                <tr>
+                    <th>{{ gettext("Manufacturer") }}</th>
+                    <th>{{ gettext("Model") }}</th>
+                    <th>{{ gettext("State") }}</th>
+                    <th>{{ gettext("Serial") }}</th>
+                </tr>
+                {% for serial in serials %}
+                    <tr>
+                        <td>{{ serial.manufacturer }}</td>
+                        <td>{{ serial.model }}</td>
+                        <td>{{ serial.state | state_to_str }}</td>
+                        <td>{{ serial.serial }}</td>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

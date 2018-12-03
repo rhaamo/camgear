@@ -16,7 +16,7 @@ from flask_uploads import configure_uploads, UploadSet, patch_request_class
 from flask_thumbnails import Thumbnail
 
 from forms import ExtendedRegisterForm
-from models import db, user_datastore, Role
+from models import db, user_datastore, Role, state_str
 from utils import InvalidUsage, is_admin, add_user_log, IMAGES
 
 import texttable
@@ -55,6 +55,7 @@ def create_app(config_filename="config.py", app_name=None, register_blueprints=T
     app.jinja_env.add_extension("jinja2.ext.with_")
     app.jinja_env.add_extension("jinja2.ext.do")
     app.jinja_env.globals.update(is_admin=is_admin)
+    app.jinja_env.filters["state_to_str"] = state_str
 
     if HAS_SENTRY:
         app.config["SENTRY_RELEASE"] = raven.fetch_git_sha(os.path.dirname(__file__))

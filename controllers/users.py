@@ -180,3 +180,27 @@ def lenses(name):
 @bp_users.route("/user/<string:name>", methods=["GET"])
 def profile(name):
     return cameras(name)
+
+
+@bp_users.route("/account/serials", methods=["GET"])
+@login_required
+def serials():
+    pcfg = {"title": gettext("My serials")}
+
+    user = User.query.filter(User.id == current_user.id).first()
+    if not user:
+        flash(gettext("User not found"), "error")
+        return redirect(url_for("bp_main.home"))
+
+    sn_cameras = db.session.query(Camera.id, Camera.manufacturer, Camera.model, Camera.serial, Camera.state).filter(
+        Camera.user_id == user.id, Camera.serial.isnot(None)
+    )
+    sn_lenses = db.session.query(Lens.id, Lens.manufacturer, Lens.model, Lens.serial, Lens.state).filter(
+        Lens.user_id == user.id, Lens.serial.isnot(None)
+    )
+    sn_accessories = db.session.query(
+        Accessory.id, Accessory.manufacturer, Accessory.model, Accessory.serial, Accessory.state
+    ).filter(Accessory.user_id == user.id, Accessory.serial.isnot(None))
+    all_serials = sn_cameras.union(sn_lenses).union(sn_accessories).all()
+
+    return render_template("users/serials.jinja2", pcfg=pcfg, serials=all_serials)
