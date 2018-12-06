@@ -42,7 +42,8 @@ def new():
 
         camera.iso_min = form.iso_min.data
         camera.iso_max = form.iso_max.data
-        camera.focale = form.focale.data
+        camera.focale_min = form.focale_min.data
+        camera.focale_max = form.focale_max.data
         camera.min_aperture = form.min_aperture.data
         camera.max_aperture = form.max_aperture.data
         camera.blades = form.blades.data

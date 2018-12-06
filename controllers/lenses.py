@@ -31,7 +31,8 @@ def new():
         lens.serial = form.serial.data
         lens.mount = form.mount.data
 
-        lens.focale = form.focale.data
+        lens.focale_min = form.focale_min.data
+        lens.focale_max = form.focale_max.data
         lens.min_aperture = form.min_aperture.data
         lens.max_aperture = form.max_aperture.data
         lens.lens_type = form.lens_type.data

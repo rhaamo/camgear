@@ -251,7 +251,8 @@ class Lens(db.Model):
     serial = db.Column(db.String(255), nullable=True)
     mount = db.Column(db.String(255), nullable=True)
 
-    focale = db.Column(db.Integer(), nullable=True, default=0)
+    focale_min = db.Column("focale", db.Integer(), nullable=True, default=0)
+    focale_max = db.Column(db.Integer(), nullable=True, default=0)
     min_aperture = db.Column(db.Float(), nullable=True, default=0)
     max_aperture = db.Column(db.Float(), nullable=True, default=0)
     lens_type = db.Column(db.Integer(), nullable=False, default=0)  # ENUM_LENSES_TYPES
@@ -284,6 +285,36 @@ class Lens(db.Model):
     def lens_type_str(self):
         return enum_lenses_types[self.lens_type]
 
+    def focale_str(self):
+        if self.focale_min == self.focale_max:
+            return self.focale_min
+
+        mm = None
+        if self.focale_min is not None and self.focale_min != "":
+            mm = self.focale_min
+        if self.focale_max is not None and self.focale_max != "":
+            if mm:
+                mm = f"{mm} - {self.focale_max}"
+            else:
+                # *shrug*
+                mm = self.focale_max
+        return mm
+
+    def aperture_str(self):
+        if self.min_aperture == self.max_aperture:
+            return self.min_aperture
+
+        f = None
+        if self.min_aperture is not None and self.min_aperture != "":
+            f = self.min_aperture
+        if self.max_aperture is not None and self.max_aperture != "":
+            if f:
+                f = f"{f} - {self.max_aperture}"
+            else:
+                # *shrug*
+                f = self.max_aperture
+        return f
+
 
 class Camera(db.Model):
     __tablename__ = "camera"
@@ -310,7 +341,8 @@ class Camera(db.Model):
 
     iso_min = db.Column(db.Integer(), default=0)
     iso_max = db.Column(db.Integer(), default=0)
-    focale = db.Column(db.Integer(), nullable=False, default=0)
+    focale_min = db.Column("focale", db.Integer(), nullable=False, default=0)
+    focale_max = db.Column(db.Integer(), nullable=True, default=0)
     min_aperture = db.Column(db.Float(), default=0)
     max_aperture = db.Column(db.Float(), default=0)
     blades = db.Column(db.Boolean(), default=True)
@@ -343,3 +375,33 @@ class Camera(db.Model):
 
     def focus_str(self):
         return enum_focuses_types[self.focus]
+
+    def focale_str(self):
+        if self.focale_min == self.focale_max:
+            return self.focale_min
+
+        mm = None
+        if self.focale_min is not None and self.focale_min != "":
+            mm = self.focale_min
+        if self.focale_max is not None and self.focale_max != "":
+            if mm:
+                mm = f"{mm} - {self.focale_max}"
+            else:
+                # *shrug*
+                mm = self.focale_max
+        return mm
+
+    def aperture_str(self):
+        if self.min_aperture == self.max_aperture:
+            return self.min_aperture
+
+        f = None
+        if self.min_aperture is not None and self.min_aperture != "":
+            f = self.min_aperture
+        if self.max_aperture is not None and self.max_aperture != "":
+            if f:
+                f = f"{f} - {self.max_aperture}"
+            else:
+                # *shrug*
+                f = self.max_aperture
+        return f

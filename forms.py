@@ -117,7 +117,8 @@ class LensForm(BaseModelForm):
     serial = StringField(gettext("Serial number (stay private)"), [Length(max=255)])
     mount = StringField(gettext("Mount"), [Length(max=255)])
 
-    focale = IntegerField(gettext("Focale"), default=0)
+    focale_min = IntegerField(gettext("Focale min"), default=0)
+    focale_max = IntegerField(gettext("Focale max"), default=0)
     min_aperture = FloatField(gettext("Min Aperture"), default=0)
     max_aperture = FloatField(gettext("Max Aperture"), default=0)
     lens_type = SelectField(coerce=int, label=gettext("Lens Type"), choices=get_enum_lenses_types(), default=0)
@@ -169,7 +170,8 @@ class CameraForm(BaseModelForm):
 
     iso_min = IntegerField(gettext("ISO Min"), default=0)
     iso_max = IntegerField(gettext("ISO Max"), default=0)
-    focale = IntegerField(gettext("Focale"), default=0)
+    focale_min = IntegerField(gettext("Focale min"), default=0)
+    focale_max = IntegerField(gettext("Focale max"), default=0)
     min_aperture = FloatField(gettext("Min Aperture"), default=0)
     max_aperture = FloatField(gettext("Max Aperture"), default=0)
     blades = BooleanField(gettext("Using blades"))
