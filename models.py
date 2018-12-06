@@ -171,6 +171,7 @@ enum_cameras_types = {
     50: "Reflex SLR",
     55: "Reflex TLR",
     60: "Reflex DSLR",
+    65: "Digital",
 }
 
 enum_film_types = {
