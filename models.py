@@ -202,7 +202,7 @@ enum_film_types = {
     120: "Pack-Film 80",
 }
 
-enum_focuses_types = {0: "Unknown", 5: "Manual", 10: "Automatic", 15: "Fixed"}
+enum_focuses_types = {0: "Unknown", 5: "Manual", 10: "Automatic", 15: "Fixed", 20: "Auto/Man"}
 
 
 def state_str(state):
