@@ -4,7 +4,7 @@ texttable==1.6.0
 Unidecode==1.0.23
 python-magic==0.4.15
 flask==1.0.2
-python-slugify==1.2.6
+python-slugify==2.0.1
 wtforms==2.2.1
 sqlalchemy==1.2.17
 bcrypt==3.1.4
