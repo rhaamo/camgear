@@ -5,7 +5,7 @@ from wtforms import widgets
 from wtforms.fields.core import StringField, IntegerField, FloatField, BooleanField
 from wtforms.validators import DataRequired, ValidationError, Length, Regexp
 from wtforms_alchemy import model_form_factory
-from flask_babelex import gettext
+from flask_babel import gettext
 from flask_wtf.file import FileField, FileAllowed
 from flask_uploads import UploadSet
 

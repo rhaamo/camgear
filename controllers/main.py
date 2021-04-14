@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from flask_babelex import gettext
+from flask_babel import gettext
 
 bp_main = Blueprint("bp_main", __name__)
 

@@ -31,7 +31,7 @@ setup(
         "bcrypt",
         "psycopg2-binary",
         "unidecode",
-        "Flask_Babelex",
+        "Flask_Babel",
         "texttable",
         "python-slugify",
         "python-magic",

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
-from flask_babelex import gettext
+from flask_babel import gettext
 from flask_security import login_required, current_user
 from flask_uploads import UploadSet
 import os
