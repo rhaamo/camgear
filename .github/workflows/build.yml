@@ -48,7 +48,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt update
-          sudo apt install -y postgresql-client git libffi7 libffi-dev cmake build-essential make pkgconfig jpeg-dev zlib-dev
+          sudo apt install -y postgresql-client git libffi7 libffi-dev cmake build-essential make pkg-config
 
       - name: Install python dependencies
         run: |
