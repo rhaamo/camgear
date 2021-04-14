@@ -14,7 +14,7 @@ WORKDIR /app
 
 ADD requirements.txt /app/
 RUN apk add --no-cache git git libffi postgresql-client libjpeg libpng
-RUN apk add --no-cache --virtual .build-deps gcc g++ libffi-dev postgresql-dev cmake make pkgconfig jpeg-dev zlib-dev python-dev
+RUN apk add --no-cache --virtual .build-deps gcc g++ libffi-dev postgresql-dev cmake make pkgconfig jpeg-dev zlib-dev python3-dev
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir waitress
 RUN apk del .build-deps
