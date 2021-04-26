@@ -46,12 +46,12 @@ class Lens(models.Model):
     private = models.BooleanField(default=False)
     can_be_sold = models.BooleanField(default=False)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     url1 = models.URLField(blank=True)
     url2 = models.URLField(blank=True)
     url3 = models.URLField(blank=True)
-
-    # TODO pictures
-    # TODO documents
 
     # TODO user
 
@@ -104,12 +104,12 @@ class Camera(models.Model):
     private = models.BooleanField(default=False)
     can_be_sold = models.BooleanField(default=False)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     url1 = models.URLField(blank=True)
     url2 = models.URLField(blank=True)
     url3 = models.URLField(blank=True)
-
-    # TODO pictures
-    # TODO documents
 
     # TODO user
 

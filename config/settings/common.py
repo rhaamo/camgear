@@ -87,7 +87,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = ["mptt", "imagekit", "django_admin_listfilter_dropdown", "django_extensions"]
 
-LOCAL_APPS = ["controllers.users", "controllers.gear"]  # custom users app
+LOCAL_APPS = ["controllers.users", "controllers.gear", "controllers.files"]  # custom users app
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 
@@ -270,6 +270,27 @@ LOGIN_REDIRECT_URL = "/parts"
 LOGOUT_REDIRECT_URL = LOGIN_URL
 
 AUTH_USER_MODEL = "users.User"
+
+# Various other things
+ITEM_ATTACHMENT_ALLOWED_PICTURES_TYPES = [
+    "image/gif",
+    "image/jpeg",
+    "image/png",
+]
+
+ITEM_ATTACHMENT_ALLOWED_OTHER_TYPES = [
+    "application/pdf",
+    "application/xml",
+    "image/svg+xml",
+    "text/html",
+    "text/plain",
+    "text/xml",
+    "application/msword",
+    "application/vnd.ms-excel",
+    "application/vnd.oasis.opendocument.text",
+    "application/vnd.oasis.opendocument.spreadsheet",
+    "application/zip",  # excel lol
+]
 
 # 50M (50*1024*1024)
 FILE_UPLOAD_MAX_MEMORY_SIZE = env("FILE_UPLOAD_MAX_MEMORY_SIZE", default=50 * 1024 * 1024)
