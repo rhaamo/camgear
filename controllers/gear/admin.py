@@ -82,7 +82,7 @@ class CameraAdmin(CommonAdmin):
         "details",
     )
 
-    search_fields = ("name", "state_notes", "model_notes", "description")
+    search_fields = ("name", "state_notes", "model_notes", "description", "serial")
 
     def details(self, obj):
         x = []
@@ -187,7 +187,7 @@ class MountAdmin(CommonAdmin):
 class LensAdmin(CommonAdmin):
     list_display = ("id", "picture", "lens_model", "state", "mount", "lens_focale", "lens_aperture", "focus", "details")
 
-    search_fields = ("name", "state_notes", "model_notes", "description")
+    search_fields = ("name", "state_notes", "model_notes", "description", "serial")
 
     def details(self, obj):
         x = []
@@ -282,7 +282,7 @@ class AccessoryAdmin(CommonAdmin):
         "mount",
     )
 
-    search_fields = ("name", "state_notes", "model_notes", "description")
+    search_fields = ("name", "state_notes", "model_notes", "description", "serial")
 
     def accessory_model(self, obj):
         return obj.__str__()

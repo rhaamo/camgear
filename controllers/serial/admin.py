@@ -9,12 +9,12 @@ class CameraSerialsAdmin(CommonAdmin):
     """
 
     list_display = ("camera_model", "state", "serial")
-    search_fields = ("name", "state_notes", "model_notes", "description")
+    search_fields = ("name", "state_notes", "model_notes", "description", "serial")
 
     def camera_model(self, obj):
         return obj.__str__()
 
-    list_filter = ("manufacturer", "mount", "film_type", "can_be_sold")
+    list_filter = ("manufacturer", "can_be_sold")
 
     def get_actions(self, request):
         actions = super().get_actions(request)
@@ -38,12 +38,12 @@ class LensSerialsAdmin(CommonAdmin):
     """
 
     list_display = ("camera_model", "state", "serial")
-    search_fields = ("name", "state_notes", "model_notes", "description")
+    search_fields = ("name", "state_notes", "model_notes", "description", "serial")
 
     def camera_model(self, obj):
         return obj.__str__()
 
-    list_filter = ("manufacturer", "mount", "can_be_sold")
+    list_filter = ("manufacturer", "can_be_sold")
 
     def get_actions(self, request):
         actions = super().get_actions(request)
@@ -67,12 +67,12 @@ class AccessorySerialsAdmin(CommonAdmin):
     """
 
     list_display = ("camera_model", "state", "serial")
-    search_fields = ("name", "state_notes", "model_notes", "description")
+    search_fields = ("name", "state_notes", "model_notes", "description", "serial")
 
     def camera_model(self, obj):
         return obj.__str__()
 
-    list_filter = ("manufacturer", "mount", "can_be_sold")
+    list_filter = ("manufacturer", "can_be_sold")
 
     def get_actions(self, request):
         actions = super().get_actions(request)
