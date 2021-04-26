@@ -32,7 +32,7 @@ pyflakes==2.2.0
 Pygments==2.7.2
 python-magic==0.4.18
 pytz==2020.4
-PyYAML==5.3.1
+PyYAML==5.4
 regex==2020.11.13
 six==1.15.0
 sqlparse==0.4.1
