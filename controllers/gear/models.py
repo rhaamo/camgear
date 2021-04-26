@@ -1,7 +1,5 @@
 from django.db import models
 
-from controllers.users.models import User
-
 from .enums import States, CamerasTypes, FilmTypes, FocusesTypes, LensesTypes
 
 
