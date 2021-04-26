@@ -87,7 +87,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = ["mptt", "imagekit", "django_admin_listfilter_dropdown", "django_extensions"]
 
-LOCAL_APPS = ["controllers.users", "controllers.gear", "controllers.files"]  # custom users app
+LOCAL_APPS = ["controllers.users", "controllers.gear", "controllers.files", "controllers.serial"]  # custom users app
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 
