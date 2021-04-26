@@ -25,23 +25,23 @@ class Lens(models.Model):
     model = models.CharField(max_length=255, blank=True)
     model_notes = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
-    serial = models.CharField(max_length=255, blank=True)
+    serial = models.CharField("Serial (private)", max_length=255, blank=True)
     mount = models.ForeignKey(Mount, null=True, on_delete=models.SET_NULL)
 
-    focale_min = models.IntegerField(blank=False, default=0)
-    focale_max = models.IntegerField(blank=False, default=0)
+    focale_min = models.IntegerField("Focale min (mm)", blank=False, default=0)
+    focale_max = models.IntegerField("Focale max (mm)", blank=False, default=0)
     min_aperture = models.FloatField(default=0)
     max_aperture = models.FloatField(default=0)
     lens_type = models.IntegerField(blank=False, default=LensesTypes.UNKNOWN, choices=LensesTypes.choices)
-    macro = models.BooleanField(default=True)
-    macro_length = models.IntegerField(default=0)
-    filter_diameter = models.IntegerField(default=0)
-    blades = models.BooleanField(default=True)
+    macro = models.BooleanField("Macro capable", default=True)
+    macro_length = models.IntegerField("Min macro (cm)", default=0)
+    filter_diameter = models.IntegerField("Filter Dia. (mm)", default=0)
+    blades = models.BooleanField("Using blades", default=True)
     angle = models.FloatField(default=0, blank=True)
-    focus = models.IntegerField(blank=False, default=FocusesTypes.UNKNOWN, choices=FocusesTypes.choices)
-    focus_length = models.IntegerField(default=0, blank=True)
-    weight = models.IntegerField(default=0)  # g.
-    length = models.IntegerField(default=0)  # mm
+    focus = models.IntegerField("Focus mode", blank=False, default=FocusesTypes.UNKNOWN, choices=FocusesTypes.choices)
+    focus_length = models.IntegerField("Min focus (cm)", default=0)
+    weight = models.IntegerField("Weight (g)", default=0)  # g.
+    length = models.IntegerField("Length (cm)", default=0)  # cm
 
     private = models.BooleanField(default=False)
     can_be_sold = models.BooleanField(default=False)
@@ -131,7 +131,7 @@ class Accessory(models.Model):
     model = models.CharField(max_length=255, blank=True)
     model_notes = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
-    serial = models.CharField(max_length=255, blank=True)
+    serial = models.CharField("Serial (private)", max_length=255, blank=True)
     mount = models.ForeignKey(Mount, null=True, on_delete=models.SET_NULL)
     batteries = models.CharField(max_length=255, blank=True)  # autocomplete
 
