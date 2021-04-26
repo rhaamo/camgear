@@ -4,6 +4,7 @@ from controllers.users.models import User
 
 from .enums import States, CamerasTypes, FilmTypes, FocusesTypes, LensesTypes
 
+
 class Manufacturer(models.Model):
     name = models.CharField(max_length=255, blank=False)
 
@@ -33,7 +34,7 @@ class Lens(models.Model):
     focale_max = models.IntegerField(blank=False, default=0)
     min_aperture = models.FloatField(default=0)
     max_aperture = models.FloatField(default=0)
-    lens_type = models.IntegerField(blank=False, default=LensesTypes.UNKNOWN, choices=LensesTypes.choices) 
+    lens_type = models.IntegerField(blank=False, default=LensesTypes.UNKNOWN, choices=LensesTypes.choices)
     macro = models.BooleanField(default=True)
     macro_length = models.IntegerField(default=0)
     filter_diameter = models.IntegerField(default=0)
@@ -81,7 +82,7 @@ class Camera(models.Model):
 
     camera_type = models.IntegerField(blank=False, default=CamerasTypes.UNKNOWN, choices=CamerasTypes.choices)
 
-    film_type = models.IntegerField(blank=False, default=FilmTypes.UNKNOWN, choices=FilmTypes.choices) 
+    film_type = models.IntegerField(blank=False, default=FilmTypes.UNKNOWN, choices=FilmTypes.choices)
     auto_expo = models.BooleanField(default=True)
     auto_focus = models.BooleanField(default=True)
     batteries = models.CharField(max_length=255, blank=True)  # autocomplete

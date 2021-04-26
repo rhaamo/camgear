@@ -85,22 +85,16 @@ DJANGO_APPS = [
     "django.contrib.admin",
 ]
 
-THIRD_PARTY_APPS = [
-    "mptt",
-    "imagekit",
-    "django_admin_listfilter_dropdown",
-    "django_extensions"
-]
+THIRD_PARTY_APPS = ["mptt", "imagekit", "django_admin_listfilter_dropdown", "django_extensions"]
 
-LOCAL_APPS = [
-    "controllers.users",  # custom users app
-    "controllers.gear"
-]
+LOCAL_APPS = ["controllers.users", "controllers.gear"]  # custom users app
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 
 ADDITIONAL_APPS = env.list("ADDITIONAL_APPS", default=[])
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + ADDITIONAL_APPS + LOCAL_APPS + ["baton.autodiscover"]  # has to be at the end too
+INSTALLED_APPS = (
+    DJANGO_APPS + THIRD_PARTY_APPS + ADDITIONAL_APPS + LOCAL_APPS + ["baton.autodiscover"]
+)  # has to be at the end too
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------

@@ -23,7 +23,7 @@ from controllers.utils import static
 
 urlpatterns = [
     url(settings.ADMIN_URL, admin.site.urls),
-    path('baton/', include('baton.urls')),
+    path("baton/", include("baton.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
