@@ -75,6 +75,7 @@ INTERNAL_IPS = ALLOWED_HOSTS
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
+    "baton",  # has to be there
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -99,7 +100,7 @@ LOCAL_APPS = [
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 
 ADDITIONAL_APPS = env.list("ADDITIONAL_APPS", default=[])
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + ADDITIONAL_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + ADDITIONAL_APPS + LOCAL_APPS + ["baton.autodiscover"]  # has to be at the end too
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -283,4 +284,23 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = FILE_UPLOAD_MAX_MEMORY_SIZE
 CACHES = {
     "default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache", "LOCATION": "default-cache"},
     "local": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache", "LOCATION": "local-cache"},
+}
+
+# Baton admin config
+BATON = {
+    "SITE_HEADER": "CamGear Inventory",
+    "SITE_TITLE": "CamGear Admin Portal",
+    "INDEX_TITLE": "Welcome to CamGear",
+    "SUPPORT_HREF": "https://github.com/rhaamo/camgear",
+    "COPYRIGHT": "squeak squeak",  # noqa
+    "POWERED_BY": "an otter",
+    "CONFIRM_UNSAVED_CHANGES": True,
+    "SHOW_MULTIPART_UPLOADING": True,
+    "ENABLE_IMAGES_PREVIEW": True,
+    "CHANGELIST_FILTERS_IN_MODAL": False,
+    "CHANGELIST_FILTERS_ALWAYS_OPEN": True,
+    "MENU_ALWAYS_COLLAPSED": False,
+    "MENU_TITLE": "Menu",
+    "GRAVATAR_DEFAULT_IMG": "retro",
+    "ANALYTICS": None,
 }
