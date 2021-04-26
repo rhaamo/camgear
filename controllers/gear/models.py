@@ -75,31 +75,32 @@ class Camera(models.Model):
     model = models.CharField(max_length=255, blank=True)
     model_notes = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
-    serial = models.CharField(max_length=255, blank=True)
-    mount = models.ForeignKey(Mount, null=True, on_delete=models.SET_NULL)
+    serial = models.CharField("Serial (private)", max_length=255, blank=True)
+    mount = models.ForeignKey(Mount, null=True, blank=True, on_delete=models.SET_NULL)
 
     camera_type = models.IntegerField(blank=False, default=CamerasTypes.UNKNOWN, choices=CamerasTypes.choices)
 
     film_type = models.IntegerField(blank=False, default=FilmTypes.UNKNOWN, choices=FilmTypes.choices)
-    auto_expo = models.BooleanField(default=True)
+    auto_expo = models.BooleanField("Auto exposure", default=True)
     auto_focus = models.BooleanField(default=True)
     batteries = models.CharField(max_length=255, blank=True)  # autocomplete
     hot_shoe = models.BooleanField(default=True)
     fixed_lens = models.BooleanField(default=False)
 
-    iso_min = models.IntegerField(default=0)
-    iso_max = models.IntegerField(default=0)
-    focale_min = models.IntegerField(blank=False, default=0)
-    focale_max = models.IntegerField(blank=False, default=0)
+    iso_min = models.IntegerField("ISO min", default=0)
+    iso_max = models.IntegerField("ISO max", default=0)
+    focale_min = models.IntegerField("Focale min (mm)", blank=False, default=0)
+    focale_max = models.IntegerField("Focale max (mm)", blank=False, default=0)
     min_aperture = models.FloatField(default=0)
     max_aperture = models.FloatField(default=0)
-    blades = models.BooleanField(default=True)
-    filter_diameter = models.IntegerField(default=0)
-    weight = models.IntegerField(default=0)  # g.
-    length = models.IntegerField(default=0)  # mm
-    focus = models.IntegerField(blank=False, default=FocusesTypes.UNKNOWN, choices=FocusesTypes.choices)
-    macro = models.BooleanField(default=True)
-    macro_length = models.IntegerField(default=0)
+    blades = models.BooleanField("Using blades", default=True)
+    filter_diameter = models.IntegerField("Filter Dia. (mm)", default=0)
+    weight = models.IntegerField("Weight (g)", default=0)  # g.
+    length = models.IntegerField("Length (cm)", default=0)  # cm
+    focus = models.IntegerField("Focus mode", blank=False, default=FocusesTypes.UNKNOWN, choices=FocusesTypes.choices)
+    focus_length = models.IntegerField("Min focus (cm)", default=0)
+    macro = models.BooleanField("Macro capable", default=True)
+    macro_length = models.IntegerField("Min macro (cm)", default=0)
 
     private = models.BooleanField(default=False)
     can_be_sold = models.BooleanField(default=False)
