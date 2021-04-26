@@ -7,22 +7,24 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('gear', '0005_accessory'),
+        ("gear", "0005_accessory"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='accessory',
-            options={'verbose_name_plural': 'Accessories'},
+            name="accessory",
+            options={"verbose_name_plural": "Accessories"},
         ),
         migrations.AddField(
-            model_name='camera',
-            name='focus_length',
+            model_name="camera",
+            name="focus_length",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='camera',
-            name='mount',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='gear.mount'),
+            model_name="camera",
+            name="mount",
+            field=models.ForeignKey(
+                blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to="gear.mount"
+            ),
         ),
     ]

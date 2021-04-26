@@ -79,7 +79,7 @@ class CameraAdmin(CommonAdmin):
         "camera_focale",
         "camera_aperture",
         "focus",
-        "infos"
+        "infos",
     )
 
     search_fields = ("name", "state_notes", "model_notes", "description")
@@ -179,17 +179,7 @@ class MountAdmin(CommonAdmin):
 
 
 class LensAdmin(CommonAdmin):
-    list_display = (
-        "id",
-        "picture",
-        "lens_model",
-        "state",
-        "mount",
-        "lens_focale",
-        "lens_aperture",
-        "focus",
-        "infos"
-    )
+    list_display = ("id", "picture", "lens_model", "state", "mount", "lens_focale", "lens_aperture", "focus", "infos")
 
     search_fields = ("name", "state_notes", "model_notes", "description")
 
