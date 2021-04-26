@@ -102,7 +102,7 @@ class CameraAdmin(CommonAdmin):
     def camera_aperture(self, obj):
         return f"{obj.min_aperture or 'x'} - {obj.max_aperture or 'x'}"
 
-    list_filter = ("manufacturer", "mount", "film_type")
+    list_filter = ("manufacturer", "mount", "film_type", "can_be_sold")
 
     inlines = [CameraPicturesInline, CameraFilesInline]
 
@@ -200,7 +200,7 @@ class LensAdmin(CommonAdmin):
     def lens_aperture(self, obj):
         return f"{obj.min_aperture or 'x'} - {obj.max_aperture or 'x'}"
 
-    list_filter = ("manufacturer", "mount", "lens_type")
+    list_filter = ("manufacturer", "mount", "lens_type", "can_be_sold")
 
     inlines = [LensPicturesInline, LensFilesInline]
 
@@ -279,7 +279,7 @@ class AccessoryAdmin(CommonAdmin):
         else:
             return None
 
-    list_filter = ("manufacturer", "mount")
+    list_filter = ("manufacturer", "mount", "can_be_sold")
 
     inlines = [AccessoryPicturesInline, AccessoryFilesInline]
 
