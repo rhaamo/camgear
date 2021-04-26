@@ -120,3 +120,39 @@ class Camera(models.Model):
         if self.model:
             name.append(self.model)
         return " ".join(name)
+
+
+class Accessory(models.Model):
+    state = models.IntegerField(blank=False, default=States.UNKNOWN, choices=States.choices)
+    state_notes = models.CharField(max_length=255, blank=True)
+
+    manufacturer = models.ForeignKey(Manufacturer, null=True, on_delete=models.SET_NULL)
+    model = models.CharField(max_length=255, blank=True)
+    model_notes = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+    serial = models.CharField(max_length=255, blank=True)
+    mount = models.ForeignKey(Mount, null=True, on_delete=models.SET_NULL)
+    batteries = models.CharField(max_length=255, blank=True)  # autocomplete
+
+    private = models.BooleanField(default=False)
+    can_be_sold = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    url1 = models.URLField(blank=True)
+    url2 = models.URLField(blank=True)
+    url3 = models.URLField(blank=True)
+
+    # TODO user
+
+    class Meta:
+        verbose_name_plural = "Accessories"
+
+    def __str__(self):
+        name = []
+        if self.manufacturer:
+            name.append(self.manufacturer.name)
+        if self.model:
+            name.append(self.model)
+        return " ".join(name)

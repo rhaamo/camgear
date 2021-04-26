@@ -3,7 +3,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
 from .validators import validate_picture, validate_other
 
-from controllers.gear.models import Camera, Lens
+from controllers.gear.models import Camera, Lens, Accessory
 
 
 class CameraPicture(models.Model):
@@ -93,6 +93,55 @@ class LensFile(models.Model):
         ordering = ("id",)
         verbose_name = "Lens File"
         verbose_name_plural = "Lens Files"
+
+    def __str__(self):
+        return self.description or "No description"
+
+
+class AccessoryPicture(models.Model):
+    lens = models.ForeignKey(
+        Accessory, related_name="accessory_pictures", blank=False, null=False, on_delete=models.CASCADE
+    )
+
+    description = models.CharField(max_length=255, blank=True, null=True)
+
+    file = models.ImageField(upload_to="pictures/", validators=[validate_picture], blank=False, null=False)
+
+    file_mini = ImageSpecField(
+        source="file", processors=[ResizeToFit(50, 50, upscale=False)], format="JPEG", options={"quality": 80}
+    )
+    file_small = ImageSpecField(
+        source="file", processors=[ResizeToFit(200, 150, upscale=False)], format="JPEG", options={"quality": 80}
+    )
+    file_medium = ImageSpecField(
+        source="file", processors=[ResizeToFit(400, 400, upscale=False)], format="JPEG", options={"quality": 80}
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta(object):
+        ordering = ("id",)
+        verbose_name = "Accessory Picture"
+        verbose_name_plural = "Accessory Pictures"
+
+    def __str__(self):
+        return self.description or "No description"
+
+
+class AccessoryFile(models.Model):
+    lens = models.ForeignKey(
+        Accessory, related_name="accessory_files", blank=False, null=False, on_delete=models.CASCADE
+    )
+
+    description = models.CharField(max_length=255, blank=True, null=True)
+    file = models.FileField(upload_to="files/", validators=[validate_other], blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta(object):
+        ordering = ("id",)
+        verbose_name = "Accessory File"
+        verbose_name_plural = "Accessory Files"
 
     def __str__(self):
         return self.description or "No description"

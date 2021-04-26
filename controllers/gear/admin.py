@@ -4,9 +4,9 @@ from django.forms import Textarea, TextInput
 from config.admin import CommonAdmin
 from django.utils.html import mark_safe
 
-from .models import Camera, Manufacturer, Mount, Lens
+from .models import Camera, Manufacturer, Mount, Lens, Accessory
 
-from controllers.files.models import CameraPicture, LensPicture, CameraFile, LensFile
+from controllers.files.models import CameraPicture, LensPicture, CameraFile, LensFile, AccessoryFile, AccessoryPicture
 
 
 class CameraPicturesInline(admin.TabularInline):
@@ -41,6 +41,26 @@ class LensPicturesInline(admin.TabularInline):
 
 class LensFilesInline(admin.TabularInline):
     model = LensFile
+    extra = 0
+    verbose_name = "File"
+    verbose_name_plural = "Files"
+    formfield_overrides = {
+        models.CharField: {"widget": TextInput(attrs={"size": 80})},
+    }
+
+
+class AccessoryPicturesInline(admin.TabularInline):
+    model = AccessoryPicture
+    extra = 0
+    verbose_name = "Picture"
+    verbose_name_plural = "Pictures"
+    formfield_overrides = {
+        models.CharField: {"widget": TextInput(attrs={"size": 80})},
+    }
+
+
+class AccessoryFilesInline(admin.TabularInline):
+    model = AccessoryFile
     extra = 0
     verbose_name = "File"
     verbose_name_plural = "Files"
@@ -235,7 +255,82 @@ class LensAdmin(CommonAdmin):
     )
 
 
+class AccessoryAdmin(CommonAdmin):
+    list_display = (
+        "id",
+        "picture",
+        "accessory_model",
+        "state",
+        "mount",
+    )
+
+    search_fields = ("name", "state_notes", "model_notes", "description")
+
+    def accessory_model(self, obj):
+        return obj.__str__()
+
+    def picture(self, obj):
+        if obj.accessory_pictures and obj.accessory_pictures.first():
+            return mark_safe(
+                "<a href='{url_img}' target='_blank'><img src='{url_img}'/></a>".format(
+                    url_img=obj.accessory_pictures.first().file_mini.url
+                )
+            )
+        else:
+            return None
+
+    list_filter = ("manufacturer", "mount")
+
+    inlines = [AccessoryPicturesInline, AccessoryFilesInline]
+
+    autocomplete_fields = (
+        "manufacturer",
+        "mount",
+    )
+
+    formfield_overrides = {
+        models.TextField: {"widget": Textarea(attrs={"rows": 10, "cols": 100})},
+        models.CharField: {"widget": TextInput(attrs={"size": 40})},
+        models.URLField: {"widget": TextInput(attrs={"size": 80})},
+    }
+
+    fieldsets = (
+        (
+            "Main",
+            {
+                "fields": (
+                    (
+                        "manufacturer",
+                        "model",
+                        "serial",
+                    ),
+                    (
+                        "state",
+                        "state_notes",
+                        "model_notes",
+                    ),
+                    "description",
+                    ("batteries", "mount"),
+                    ("private", "can_be_sold"),
+                ),
+                "classes": (
+                    "baton-tabs-init",
+                    "baton-tab-group-fs-p",
+                ),
+            },
+        ),
+        (
+            "Links",
+            {
+                "fields": ("url1", "url2", "url3"),
+                "classes": ("tab-fs-p",),
+            },
+        ),
+    )
+
+
 admin.site.register(Camera, CameraAdmin)
 admin.site.register(Manufacturer, ManufacturerAdmin)
 admin.site.register(Mount, MountAdmin)
 admin.site.register(Lens, LensAdmin)
+admin.site.register(Accessory, AccessoryAdmin)
