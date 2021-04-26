@@ -79,9 +79,20 @@ class CameraAdmin(CommonAdmin):
         "camera_focale",
         "camera_aperture",
         "focus",
+        "infos"
     )
 
     search_fields = ("name", "state_notes", "model_notes", "description")
+
+    def infos(self, obj):
+        x = []
+        if obj.state_notes:
+            x.append(f"<small>State: {obj.state_notes}</small>")
+        if obj.model_notes:
+            x.append(f"<small>Notes: {obj.model_notes}</small>")
+        if obj.description:
+            x.append(f"<small>Description: {obj.description}</small>")
+        return mark_safe("<br>".join(x))
 
     def picture(self, obj):
         if obj.camera_pictures and obj.camera_pictures.first():
@@ -177,9 +188,20 @@ class LensAdmin(CommonAdmin):
         "lens_focale",
         "lens_aperture",
         "focus",
+        "infos"
     )
 
     search_fields = ("name", "state_notes", "model_notes", "description")
+
+    def infos(self, obj):
+        x = []
+        if obj.state_notes:
+            x.append(f"<small>State: {obj.state_notes}</small>")
+        if obj.model_notes:
+            x.append(f"<small>Notes: {obj.model_notes}</small>")
+        if obj.description:
+            x.append(f"<small>Description: {obj.description}</small>")
+        return mark_safe("<br>".join(x))
 
     def lens_model(self, obj):
         return obj.__str__()
