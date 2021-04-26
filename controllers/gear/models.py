@@ -26,7 +26,7 @@ class Lens(models.Model):
     model_notes = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     serial = models.CharField("Serial (private)", max_length=255, blank=True)
-    mount = models.ForeignKey(Mount, null=True, on_delete=models.SET_NULL)
+    mount = models.ForeignKey(Mount, null=True, blank=True, on_delete=models.SET_NULL)
 
     focale_min = models.IntegerField("Focale min (mm)", blank=False, default=0)
     focale_max = models.IntegerField("Focale max (mm)", blank=False, default=0)
