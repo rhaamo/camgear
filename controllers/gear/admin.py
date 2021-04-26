@@ -79,12 +79,12 @@ class CameraAdmin(CommonAdmin):
         "camera_focale",
         "camera_aperture",
         "focus",
-        "infos",
+        "details",
     )
 
     search_fields = ("name", "state_notes", "model_notes", "description")
 
-    def infos(self, obj):
+    def details(self, obj):
         x = []
         if obj.state_notes:
             x.append(f"<small>State: {obj.state_notes}</small>")
@@ -97,8 +97,8 @@ class CameraAdmin(CommonAdmin):
     def picture(self, obj):
         if obj.camera_pictures and obj.camera_pictures.first():
             return mark_safe(
-                "<a href='{url_img}' target='_blank'><img src='{url_img}'/></a>".format(
-                    url_img=obj.camera_pictures.first().file_mini.url
+                "<a href='{url_full}' target='_blank'><img src='{url_img}'/></a>".format(
+                    url_img=obj.camera_pictures.first().file_small.url, url_full=obj.camera_pictures.first().file.url
                 )
             )
         else:
@@ -185,11 +185,11 @@ class MountAdmin(CommonAdmin):
 
 
 class LensAdmin(CommonAdmin):
-    list_display = ("id", "picture", "lens_model", "state", "mount", "lens_focale", "lens_aperture", "focus", "infos")
+    list_display = ("id", "picture", "lens_model", "state", "mount", "lens_focale", "lens_aperture", "focus", "details")
 
     search_fields = ("name", "state_notes", "model_notes", "description")
 
-    def infos(self, obj):
+    def details(self, obj):
         x = []
         if obj.state_notes:
             x.append(f"<small>State: {obj.state_notes}</small>")
@@ -208,8 +208,8 @@ class LensAdmin(CommonAdmin):
     def picture(self, obj):
         if obj.lens_pictures and obj.lens_pictures.first():
             return mark_safe(
-                "<a href='{url_img}' target='_blank'><img src='{url_img}'/></a>".format(
-                    url_img=obj.lens_pictures.first().file_mini.url
+                "<a href='{url_full}' target='_blank'><img src='{url_img}'/></a>".format(
+                    url_img=obj.lens_pictures.first().file_small.url, url_full=obj.lens_pictures.first().file.url
                 )
             )
         else:
