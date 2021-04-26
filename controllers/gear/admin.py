@@ -108,10 +108,16 @@ class CameraAdmin(CommonAdmin):
         return obj.__str__()
 
     def camera_focale(self, obj):
-        return f"{obj.focale_min or 'x'} - {obj.focale_max or 'x'}"
+        if obj.fixed_lens:
+            return f"{obj.focale_min or 'x'} - {obj.focale_max or 'x'}"
+        else:
+            return "-"
 
     def camera_aperture(self, obj):
-        return f"{obj.min_aperture or 'x'} - {obj.max_aperture or 'x'}"
+        if obj.fixed_lens:
+            return f"{obj.min_aperture or 'x'} - {obj.max_aperture or 'x'}"
+        else:
+            return "-"
 
     list_filter = ("manufacturer", "mount", "film_type", "can_be_sold")
 
