@@ -185,7 +185,18 @@ class MountAdmin(CommonAdmin):
 
 
 class LensAdmin(CommonAdmin):
-    list_display = ("id", "picture", "lens_model", "state", "mount", "lens_focale", "lens_aperture", "filter_diameter", "focus", "details")
+    list_display = (
+        "id",
+        "picture",
+        "lens_model",
+        "state",
+        "mount",
+        "lens_focale",
+        "lens_aperture",
+        "filter_diameter",
+        "focus",
+        "details",
+    )
 
     search_fields = ("name", "state_notes", "model_notes", "description", "serial")
 
