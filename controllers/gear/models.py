@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 from .enums import States, CamerasTypes, FilmTypes, FocusesTypes, LensesTypes
 
@@ -53,7 +54,7 @@ class Lens(models.Model):
     url2 = models.URLField(blank=True)
     url3 = models.URLField(blank=True)
 
-    # TODO user
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name_plural = "Lenses"
@@ -112,7 +113,7 @@ class Camera(models.Model):
     url2 = models.URLField(blank=True)
     url3 = models.URLField(blank=True)
 
-    # TODO user
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         name = []
@@ -145,7 +146,7 @@ class Accessory(models.Model):
     url2 = models.URLField(blank=True)
     url3 = models.URLField(blank=True)
 
-    # TODO user
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name_plural = "Accessories"

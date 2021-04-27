@@ -175,6 +175,14 @@ class CameraAdmin(CommonAdmin):
         ),
     )
 
+    exclude = [
+        "user",
+    ]
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
+
 
 class ManufacturerAdmin(CommonAdmin):
     search_fields = ("name",)
@@ -283,6 +291,14 @@ class LensAdmin(CommonAdmin):
         ),
     )
 
+    exclude = [
+        "user",
+    ]
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
+
 
 class AccessoryAdmin(CommonAdmin):
     list_display = (
@@ -356,6 +372,14 @@ class AccessoryAdmin(CommonAdmin):
             },
         ),
     )
+
+    exclude = [
+        "user",
+    ]
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
 
 
 admin.site.register(Camera, CameraAdmin)
