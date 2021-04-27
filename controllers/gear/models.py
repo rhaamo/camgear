@@ -5,14 +5,14 @@ from .enums import States, CamerasTypes, FilmTypes, FocusesTypes, LensesTypes
 
 
 class Manufacturer(models.Model):
-    name = models.CharField(max_length=255, blank=False)
+    name = models.CharField(max_length=255, blank=False, null=False, unique=True)
 
     def __str__(self):
         return self.name
 
 
 class Mount(models.Model):
-    name = models.CharField(max_length=255, blank=False)
+    name = models.CharField(max_length=255, blank=False, null=False, unique=True)
 
     def __str__(self):
         return self.name
@@ -133,7 +133,7 @@ class Accessory(models.Model):
     model_notes = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     serial = models.CharField("Serial (private)", max_length=255, blank=True)
-    mount = models.ForeignKey(Mount, null=True, on_delete=models.SET_NULL)
+    mount = models.ForeignKey(Mount, null=True, blank=True, on_delete=models.SET_NULL)
     batteries = models.CharField(max_length=255, blank=True)  # autocomplete
 
     private = models.BooleanField(default=False)

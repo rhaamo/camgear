@@ -303,13 +303,7 @@ class LensAdmin(CommonAdmin):
 
 
 class AccessoryAdmin(CommonAdmin):
-    list_display = (
-        "id",
-        "picture",
-        "accessory_model",
-        "state",
-        "mount",
-    )
+    list_display = ("id", "picture", "accessory_model", "state", "mount", "details")
 
     search_fields = ("name", "state_notes", "model_notes", "description", "serial")
 
@@ -325,6 +319,16 @@ class AccessoryAdmin(CommonAdmin):
             )
         else:
             return None
+
+    def details(self, obj):
+        x = []
+        if obj.state_notes:
+            x.append(f"<small>State: {obj.state_notes}</small>")
+        if obj.model_notes:
+            x.append(f"<small>Notes: {obj.model_notes}</small>")
+        if obj.description:
+            x.append(f"<small>Description: {obj.description}</small>")
+        return mark_safe("<br>".join(x))
 
     list_filter = ("manufacturer", "mount", "can_be_sold")
 
