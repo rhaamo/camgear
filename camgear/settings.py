@@ -32,9 +32,7 @@ SECRET_KEY = env(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG", default=False)
 
-INTERNAL_IPS = ["127.0.0.1", "0.0.0.0", "localhost"]
-ALLOWED_HOSTS = INTERNAL_IPS + env("ALLOWED_HOSTS", default=[])
-
+ALLOWED_HOSTS = env("ALLOWED_HOSTS", default=[])
 
 # Application definition
 
