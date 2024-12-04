@@ -32,7 +32,9 @@ SECRET_KEY = env(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG", default=False)
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS", default=[])
+INTERNAL_IPS = ['127.0.0.1', '0.0.0.0', 'localhost']
+ALLOWED_HOSTS = INTERNAL_IPS + env.list("ALLOWED_HOSTS", default=[])
+print(f"Allowed hosts: {ALLOWED_HOSTS}")
 
 # Application definition
 
