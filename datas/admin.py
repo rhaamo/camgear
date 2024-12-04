@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import System, Manufacturer, BodyUrl
+from .models import System, Manufacturer
 from camgear.common import CommonAdmin
 
 
@@ -18,4 +18,3 @@ class BodyUrlAdmin(CommonAdmin):
 
 admin.site.register(System, SystemAdmin)
 admin.site.register(Manufacturer, ManufacturerAdmin)
-# admin.site.register(BodyUrl, BodyUrlAdmin)

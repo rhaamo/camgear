@@ -1,17 +1,7 @@
-from django.contrib import admin
 from django.db import models
 from imagekit.admin import AdminThumbnail
 from django.forms import TextInput
 from camgear.common import CommonAdmin
-
-from .models import (
-    BodyFile,
-    BodyPicture,
-    LensFile,
-    LensPicture,
-    AccessoryFile,
-    AccessoryPicture,
-)
 
 
 class BodyPicturesAdmin(CommonAdmin):
@@ -111,11 +101,3 @@ class AccessoryFilesAdmin(CommonAdmin):
     # ]
     autocomplete_fields = ("lens",)
     formfield_overrides = {models.CharField: {"widget": TextInput(attrs={"size": 100})}}
-
-
-# admin.site.register(BodyFile, BodyFilesAdmin)
-# admin.site.register(BodyPicture, BodyPicturesAdmin)
-# admin.site.register(LensFile, LensFilesAdmin)
-# admin.site.register(LensPicture, LensPicturesAdmin)
-# admin.site.register(AccessoryFile, AccessoryFilesAdmin)
-# admin.site.register(AccessoryPicture, AccessoryPicturesAdmin)
