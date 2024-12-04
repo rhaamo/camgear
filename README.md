@@ -99,6 +99,8 @@ docker build -t camgear -f Dockerfile .
 docker run --net=host --name camgear -it --rm --env-file .env -v /local/path/to/uploads:/uploads -v /local/path/to/statics:/statics camgear:latest
 ```
 
+A `docker-compose.yml` file is also present as an example that will builds the image from the current tree.
+
 # Creating an user
 
 Use the `python manage.py createsuperuser` command to create a super user.

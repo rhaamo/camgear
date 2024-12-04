@@ -1,0 +1,13 @@
+name: camgear
+services:
+  web:
+    build: .
+    volumes:
+      - ./uploads:/uploads
+      - ./statics:/statics
+      - ./db.sqlite3:/db.sqlite3
+    env_file:
+      - env.prod
+    ports:
+      - 8081:8000
+    restart: always
