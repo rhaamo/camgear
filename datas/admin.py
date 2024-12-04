@@ -18,4 +18,4 @@ class BodyUrlAdmin(CommonAdmin):
 
 admin.site.register(System, SystemAdmin)
 admin.site.register(Manufacturer, ManufacturerAdmin)
-admin.site.register(BodyUrl, BodyUrlAdmin)
+# admin.site.register(BodyUrl, BodyUrlAdmin)
