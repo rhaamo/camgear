@@ -348,7 +348,7 @@ class LensAdmin(CommonAdmin):
                     ("lens_type", "system"),
                     ("focale_min", "focale_max"),
                     ("min_aperture", "max_aperture"),
-                    ("blades", "angle"),
+                    ("blades"),
                     ("filter_diameter", "weight", "length"),
                     ("focus", "focus_length", "macro", "macro_length"),
                     ("private", "can_be_sold"),
