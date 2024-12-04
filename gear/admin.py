@@ -243,7 +243,7 @@ class BodyAdmin(CommonAdmin):
                     ("filter_diameter", "weight", "length"),
                     ("focus", "macro_length", "focus_length"),
                     ("private", "can_be_sold"),
-                    ("uuid",),
+                    ("wip_sheet", "uuid"),
                 ),
                 "classes": (
                     "baton-tabs-init",
@@ -352,7 +352,7 @@ class LensAdmin(CommonAdmin):
                     ("filter_diameter", "weight", "length"),
                     ("focus", "focus_length", "macro", "macro_length"),
                     ("private", "can_be_sold"),
-                    ("uuid",),
+                    ("wip_sheet", "uuid"),
                 ),
                 "classes": (
                     "baton-tabs-init",
@@ -451,7 +451,7 @@ class AccessoryAdmin(CommonAdmin):
                     ("acquired_on", "acquired_for", "acquired_note"),
                     ("batteries", "system"),
                     ("private", "can_be_sold"),
-                    ("uuid",),
+                    ("wip_sheet", "uuid"),
                 ),
                 "classes": (
                     "baton-tabs-init",

@@ -56,7 +56,7 @@ class Body(models.Model):
         choices=FocusesTypes.choices,
     )
     focus_length = models.IntegerField("Min focus (cm)", default=0)
-    macro = models.BooleanField("Macro capable", default=True)
+    macro = models.BooleanField("Macro capable", default=False)
     macro_length = models.IntegerField("Min macro (cm)", default=0)
 
     private = models.BooleanField(default=False)
@@ -141,10 +141,10 @@ class Lens(models.Model):
     min_aperture = models.FloatField(help_text="ex 22", default=0)
     max_aperture = models.FloatField(help_text="ex 2.8", default=0)
     lens_type = models.IntegerField(blank=False, default=LensesTypes.UNKNOWN, choices=LensesTypes.choices)
-    macro = models.BooleanField("Macro capable", default=True)
+    macro = models.BooleanField("Macro capable", default=False)
     macro_length = models.IntegerField("Min macro (cm)", default=0)
     filter_diameter = models.IntegerField("Filter Dia. (mm)", default=0)
-    blades = models.BooleanField("Using blades", default=True)
+    blades = models.BooleanField("Using blades", default=False)
     focus = models.IntegerField(
         "Focus mode",
         blank=False,
