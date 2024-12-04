@@ -1,0 +1,12 @@
+[Unit]
+Description=Camgear application server
+After=postgresql.service
+
+[Service]
+User=camgear
+WorkingDirectory=/home/camgear/camgear/
+EnvironmentFile=/home/camgear/camgear/.env
+ExecStart=/home/camgear/venv/bin/gunicorn camgear.asgi:application -w ${CAMGEAR_WEB_WORKERS} -k uvicorn.workers.UvicornWorker -b ${CAMGEAR_API_IP}:${CAMGEAR_API_PORT}
+
+[Install]
+WantedBy=multi-user.target

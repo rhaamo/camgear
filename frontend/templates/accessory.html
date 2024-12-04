@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %} 
+  <div class="box">
+    <h3>{% if accessory.manufacturer %}{{ accessory.manufacturer }} - {% endif %}{{ accessory.model }}</h3>
+    <div class="columns">
+        <div class="column is-5">
+            <div class="galleria">
+                {% for picture in accessory.accessory_pictures.all %}
+                    <img src="{{ picture.file.url }}" data-thumb="{{ picture.file_medium.url }}" data-description="{{ picture.description|default:'No description :(' }}" alt="{{ picture.description|default:'No description :(' }}">
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="column is-7">
+            {% if accessory.wip_sheet %}
+                <div class="grid">
+                    <div class="cell">
+                        <i class="ri-progress-3-line"></i> This sheet is still a WIP.
+                    </div>
+                </div>
+            {% endif %}
+            <div class="grid">
+                <div class="cell"><b>Manufacturer:</b> {{ accessory.manufacturer|default:"unknown" }}</div>
+                <div class="cell">{% if accessory.system %}<b>System:</b> {{ accessory.system }}{% endif %}</div>
+            </div>
+            <div class="grid">
+                <div class="cell"><b>Model:</b> {{ accessory.model }}</div>
+                <div class="cell"><b>Notes:</b> <small>{{ accessory.model_notes|default:"None"|linebreaks  }}</small></div>
+            </div>
+            <div class="grid">
+                <div class="cell"><b>State:</b> {{ accessory.get_state_display }}</div>
+                <div class="cell"><b>Notes:</b> <small>{{ accessory.state_notes|default:"None"|linebreaks }}</small></div>
+            </div>
+            {% if accessory.description %}
+                <div class="grid">
+                    <div class="cell"><b>Description:</b> <small>{{ accessory.description|linebreaks }}</small></div>
+                </div>
+            {% endif %}
+            {% if accessory.batteries %}
+            <div class="grid">
+                <div class="cell"><b>Batteries:</b> {{ accessory.batteries }}</div>
+                <div class="cell"></div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-7">
+            <h4>Repair/Notes changelog</h4>
+            {% if accessory.accessory_repairlog.all %}
+                {% for log in accessory.accessory_repairlog.all %}
+                    <div class="card">
+                        <header class="card-header">
+                        <p class="card-header-title">{{ log.title }}&nbsp;<small>({{ log.done_at }})</small></p>
+                        </header>
+                        <div class="card-content">
+                        <div class="content">
+                            {{ log.note|linebreaks }}
+                        </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                No Logs.
+            {% endif %}
+        </div>
+        <div class="column is-4 is-offset-1">
+            <h4>Files</h4>
+            {% if accessory.accessory_files.all %}
+                <ul>
+                    {% for file in accessory.accessory_files.all %}
+                    <li><a href="{{ file.file.url }}" target="_blank">{{ file.filename_str }}</a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No Files.
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script async type="text/javascript" src="{% static 'js/gallery.js' %}"></script>
+{% endblock %}

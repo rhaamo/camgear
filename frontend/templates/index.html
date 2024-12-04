@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="bodies" class="box">
+    <h3 class="">Bodies</h3>
+    <div class="fixed-grid has-4-cols">
+        <div class="grid">
+            {% for body in bodies %}
+            <div class="cell is-small block-specs">
+                <h5><a href="{% url 'body' body.uuid %}" title="Go to full specs page">{% if body.manufacturer %}{{ body.manufacturer }} {% endif %}{{ body.model }}</small></a></h5>
+                <div class="grid">
+                    <div class="cell">
+                        {% if body.body_pictures.count > 0 %}
+                        <a href="{% url 'body' body.uuid %}" title="Go to full specs page"><img width="160px" src="{{ body.body_pictures.all.first.file_small.url }}" alt="{{ body.body_pictures.all.first.file_small.description }}" /></a>
+                        {% endif %}
+
+                        <br />
+
+                        {% if body.state %}State: {{ body.get_state_display }}<br />{% endif %}
+                        {% if body.system %}System: {{ body.system }}<br />{% endif %}
+                        {% if body.film %}Film: {{ body.get_film_type_display }}<br />{% endif %}
+                        {% if body.focale_min != 0 and body.focale_max != 0 %}
+                            {% if body.focale_min != body.focale_max %}
+                                Focale: {{ body.focale_min }}-{{ body.focale_max }}<br />
+                            {% else %}
+                                Focale: {{ body.focale_min }}<br />
+                            {% endif %}
+                        {% endif %}
+                        {% if body.min_aperture != 0 and body.max_aperture != 0 %}
+                            {% if body.min_aperture != body.max_aperture %}
+                            Aperture: f{{ body.min_aperture }}-{{ body.max_aperture }}
+                            {% else %}
+                            Aperture: f{{ body.min_aperture }}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div id="lenses" class="box">
+    <h3 class="">Lenses</h3>
+    <div class="fixed-grid has-4-cols">
+        <div class="grid">
+            {% for lens in lenses %}
+            <div class="cell is-small block-specs">
+                <h5><a href="{% url 'lens' lens.uuid %}" title="Go to full specs page">{% if lens.manufacturer %}{{ lens.manufacturer }} {% endif %}{{ body.model }}</small></a></h5>
+                <div class="grid">
+                    <div class="cell">
+                        {% if lens.lens_pictures.count > 0 %}
+                        <img width="160px" src="{{ lens.lens_pictures.all.first.file_small.url }}" alt="{{ lens.lens_pictures.all.first.file_small.description }}" />
+                        {% endif %}
+                    </div>
+                    <div class="cell">
+                        {% if lens.state %}State: {{ lens.get_state_display }}<br />{% endif %}
+                        {% if lens.system %}System: {{ lens.system }}<br />{% endif %}
+                        {% if lens.focale_min != 0 and lens.focale_max != 0 %}
+                            {% if lens.focale_min != lens.focale_max %}
+                                Focale: {{ lens.focale_min }}-{{ lens.focale_max }}<br />
+                            {% else %}
+                                Focale: {{ lens.focale_min }}<br />
+                            {% endif %}
+                        {% endif %}
+                        {% if lens.min_aperture != 0 and lens.max_aperture != 0 %}
+                            {% if lens.min_aperture != lens.max_aperture %}
+                            Aperture: f{{ lens.min_aperture }}-{{ lens.max_aperture }}
+                            {% else %}
+                            Aperture: f{{ lens.min_aperture }}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div id="accessories" class="box">
+    <h3 class="">Accessories</h3>
+    <div class="fixed-grid has-4-cols">
+        <div class="grid">
+            {% for accessory in accessories %}
+            <div class="cell is-small block-specs">
+                <h5><a href="{% url 'accessory' accessory.uuid %}" title="Go to full specs page">{% if accessory.manufacturer %}{{ accessory.manufacturer }} {% endif %}{{ accessory.model }}</small></a></h5>
+                <div class="grid">
+                    <div class="cell">
+                        {% if accessory.accessory_pictures.count > 0 %}
+                        <img width="160px" src="{{ accessory.accessory_pictures.all.first.file_small.url }}" alt="{{ accessory.accessory_pictures.all.first.file_small.description }}" />
+                        {% endif %}
+                    </div>
+                    <div class="cell">
+                        {% if accessory.state %}State: {{ accessory.get_state_display }}<br />{% endif %}
+                        {% if accessory.system %}System: {{ accessory.system }}<br />{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

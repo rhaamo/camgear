@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %} 
+  <div class="box">
+    <h3>{% if body.manufacturer %}{{ body.manufacturer }} - {% endif %}{{ body.model }}</h3>
+    <div class="columns">
+        <div class="column is-5">
+            <div class="galleria">
+                {% for picture in body.body_pictures.all %}
+                    <img src="{{ picture.file.url }}" data-thumb="{{ picture.file_medium.url }}" data-description="{{ picture.description|default:'No description :(' }}" alt="{{ picture.description|default:'No description :(' }}">
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="column is-7">
+            {% if body.wip_sheet %}
+                <div class="grid">
+                    <div class="cell">
+                        <i class="ri-progress-3-line"></i> This sheet is still a WIP.
+                    </div>
+                </div>
+            {% endif %}
+            <div class="grid">
+                <div class="cell"><b>Manufacturer:</b> {{ body.manufacturer|default:"unknown" }}</div>
+                <div class="cell">{% if body.system %}<b>System:</b> {{ body.system }}{% endif %}</div>
+            </div>
+            <div class="grid">
+                <div class="cell"><b>Model:</b> {{ body.model }}</div>
+                <div class="cell"><b>Notes:</b> <small>{{ body.model_notes|default:"None"|linebreaks  }}</small></div>
+            </div>
+            <div class="grid">
+                <div class="cell"><b>State:</b> {{ body.get_state_display }}</div>
+                <div class="cell"><b>Notes:</b> <small>{{ body.state_notes|default:"None"|linebreaks }}</small></div>
+            </div>
+            {% if body.description %}
+                <div class="grid">
+                    <div class="cell"><b>Description:</b> <small>{{ body.description|linebreaks }}</small></div>
+                </div>
+            {% endif %}
+            <div class="grid">
+                <div class="cell"><b>Camera type:</b> {{ body.get_camera_type_display }}</div>
+                <div class="cell"><b>Film type:</b> {{ body.get_film_type_display }}</div>
+            </div>
+            {% if body.batteries %}
+                <div class="grid">
+                    <div class="cell"><b>Batteries:</b> {{ body.batteries }}</div>
+                    <div class="cell"></div>
+                </div>
+            {% endif %}
+            <div class="grid">
+                <div class="cell"><b>ISO:</b> {{ body.iso_str }}</div>
+                <div class="cell"><b>Shutter:</b> {{ body.get_shutter_display }}</div>
+            </div>
+            {% if body.focale_str or body.aperture_str %}
+                <div class="grid">
+                    <div class="cell">{% if body.focale_str %}<b>Focale:</b> {{ body.focale_str }}{% endif %}</div>
+                    <div class="cell">{% if body.aperture_str %}<b>Aperture:</b> {{ body.aperture_str }}{% endif %}</div>
+                </div>
+            {% endif %}
+            {% if body.features_str %}
+                <div class="grid">
+                    <div class="cell"><b>Features:</b> {{ body.features_str }}</div>
+                    <div class="cell"></div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-7">
+            <h4>Repair/Notes changelog</h4>
+            {% if body.body_repairlog.all %}
+                {% for log in body.body_repairlog.all %}
+                    <div class="card">
+                        <header class="card-header">
+                        <p class="card-header-title">{{ log.title }}&nbsp;<small>({{ log.done_at }})</small></p>
+                        </header>
+                        <div class="card-content">
+                        <div class="content">
+                            {{ log.note|linebreaks }}
+                        </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                No Logs.
+            {% endif %}
+        </div>
+        <div class="column is-4 is-offset-1">
+            <h4>Files</h4>
+            {% if body.body_files.all %}
+                <ul>
+                    {% for file in body.body_files.all %}
+                    <li><a href="{{ file.file.url }}" target="_blank">{{ file.filename_str }}</a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No Files.
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script async type="text/javascript" src="{% static 'js/gallery.js' %}"></script>
+{% endblock %}

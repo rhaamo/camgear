@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}CamGear{% endblock %}</title>
+		<!-- <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon"> -->
+        {% load static %}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/bulma@1.0.2/css/bulma.min.css" />		
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.6.1/themes/classic/galleria.classic.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.6.1/galleria.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.6.1/themes/classic/galleria.classic.min.js"></script>
+
+        {% block head %}{% endblock %}
+
+	</head>
+	<body>
+		<nav class="navbar is-dark topNav is-fixed-top">
+			<div class="container">
+				<div class="navbar-brand">
+					<a class="navbar-item" href="/">
+                        <i class="ri-camera-3-line"></i> CamGear
+					</a>
+					<div class="navbar-burger burger" data-target="topNav">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div id="topNav" class="navbar-menu">
+					<div class="navbar-start">
+						<a class="navbar-item" href="#bodies">Bodies ({{ bodies_count }})</a>
+						<a class="navbar-item" href="#lenses">Lenses ({{ lenses_count }})</a>
+						<a class="navbar-item" href="#accessories">Accessories ({{ accessories_count }})</a>
+					</div>
+					<div class="navbar-end">
+					</div>
+				</div>
+			</div>
+		</nav>
+
+        <section class="container pt-5 mt-5">
+			<div class="columns">
+				<div class="column is-2">
+                    <h3 class="mt-5">Systems</h3>
+                    <ul class="">
+                        {% for system in systems %}
+                        <li><a href="{% url 'system' system.name %}">{{ system.name }} ({{ system.total_count }})</a></li>
+                        {% endfor %}
+                    </ul>
+
+                    <h3 class="mt-5">Manufacturers</h3>
+                    <ul class="">
+                        {% for manufacturer in manufacturers %}
+                        <li><a href="{% url 'manufacturer' manufacturer.name %}">{{ manufacturer.name }} ({{ manufacturer.total_count }})</a></li>
+                        {% endfor %}
+                    </ul>
+				</div>
+
+				<div class="column is-10">
+					<div class="content">
+                        {% block content %}{% endblock %}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<footer class="footer">
+			<div class="container">
+				<div class="box content has-text-centered">
+					<div class="columns is-mobile is-centered">
+						<div class="field is-grouped is-grouped-multiline">
+							<div class="control">
+								<div class="tags has-addons">
+									<a class="tag is-link" href="https://github.com/rhaamo/camgear">CamGear</a>
+									<span class="tag is-primary">by ottpossum</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script async type="text/javascript" src="{% static 'js/bulma.js' %}"></script>
+
+        {% block js %}{% endblock %}
+	</body>
+</html>
