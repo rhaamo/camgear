@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}{% if accessory.manufacturer %}{{ accessory.manufacturer }}{% endif %} {{ accessory.model }} - CamGear{% endblock %}
+
+
 {% block content %} 
   <div class="box">
     <h3>{% if accessory.manufacturer %}{{ accessory.manufacturer }} - {% endif %}{{ accessory.model }}</h3>

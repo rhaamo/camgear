@@ -51,7 +51,7 @@
                 <div class="grid">
                     <div class="cell">
                         {% if lens.lens_pictures.count > 0 %}
-                        <img width="160px" src="{{ lens.lens_pictures.all.first.file_small.url }}" alt="{{ lens.lens_pictures.all.first.file_small.description }}" />
+                        <a href="{% url 'lens' lens.uuid %}" title="Go to full specs page"><img width="160px" src="{{ lens.lens_pictures.all.first.file_small.url }}" alt="{{ lens.lens_pictures.all.first.file_small.description }}" /></a>
                         {% endif %}
                     </div>
                     <div class="cell">
@@ -89,7 +89,7 @@
                 <div class="grid">
                     <div class="cell">
                         {% if accessory.accessory_pictures.count > 0 %}
-                        <img width="160px" src="{{ accessory.accessory_pictures.all.first.file_small.url }}" alt="{{ accessory.accessory_pictures.all.first.file_small.description }}" />
+                        <a href="{% url 'accessory' accessory.uuid %}" title="Go to full specs page"><img width="160px" src="{{ accessory.accessory_pictures.all.first.file_small.url }}" alt="{{ accessory.accessory_pictures.all.first.file_small.description }}" /></a>
                         {% endif %}
                     </div>
                     <div class="cell">

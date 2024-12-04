@@ -10,4 +10,3 @@ exclude = '''
   | front
 )/
 '''
-skip-numeric-underscore-normalization = true

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}{% if body.manufacturer %}{{ body.manufacturer }}{% endif %} {{ body.model }} - CamGear{% endblock %}
+
 {% block content %} 
   <div class="box">
     <h3>{% if body.manufacturer %}{{ body.manufacturer }} - {% endif %}{{ body.model }}</h3>

@@ -34,9 +34,11 @@
 				</div>
 				<div id="topNav" class="navbar-menu">
 					<div class="navbar-start">
+						{% if not body and not lens and not accessory %}
 						<a class="navbar-item" href="#bodies">Bodies ({{ bodies_count }})</a>
 						<a class="navbar-item" href="#lenses">Lenses ({{ lenses_count }})</a>
 						<a class="navbar-item" href="#accessories">Accessories ({{ accessories_count }})</a>
+						{% endif %}
 					</div>
 					<div class="navbar-end">
 					</div>
