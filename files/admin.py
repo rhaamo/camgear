@@ -113,9 +113,9 @@ class AccessoryFilesAdmin(CommonAdmin):
     formfield_overrides = {models.CharField: {"widget": TextInput(attrs={"size": 100})}}
 
 
-admin.site.register(BodyFile, BodyFilesAdmin)
-admin.site.register(BodyPicture, BodyPicturesAdmin)
-admin.site.register(LensFile, LensFilesAdmin)
-admin.site.register(LensPicture, LensPicturesAdmin)
-admin.site.register(AccessoryFile, AccessoryFilesAdmin)
-admin.site.register(AccessoryPicture, AccessoryPicturesAdmin)
+# admin.site.register(BodyFile, BodyFilesAdmin)
+# admin.site.register(BodyPicture, BodyPicturesAdmin)
+# admin.site.register(LensFile, LensFilesAdmin)
+# admin.site.register(LensPicture, LensPicturesAdmin)
+# admin.site.register(AccessoryFile, AccessoryFilesAdmin)
+# admin.site.register(AccessoryPicture, AccessoryPicturesAdmin)
