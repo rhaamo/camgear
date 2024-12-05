@@ -47,7 +47,7 @@
         <div class="grid">
             {% for lens in lenses %}
             <div class="cell is-small block-specs">
-                <h5><a href="{% url 'lens' lens.uuid %}" title="Go to full specs page">{% if lens.manufacturer %}{{ lens.manufacturer }} {% endif %}{{ body.model }}</small></a></h5>
+                <h5><a href="{% url 'lens' lens.uuid %}" title="Go to full specs page">{% if lens.manufacturer %}{{ lens.manufacturer }} {% endif %}{{ lens.model }}</small></a></h5>
                 <div class="grid">
                     <div class="cell">
                         {% if lens.lens_pictures.count > 0 %}
