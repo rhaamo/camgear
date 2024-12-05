@@ -46,8 +46,14 @@
             </div>
             {% if lens.focale_str or lens.aperture_str %}
                 <div class="grid">
-                    <div class="cell">{% if lens.focale_str %}<b>Focale:</b> {{ lens.focale_str }}{% endif %}</div>
+                    <div class="cell">{% if lens.focale_str %}<b>Focale:</b> {{ lens.focale_str }}mm{% endif %}</div>
                     <div class="cell">{% if lens.aperture_str %}<b>Aperture:</b> {{ lens.aperture_str }}{% endif %}</div>
+                </div>
+            {% endif %}
+            {% if lens.filter_diameter or lens.weight %}
+                <div class="grid">
+                    <div class="cell">{% if lens.filter_diameter %}<b>Filter size:</b> {{ lens.filter_diameter }}mm{% endif %}</div>
+                    <div class="cell">{% if lens.weight %}<b>Weight:</b> {{ lens.weight }}g{% endif %}</div>
                 </div>
             {% endif %}
             {% if lens.features_str %}

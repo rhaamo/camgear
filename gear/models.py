@@ -103,9 +103,9 @@ class Body(models.Model):
         if not self.focale_min and not self.focale_max:
             return None
         if self.focale_min == self.focale_max:
-            return self.focale_min
+            return f"{self.focale_min}mm"
         if self.focale_min != self.focale_max:
-            return f"{self.focale_min} - {self.focale_max}"
+            return f"{self.focale_min}mm - {self.focale_max}mm"
 
     def aperture_str(self):
         if not self.min_aperture and not self.max_aperture:
@@ -183,9 +183,9 @@ class Lens(models.Model):
         if not self.focale_min and not self.focale_max:
             return None
         if self.focale_min == self.focale_max:
-            return self.focale_min
+            return f"{self.focale_min}mm"
         if self.focale_min != self.focale_max:
-            return f"{self.focale_min} - {self.focale_max}"
+            return f"{self.focale_min}mm - {self.focale_max}mm"
 
     def aperture_str(self):
         if not self.min_aperture and not self.max_aperture:

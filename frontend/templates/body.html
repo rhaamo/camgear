@@ -60,6 +60,12 @@
                     <div class="cell">{% if body.aperture_str %}<b>Aperture:</b> {{ body.aperture_str }}{% endif %}</div>
                 </div>
             {% endif %}
+            {% if body.filter_diameter or body.weight %}
+                <div class="grid">
+                    <div class="cell">{% if body.weight %}<b>Weight:</b> {{ body.weight }}g{% endif %}</div>
+                    <div class="cell">{% if body.filter_diameter %}<b>Filter size:</b> {{ body.filter_diameter }}mm{% endif %}</div>
+                </div>
+            {% endif %}
             {% if body.features_str %}
                 <div class="grid">
                     <div class="cell"><b>Features:</b> {{ body.features_str }}</div>
