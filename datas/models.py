@@ -13,7 +13,6 @@ class Manufacturer(models.Model):
 
 class System(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
-    manufacturers = models.ManyToManyField(Manufacturer, blank=True)
 
     class Meta:
         ordering = ["name"]
