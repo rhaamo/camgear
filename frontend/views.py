@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from gear.models import Body, Lens, Accessory, System
-from datas.models import Manufacturer
+from datas.models import Manufacturer, BodyUrl, AccessoryUrl, LenseUrl
 from django.db.models import Prefetch, Count
 from files.models import (
     BodyPicture,
@@ -114,6 +114,7 @@ def body(request, uuid):
             Prefetch("body_pictures", BodyPicture.objects.filter(private=False)),
             Prefetch("body_files", BodyFile.objects.filter(private=False)),
             Prefetch("body_repairlog", BodyRepairLog.objects.filter(private=False)),
+            Prefetch("body_urls", BodyUrl.objects.filter(private=False)),
         ),
         uuid=uuid,
     )
@@ -153,6 +154,7 @@ def lens(request, uuid):
             Prefetch("lens_pictures", LensPicture.objects.filter(private=False)),
             Prefetch("lens_files", LensFile.objects.filter(private=False)),
             Prefetch("lens_repairlog", LensRepairLog.objects.filter(private=False)),
+            Prefetch("lens_urls", LenseUrl.objects.filter(private=False)),
         ),
         uuid=uuid,
     )
@@ -192,6 +194,7 @@ def accessory(request, uuid):
             Prefetch("accessory_pictures", AccessoryPicture.objects.filter(private=False)),
             Prefetch("accessory_files", AccessoryFile.objects.filter(private=False)),
             Prefetch("accessory_repairlog", AccessoryRepairLog.objects.filter(private=False)),
+            Prefetch("accessory_urls", AccessoryUrl.objects.filter(private=False)),
         ),
         uuid=uuid,
     )
