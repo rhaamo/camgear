@@ -192,7 +192,7 @@ class BodyAdmin(CommonAdmin):
         else:
             return "-"
 
-    list_filter = ("manufacturer", "system", "film_type", "can_be_sold")
+    list_filter = ("manufacturer", "system", "film_type", "can_be_sold", "wip_sheet")
 
     inlines = [BodyUrlsInline, BodyPicturesInline, BodyFilesInline, BodyRepairLogInline]
 
@@ -311,7 +311,7 @@ class LensAdmin(CommonAdmin):
     def lens_aperture(self, obj):
         return f"{obj.min_aperture or 'x'} - {obj.max_aperture or 'x'}"
 
-    list_filter = ("manufacturer", "system", "lens_type", "can_be_sold")
+    list_filter = ("manufacturer", "system", "lens_type", "can_be_sold", "wip_sheet")
 
     inlines = [LensUrlsInline, LensPicturesInline, LensFilesInline, LensRepairLogInline]
 
@@ -411,7 +411,7 @@ class AccessoryAdmin(CommonAdmin):
             x.append(f"<small>Description: {obj.description}</small>")
         return mark_safe("<br>".join(x))
 
-    list_filter = ("manufacturer", "system", "can_be_sold")
+    list_filter = ("manufacturer", "system", "can_be_sold", "wip_sheet")
 
     inlines = [
         AccessoryUrlsInline,
