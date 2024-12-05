@@ -86,7 +86,18 @@
             {% endif %}
         </div>
         <div class="column is-4 is-offset-1">
-            <h4>Files</h4>
+            <h4>URLs</h4>
+            {% if lens.lens_urls.all %}
+                <ul>
+                    {% for lens in lens.lens_urls.all %}
+                    <li><a href="{{ lens.url }}" target="_blank">{{ lens.url }}</a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No URLs.
+            {% endif %}
+
+            <h4 class="mt-5">Files</h4>
             {% if lens.lens_files.all %}
                 <ul>
                     {% for file in lens.lens_files.all %}

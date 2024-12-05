@@ -96,7 +96,18 @@
             {% endif %}
         </div>
         <div class="column is-4 is-offset-1">
-            <h4>Files</h4>
+            <h4>URLs</h4>
+            {% if body.body_urls.all %}
+                <ul>
+                    {% for url in body.body_urls.all %}
+                    <li><a href="{{ url.url }}" target="_blank">{{ url.url }}</a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No URLs.
+            {% endif %}
+
+            <h4 class="mt-5">Files</h4>
             {% if body.body_files.all %}
                 <ul>
                     {% for file in body.body_files.all %}
