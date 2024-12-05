@@ -5,6 +5,7 @@ from .validators import validate_picture, validate_other
 
 from gear.models import Body, Lens, Accessory
 import os
+import piexif
 
 
 class BodyPicture(models.Model):
@@ -50,6 +51,37 @@ class BodyPicture(models.Model):
 
     def __str__(self):
         return self.description or "No description"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Store this so we can tell if it changes in save():
+        self.__original_file_name = self.file.name
+
+    def save(self, *args, **kwargs):
+        # At this point the image file has already been saved to disk.
+        # Call the parent's save() method first:
+        super().save(*args, **kwargs)
+
+        if self.file and self.__original_file_name != self.file.name:
+            # The file is new or changed, so edit the Exif data.
+            self.sanitize_file_exif_data()
+
+        # Re-set this in case the image has now changed:
+        self.__original_file_name = self.file.name
+
+    def sanitize_file_exif_data(self):
+        "If the file image has any GPS info in its Exif data, remove it."
+        if self.file:
+            # Get Exif data from the file as a dict:
+            exif_dict = piexif.load(self.file.path)
+
+            if "GPS" in exif_dict and len(exif_dict["GPS"]) > 0:
+                # Clear existing GPS data and put it all back to bytes:
+                exif_dict["GPS"] = {}
+                exif_bytes = piexif.dump(exif_dict)
+
+                # Replace the file's existing Exif data with our modified version:
+                piexif.insert(exif_bytes, self.file.path)
 
 
 class BodyFile(models.Model):
@@ -124,6 +156,37 @@ class LensPicture(models.Model):
     def __str__(self):
         return self.description or "No description"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Store this so we can tell if it changes in save():
+        self.__original_file_name = self.file.name
+
+    def save(self, *args, **kwargs):
+        # At this point the image file has already been saved to disk.
+        # Call the parent's save() method first:
+        super().save(*args, **kwargs)
+
+        if self.file and self.__original_file_name != self.file.name:
+            # The file is new or changed, so edit the Exif data.
+            self.sanitize_file_exif_data()
+
+        # Re-set this in case the image has now changed:
+        self.__original_file_name = self.file.name
+
+    def sanitize_file_exif_data(self):
+        "If the file image has any GPS info in its Exif data, remove it."
+        if self.file:
+            # Get Exif data from the file as a dict:
+            exif_dict = piexif.load(self.file.path)
+
+            if "GPS" in exif_dict and len(exif_dict["GPS"]) > 0:
+                # Clear existing GPS data and put it all back to bytes:
+                exif_dict["GPS"] = {}
+                exif_bytes = piexif.dump(exif_dict)
+
+                # Replace the file's existing Exif data with our modified version:
+                piexif.insert(exif_bytes, self.file.path)
+
 
 class LensFile(models.Model):
     lens = models.ForeignKey(
@@ -196,6 +259,37 @@ class AccessoryPicture(models.Model):
 
     def __str__(self):
         return self.description or "No description"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Store this so we can tell if it changes in save():
+        self.__original_file_name = self.file.name
+
+    def save(self, *args, **kwargs):
+        # At this point the image file has already been saved to disk.
+        # Call the parent's save() method first:
+        super().save(*args, **kwargs)
+
+        if self.file and self.__original_file_name != self.file.name:
+            # The file is new or changed, so edit the Exif data.
+            self.sanitize_file_exif_data()
+
+        # Re-set this in case the image has now changed:
+        self.__original_file_name = self.file.name
+
+    def sanitize_file_exif_data(self):
+        "If the file image has any GPS info in its Exif data, remove it."
+        if self.file:
+            # Get Exif data from the file as a dict:
+            exif_dict = piexif.load(self.file.path)
+
+            if "GPS" in exif_dict and len(exif_dict["GPS"]) > 0:
+                # Clear existing GPS data and put it all back to bytes:
+                exif_dict["GPS"] = {}
+                exif_bytes = piexif.dump(exif_dict)
+
+                # Replace the file's existing Exif data with our modified version:
+                piexif.insert(exif_bytes, self.file.path)
 
 
 class AccessoryFile(models.Model):
