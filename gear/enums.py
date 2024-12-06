@@ -40,7 +40,7 @@ class CamerasTypes(models.IntegerChoices):
     REFLEX_TLR = 55, "Reflex TLR"
     REFLEX_DSLR = 60, "Reflex DSLR"
     DIGITAL = 65, "Digital"
-    DIGITAL = 70, "Motion picture"
+    MOTION_PICTURE = 70, "Motion picture"
 
 
 class FilmTypes(models.IntegerChoices):
