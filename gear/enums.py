@@ -33,10 +33,14 @@ class CamerasTypes(models.IntegerChoices):
     DISPOSABLE = 35, "Disposable"
     TOY = 40, "Toy"
     PANORAMIC = 45, "Panoramic"
+    POINT_AND_SHOOT = 47, "Point & Shoot"
+    SLR = 48, "SLR"
+    TLS = 49, "TLR"
     REFLEX_SLR = 50, "Reflex SLR"
     REFLEX_TLR = 55, "Reflex TLR"
     REFLEX_DSLR = 60, "Reflex DSLR"
     DIGITAL = 65, "Digital"
+    DIGITAL = 70, "Motion picture"
 
 
 class FilmTypes(models.IntegerChoices):
@@ -65,6 +69,9 @@ class FilmTypes(models.IntegerChoices):
     PACK_FILM_100 = 110, "Pack-Film 100"
     PACK_FILM_100_80 = 115, "Pack-Film 100 or 80"
     PACK_FILM_80 = 120, "Pack-Film 80"
+    SUPER_8 = 125, "Super 8"
+    SINGLE_8 = 130, "Single 8"
+    DOUBLE_8 = 135, "Double 8"
 
 
 class FocusesTypes(models.IntegerChoices):
