@@ -54,7 +54,9 @@
                     <ul class="">
                         {% for system in systems %}
 							{% if sellable %}
-								<li><a>{{ system.name }} ({{ system.total_count }})</a></li>
+								{% if system.total_count > 0 %}
+									<li><a>{{ system.name }} ({{ system.total_count }})</a></li>
+								{% endif %}
 							{% else %}
 								<li><a href="{% url 'system' system.name %}">{{ system.name }} ({{ system.total_count }})</a></li>
 							{% endif %}
@@ -65,7 +67,9 @@
                     <ul class="">
                         {% for manufacturer in manufacturers %}
 							{% if sellable %}
-								<li><a>{{ manufacturer.name }} ({{ manufacturer.total_count }})</a></li>
+								{% if manufacturer.total_count > 0 %}
+									<li><a>{{ manufacturer.name }} ({{ manufacturer.total_count }})</a></li>
+								{% endif %}
 							{% else %}
                         		<li><a href="{% url 'manufacturer' manufacturer.name %}">{{ manufacturer.name }} ({{ manufacturer.total_count }})</a></li>
 							{% endif %}
