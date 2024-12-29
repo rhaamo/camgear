@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from gear.models import Body, Lens, Accessory, System
 from datas.models import Manufacturer, BodyUrl, AccessoryUrl, LenseUrl
-from django.db.models import Prefetch, Count
+from django.db.models import Prefetch, Count, Q
 from files.models import (
     BodyPicture,
     BodyFile,
@@ -55,10 +55,14 @@ def sellable(request):
 
     # for sidebar
     systems = System.objects.order_by("name").annotate(
-        total_count=Count("body", distinct=True) + Count("accessory", distinct=True) + Count("lens", distinct=True)
+        total_count=Count("body", distinct=True, filter=Q(body__can_be_sold=True)) + 
+                    Count("accessory", distinct=True, filter=Q(accessory__can_be_sold=True)) + 
+                    Count("lens", distinct=True, filter=Q(lens__can_be_sold=True))
     )
     manufacturers = Manufacturer.objects.order_by("name").annotate(
-        total_count=Count("body", distinct=True) + Count("accessory", distinct=True) + Count("lens", distinct=True)
+        total_count=Count("body", distinct=True, filter=Q(body__can_be_sold=True)) + 
+                    Count("accessory", distinct=True, filter=Q(accessory__can_be_sold=True)) + 
+                    Count("lens", distinct=True, filter=Q(lens__can_be_sold=True))
     )
 
     ctx = {
