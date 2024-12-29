@@ -44,6 +44,36 @@ def home(request):
     return render(request, "index.html", ctx)
 
 
+def sellable(request):
+    bodies = (
+        Body.objects.filter(private=False, can_be_sold=True)
+        .order_by("manufacturer", "model")
+        .prefetch_related(Prefetch("body_pictures", BodyPicture.objects.filter(private=False)))
+    )
+    lenses = Lens.objects.filter(private=False, can_be_sold=True).order_by("manufacturer", "model")
+    accessories = Accessory.objects.filter(private=False, can_be_sold=True).order_by("manufacturer", "model")
+
+    # for sidebar
+    systems = System.objects.order_by("name").annotate(
+        total_count=Count("body", distinct=True) + Count("accessory", distinct=True) + Count("lens", distinct=True)
+    )
+    manufacturers = Manufacturer.objects.order_by("name").annotate(
+        total_count=Count("body", distinct=True) + Count("accessory", distinct=True) + Count("lens", distinct=True)
+    )
+
+    ctx = {
+        "bodies": bodies,
+        "lenses": lenses,
+        "accessories": accessories,
+        "systems": systems,
+        "manufacturers": manufacturers,
+        "bodies_count": bodies.count,
+        "lenses_count": lenses.count,
+        "accessories_count": accessories.count,
+    }
+    return render(request, "index.html", ctx)
+
+
 def system(request, name):
     system = get_object_or_404(System, name=name)
 

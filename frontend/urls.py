@@ -8,4 +8,5 @@ urlpatterns = [
     path("body/<uuid:uuid>", views.body, name="body"),
     path("lens/<uuid:uuid>", views.lens, name="lens"),
     path("accessory/<uuid:uuid>", views.accessory, name="accessory"),
+    path("sellable", views.sellable, name="sellable")
 ]
