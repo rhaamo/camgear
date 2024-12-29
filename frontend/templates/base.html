@@ -53,14 +53,22 @@
                     <h3 class="mt-5">Systems</h3>
                     <ul class="">
                         {% for system in systems %}
-                        <li><a href="{% url 'system' system.name %}">{{ system.name }} ({{ system.total_count }})</a></li>
+							{% if sellable %}
+								<li><a>{{ system.name }} ({{ system.total_count }})</a></li>
+							{% else %}
+								<li><a href="{% url 'system' system.name %}">{{ system.name }} ({{ system.total_count }})</a></li>
+							{% endif %}
                         {% endfor %}
                     </ul>
 
                     <h3 class="mt-5">Manufacturers</h3>
                     <ul class="">
                         {% for manufacturer in manufacturers %}
-                        <li><a href="{% url 'manufacturer' manufacturer.name %}">{{ manufacturer.name }} ({{ manufacturer.total_count }})</a></li>
+							{% if sellable %}
+								<li><a>{{ manufacturer.name }} ({{ manufacturer.total_count }})</a></li>
+							{% else %}
+                        		<li><a href="{% url 'manufacturer' manufacturer.name %}">{{ manufacturer.name }} ({{ manufacturer.total_count }})</a></li>
+							{% endif %}
                         {% endfor %}
                     </ul>
 				</div>

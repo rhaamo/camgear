@@ -74,6 +74,7 @@ def sellable(request):
         "bodies_count": bodies.count,
         "lenses_count": lenses.count,
         "accessories_count": accessories.count,
+        "sellable": True
     }
     return render(request, "index.html", ctx)
 
